@@ -12,12 +12,6 @@ Install it on GitHub or GitLab, pick a compliance profile (`il4` for NIST 800-53
 `il6` for High), pick which gates to turn on, and every one of them runs on your next pull
 request. Standards, STIGs, OWASP lists, CVE feeds and scanner versions keep themselves current.
 
-**Status:** planning. The product requirements are in [`docs/PRD.md`](docs/PRD.md). The scan and
-gate scripts under `engine/` are the working core, ported once from the App Building Engine; the
-bot around them is not built yet. Development follows
-[Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills), vendored under `.claude/`
-(see `NOTICE`).
-
 ## Planned install
 
 ```
