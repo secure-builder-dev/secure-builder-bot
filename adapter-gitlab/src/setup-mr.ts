@@ -1,7 +1,7 @@
 // The setup merge request (docs/PRD.md § The install experience, GitLab): one branch,
 // `secure-builder/enable`, carrying `.securebuilderbot.yml` and the include line merged into the
 // project's `.gitlab-ci.yml`, and one merge request titled "Enable Secure Builder" whose body
-// explains the three answers and that nothing runs until it is merged. The `cli` module's `init`
+// explains the three answers and that its own pipeline may run the gates already. The `cli` module's `init`
 // calls `openSetupMr` with a token, and `mergeInclude` for the local file without one.
 //
 // Built on the REST API v4: the project for its default branch, the repository files API to choose
@@ -80,7 +80,7 @@ export function setupMrBody(a: Answers): string {
     "The publisher posts with a project access token (`api` scope) stored as the masked, protected CI/CD variable `SECURE_BUILDER_TOKEN`.",
   ];
   if (gates.includes("sentinel")) lines.push(`Sentinel reads your model key from the CI/CD variable \`${MODEL_KEY_VARIABLE}\`, by name; add it before merging.`);
-  lines.push("", "**Nothing runs until this merge request is merged.** From the next merge request on, every gate you turned on runs.");
+  lines.push("", "**This merge request's own pipeline may run the gates already**, under the config it adds. Once it is merged, every merge request gets every gate you turned on.");
   return lines.join("\n") + "\n";
 }
 

@@ -193,7 +193,7 @@ describe('opening the setup pull request', () => {
     expect(pr.body).toBe(setupPrBody(light));
     expect(pr.body).toMatch(/il4/);
     expect(pr.body).toMatch(/scan.*qa/);
-    expect(pr.body).toMatch(/[Nn]othing runs until/);
+    expect(pr.body).toMatch(/gates run on this pull request too/);
   });
 
   it('refuses to move a setup branch that already exists, writing nothing, unless told to replace it (gate cli run 1, B-01)', async () => {

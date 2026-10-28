@@ -1,5 +1,5 @@
 # Secure Builder Bot on every pull request: the gates .securebuilderbot.yml turns on, as checks on the
-# pull request and comments on the diff. Written by the setup pull request; nothing runs until it is merged.
+# pull request and comments on the diff. Written by the setup pull request, which it already runs on.
 name: Secure Builder
 on:
   pull_request:

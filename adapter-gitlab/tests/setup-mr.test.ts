@@ -61,12 +61,12 @@ describe("merging the include into .gitlab-ci.yml", () => {
 });
 
 describe("the merge request body and files", () => {
-  it("explains the three answers and that nothing runs until it is merged", () => {
+  it("explains the three answers and that its own pipeline may run the gates already", () => {
     const body = setupMrBody(light);
     expect(body).toMatch(/il4/);
     expect(body).toMatch(/`scan`, `qa`/);
     expect(body).toMatch(/off/);
-    expect(body).toMatch(/[Nn]othing runs until/);
+    expect(body).toMatch(/own pipeline may run the gates already/);
     expect(setupMrBody({ ...light, gates: ["scan", "qa", "sentinel"], sentinel: "action" })).toMatch(/SB_MODEL_KEY/);
   });
 

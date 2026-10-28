@@ -183,7 +183,7 @@ Each verified on `wip/adapter-github` on 2026-10-23.
    contents equal `configTemplate` and `workflowTemplate`, a tree on the default branch's tree, a
    commit with the default head as parent, `refs/heads/secure-builder/enable` created, the pull
    request "Enable Secure Builder" created with the body explaining the three answers and that
-   nothing runs until it is merged; a second call with the branch and the pull request present
+   the gates run on it too, under the config it adds; a second call with the branch and the pull request present
    force-updates the ref and rewrites the pull request, creating nothing. The config for `il4`,
    `[scan, qa]`, `off` is written to a temporary directory and `core/run config check` prints
    `config ok: profile il4 (287 controls) · gates scan, qa · version latest`, exit 0; the sentinel
