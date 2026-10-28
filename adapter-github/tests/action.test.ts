@@ -141,6 +141,17 @@ describe('action.yml, the composite action', () => {
       expect(receipt[0]!.with?.overwrite).toBe(true);
     });
 
+    // eslint and the suites run the repository's own tools from node_modules, which a fresh checkout
+    // lacks; npm ci runs the pull request's install scripts, so never in the part that publishes.
+    it('installs the repository\'s npm dependencies before core, and only in a part that runs the pull request\'s code', () => {
+      const install = step((s) => s.run?.includes('core/install-deps') === true);
+      expect(install).toHaveLength(1);
+      expect(install[0]!.if).toBe("inputs.part != 'trusted'");
+      expect(install[0]!.env).toEqual({ SB_ACTION_PATH: '${{ github.action_path }}' });
+      expect(action.runs.steps.indexOf(install[0]!)).toBeLessThan(action.runs.steps.indexOf(core()));
+      expect(existsSync(join(ROOT, '..', 'core', 'install-deps'))).toBe(true);
+    });
+
     it('the trusted part reads that run from the artifact, outside the checkout, and a missing one still reaches core', () => {
       const download = step((s) => s.uses?.startsWith('actions/download-artifact@') === true);
       expect(download).toHaveLength(1);

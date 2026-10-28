@@ -63,6 +63,15 @@ runs:
         bot="$SB_ACTION_PATH/.."
         pip install -q -r "$bot/core/requirements.txt"
         if [ -f "$bot/scanners/requirements.txt" ]; then pip install -q -r "$bot/scanners/requirements.txt"; fi
+    # Scan's eslint and QA's suites run the repository's own tools from each app's node_modules, which a
+    # fresh checkout does not have. npm ci runs the pull request's install scripts, so only where its
+    # code already runs: never in the trusted part, and this step is handed no key and no token.
+    - name: Install the repository's npm dependencies
+      if: inputs.part != 'trusted'
+      shell: bash
+      env:
+        SB_ACTION_PATH: ${{ github.action_path }}
+      run: '"$SB_ACTION_PATH/../core/install-deps" .'
     # The trusted part reads the untrusted job's run from its artifact, into a directory of its own
     # outside the checkout. Everything in it was written where the pull request's code ran.
     - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
