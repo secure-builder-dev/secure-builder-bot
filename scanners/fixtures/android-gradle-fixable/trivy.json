@@ -1,0 +1,12 @@
+{
+  "SchemaVersion": 2, "ArtifactName": "android", "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "android/app/gradle.lockfile", "Class": "lang-pkgs", "Type": "gradle",
+      "Vulnerabilities": [
+        {"VulnerabilityID": "CVE-2024-12345", "PkgName": "com.squareup.okhttp3:okhttp", "InstalledVersion": "4.9.0",
+         "FixedVersion": "4.12.0", "Severity": "HIGH", "Title": "fixture: okhttp header injection"}
+      ]
+    }
+  ]
+}

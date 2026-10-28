@@ -1,0 +1,21 @@
+{
+ "overall": "yellow",
+ "exit_code": 0,
+ "relaxations": [],
+ "gates": [
+  {
+   "gate": "scan",
+   "status": "pass",
+   "reason": "",
+   "blocking_findings": 0,
+   "advisory_findings": 0
+  },
+  {
+   "gate": "qa",
+   "status": "yellow",
+   "reason": "qa.mutation is off; profile il4 requires mutation of controls",
+   "blocking_findings": 0,
+   "advisory_findings": 1
+  }
+ ]
+}

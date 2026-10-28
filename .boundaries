@@ -1,0 +1,29 @@
+# Allowed edges between script groups: "<from> -> <to>  # why". Anything else is a violation.
+# Recorded 2026-10-14 from the code as it stood; add an edge in its own commit with a reason.
+engine/scripts/gate -> engine/scripts/docs   # the gate's drift check reads the generated truth
+scripts -> engine/scripts/gate                # the tracked pre-commit hook chains the secret scan
+scripts -> scanners                           # the ratchet counts the tests under the scan suite; changed-line coverage measures every module
+scripts -> core                               # the changed-line coverage check measures core
+engine/scripts/gate -> core                   # gate-proof replays the range classifier
+core -> engine/scripts/gate                   # the classifier lists the gate's own paths as deep (data, not a call)
+core -> standards                             # profiles read the vendored baselines; the classifier lists the indexes and builders as gate tooling (data, not a call)
+engine/scripts/gate -> standards              # repo-state reports the vendored catalogue's age beside the suite counts
+scripts -> standards                          # the ratchet counts the standards scripts and the tests that name them
+engine/scripts/gate -> qa                     # repo-state and legacy-inventory source qa/scripts/_lib.sh; gate-proof replays derive-controls and mutate-controls
+engine/scripts/docs -> qa                     # generate-truth sources qa/scripts/_lib.sh for the track
+scripts -> qa                                 # the ratchet counts qa's scripts and tests; coverage-changed imports the qa package
+core -> qa                                    # the classifier lists the qa module's paths as deep (data, not a call)
+qa -> core                                    # the QA gate implements core's Gate protocol and reads core's config
+scanners -> core                              # the scan suite drives the scan verdict through core/run; the Scan gate implements core's Gate protocol
+core -> scanners                              # the classifier lists the scanners as gate tooling (data); core's verdict tests read the scan fixtures
+adapter-github -> core                        # the setup-PR test validates the config it writes through core/run; the Action runs core/run (no shell group: the checker's groups are shell and Python)
+# ── sentinel module (wip/sentinel, 2026-10-23) ──
+core -> sentinel                              # the classifier lists the reviewer's own paths as gate tooling (data, not a call)
+sentinel -> core                              # the Sentinel gate implements core's Gate protocol, reads core's config, and names core/run in its reasons
+sentinel -> standards                         # the checklist twins standards/data/checklists/IL6.md and verifies every citation through the standards module
+sentinel -> qa                                # the review reads QA's mutation table for this run through securebuilderbot_qa.controls
+# cli (informational: the checker's groups are shell and Python, and cli is neither; these record the
+# dependencies the capability map states)
+cli -> core                                   # run executes core/run; the init tests validate the config they write through core/run
+cli -> adapter-github                         # init imports the templates, the client and openSetupPr by relative path
+cli -> adapter-gitlab                         # init imports the templates, mergeInclude and openSetupMr by relative path

@@ -1,0 +1,8 @@
+hadolint none no Dockerfiles under backend/ or frontend/
+checkov none no helm/ or terraform/ directory to scan
+clamav ran Scanned files: 120
+grype ran android/ filesystem (gradle.lockfile present)
+trivy ran android/ filesystem (gradle.lockfile present)
+npm-audit none not applicable on the android track (no npm app dir)
+eslint none not applicable on the android track (no npm app dir)
+pip-audit none no Python app (no requirements*.txt or pyproject.toml in the checkout)

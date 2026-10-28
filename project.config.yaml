@@ -1,0 +1,27 @@
+# project.config.yaml — the switches the gate reads. Set once; never changed at runtime.
+# Valid combinations: APP_TRACK=web → SECURITY_TIER ∈ {IL4, IL6}, PROVIDER ∈ {aws, azure}, APP_TYPE=n/a
+#                     APP_TRACK=android → SECURITY_TIER=IL6, PROVIDER=tactical, APP_TYPE ∈ {native, atak}
+APP_NAME: secure-builder-bot
+APP_TRACK: web
+# The bot gates itself at the High baseline (PRD § Security of the bot itself).
+SECURITY_TIER: IL6
+# Placeholder until the bot has a hosted piece: the provider block only matters for deployed infrastructure.
+PROVIDER: aws
+APP_TYPE: n/a
+# NIST SP 800-53 catalogue revision the citations are verified against. UNSET follows the vendored index.
+NIST_CATALOG_PIN: UNSET
+# Where the controls in docs/security/CONTROL-MANIFEST.md live and how their tests run: the bot's
+# own Python, not a web app's backend/ (qa/scripts/_lib.sh:gate_use_control_roots). One package
+# and one test directory per module, space-separated; the manifest's proving-test globs are
+# looked for in every listed test directory.
+# sentinel module: sentinel/securebuilderbot_sentinel (a control root), sentinel/tests (its test directory) and
+# sentinel/tests/conftest.py (its harness) are appended to the three CONTROL_* lines below.
+# cli module: cli/src (a control root), its npm test, and its package, lockfile, vitest config and test helpers.
+CONTROL_SRC_ROOTS: core/securebuilderbot_core scanners/securebuilderbot_scanners standards/securebuilderbot_standards qa/securebuilderbot_qa adapter-github/src adapter-gitlab/src sentinel/securebuilderbot_sentinel cli/src
+CONTROL_SRC_EXT: py ts
+CONTROL_TEST_DIR: core/tests scanners/tests standards/tests qa/tests sentinel/tests
+CONTROL_TEST_CMD: python3 -m pytest -q -x && npm test --prefix adapter-github && npm test --prefix adapter-gitlab && npm test --prefix cli
+CONTROL_TARGET_CMD: python3 -m pytest -q {tests}
+# The files that change how every row is proven: the pytest wiring, each module's conftest and the standards test index, core's and the
+# scanners' requirements, and this file (the CONTROL_* keys decide what the tools read).
+CONTROL_HARNESS_RE: ^(pytest\.ini|conftest\.py|core/tests/conftest\.py|qa/tests/conftest\.py|core/requirements(-dev)?\.txt|scanners/requirements\.txt|adapter-git(hub|lab)/(package(-lock)?\.json|vitest\.config\.ts)|cli/(package(-lock)?\.json|vitest\.config\.ts)|cli/tests/(helpers|fake-fetch)\.ts|adapter-gitlab/tests/(fake-gitlab|yaml)\.ts|standards/tests/(conftest|smallindex)\.py|sentinel/tests/conftest\.py|project\.config\.yaml)$

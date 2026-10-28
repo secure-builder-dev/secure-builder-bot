@@ -1,0 +1,16 @@
+# Profile il6 — NIST SP 800-53 Rev 5 High baseline. Numbers from docs/PRD.md § Compliance profiles.
+title: IL6 (NIST SP 800-53 Rev 5 High baseline)
+baseline: high
+owasp_top10: true
+stigs: [application-security-and-development]
+stigs_where_present: [container-platform, web-server, database, operating-system]
+stig_cat1_enforced: true
+checklist_blocks: [base, moderate, high]
+scan:
+  fail_on: [critical, high]
+  medium_max_age_days: 30
+  cve_data_max_age_days: 30
+qa:
+  coverage_changed_lines: 90
+  mutation_required: true
+accepted_risk_expiry_days: 90

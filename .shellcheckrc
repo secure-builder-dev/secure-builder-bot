@@ -1,0 +1,3 @@
+# shellcheck: resolve `. "$LIB"` sourcing relative to the script, and treat sourced files as in scope.
+source-path=SCRIPTDIR
+external-sources=true

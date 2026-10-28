@@ -1,0 +1,84 @@
+metadata:
+  title: OWASP MASVS (fixture)
+  version: vx.x.x
+groups:
+- id: MASVS-AUTH
+  index: 1
+  title: Authentication and Authorization
+  controls:
+  - id: MASVS-AUTH-1
+    statement: The app uses secure authentication and authorization protocols and follows the relevant best practices.
+  - id: MASVS-AUTH-2
+    statement: The app performs local authentication securely according to the platform best practices.
+  - id: MASVS-AUTH-3
+    statement: The app secures sensitive operations with additional authentication.
+- id: MASVS-CODE
+  index: 2
+  title: Code Quality
+  controls:
+  - id: MASVS-CODE-1
+    statement: The app requires an up-to-date platform version.
+  - id: MASVS-CODE-2
+    statement: The app has a mechanism for enforcing app updates.
+  - id: MASVS-CODE-3
+    statement: The app only uses software components without known vulnerabilities.
+  - id: MASVS-CODE-4
+    statement: The app validates and sanitizes all untrusted inputs.
+- id: MASVS-CRYPTO
+  index: 3
+  title: Cryptography
+  controls:
+  - id: MASVS-CRYPTO-1
+    statement: The app employs current strong cryptography and uses it according to industry best practices.
+  - id: MASVS-CRYPTO-2
+    statement: The app performs key management according to industry best practices.
+- id: MASVS-NETWORK
+  index: 4
+  title: Network Communication
+  controls:
+  - id: MASVS-NETWORK-1
+    statement: The app secures all network traffic according to the current best practices.
+  - id: MASVS-NETWORK-2
+    statement: The app performs identity pinning for all remote endpoints under the developer's control.
+- id: MASVS-PLATFORM
+  index: 5
+  title: Platform Interaction
+  controls:
+  - id: MASVS-PLATFORM-1
+    statement: The app uses IPC mechanisms securely.
+  - id: MASVS-PLATFORM-2
+    statement: The app uses WebViews securely.
+  - id: MASVS-PLATFORM-3
+    statement: The app uses the user interface securely.
+- id: MASVS-PRIVACY
+  index: 6
+  title: Privacy
+  controls:
+  - id: MASVS-PRIVACY-1
+    statement: The app minimizes access to sensitive data and resources.
+  - id: MASVS-PRIVACY-2
+    statement: The app prevents identification of the user.
+  - id: MASVS-PRIVACY-3
+    statement: The app is transparent about data collection and usage.
+  - id: MASVS-PRIVACY-4
+    statement: The app offers user control over their data.
+- id: MASVS-RESILIENCE
+  index: 7
+  title: Resilience Against Reverse Engineering and Tampering
+  controls:
+  - id: MASVS-RESILIENCE-1
+    statement: The app validates the integrity of the platform.
+  - id: MASVS-RESILIENCE-2
+    statement: The app implements anti-tampering mechanisms.
+  - id: MASVS-RESILIENCE-3
+    statement: The app implements anti-static analysis mechanisms.
+  - id: MASVS-RESILIENCE-4
+    statement: The app implements anti-dynamic analysis techniques.
+- id: MASVS-STORAGE
+  index: 8
+  title: Storage
+  controls:
+  - id: MASVS-STORAGE-1
+    statement: The app securely stores sensitive data.
+  - id: MASVS-STORAGE-2
+    statement: The app prevents leakage of sensitive data.

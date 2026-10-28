@@ -1,0 +1,2 @@
+# Grype, as the bot runs it: its defaults, and no ignore rule. Accepted risks are the Scan gate's (scanners/scripts/tool-runner.sh: own_config_args).
+{}

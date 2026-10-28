@@ -1,0 +1,30 @@
+checklist:
+  not_applicable: "The range changes the tenant scope only; nothing this item covers is in it."
+  answers:
+    - id: B-05
+      answer: finding
+      findings:
+        - {severity: blocking, rule_id: AC-3, path: backend/src/scope/tenant.js, line: 3,
+           message: "scopeToTenant returns the query unfiltered, so listInvoices returns every tenant's invoices; restore the tenant_id filter"}
+    - id: M-03
+      answer: cited
+      evidence: {path: docs/security/CONTROL-MANIFEST.md, line: 5, text: "CM-02 names scopeToTenant as the tenant control, so the change is to a declared control."}
+control_completeness:
+  controls:
+    - id: CM-02
+      q1: "N/A: the scope takes a query builder and a user, not nested input."
+      q2: "listInvoices is the one read path in the range and goes through the scope; any read that does not call scopeToTenant is a second path this control never saw."
+      q3: ["db('invoices').count() and any aggregate built outside scopeToTenant", "joins added after the scope is applied"]
+      q4: ["that the user has a tenant at all: the tenantId check was removed", "that the query is filtered: the where clause was removed"]
+      q5: "backend/src/services/invoices.js:5"
+      q6: "N/A: the scope rejects no input."
+      verdict: blocking
+      findings:
+        - {severity: blocking, rule_id: AC-4, path: backend/src/scope/tenant.js, line: 3,
+           message: "the scope no longer separates one tenant's rows from another's, so information flows across tenants; filter on user.tenantId again"}
+adversarial:
+  examined: "The tenant scope, its one caller, and the PR's stated reason for relaxing it."
+  findings: []
+edge_case:
+  - {location: "backend/src/scope/tenant.js:2", trigger_condition: "a user with no tenantId",
+     guard_snippet: "if (!user.tenantId) throw new Error('no tenant');", potential_consequence: "the unfiltered query runs for a user outside any tenant"}

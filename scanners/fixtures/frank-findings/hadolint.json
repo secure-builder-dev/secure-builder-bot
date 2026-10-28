@@ -1,0 +1,9 @@
+[
+  {
+    "file": "backend/Dockerfile",
+    "line": 7,
+    "level": "error",
+    "code": "DL3020",
+    "message": "Use COPY instead of ADD for files and folders"
+  }
+]

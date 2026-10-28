@@ -1,0 +1,13 @@
+site_name: OWASP Top 10 2025 (fixture)
+nav:
+  - Home: 'index.md'
+  - A01 Broken Access Control: '2025/A01_Broken_Access_Control.md'
+  - A02 Security Misconfiguration: '2025/A02_Security_Misconfiguration.md'
+  - A03 Software Supply Chain Failures: '2025/A03_Software_Supply_Chain_Failures.md'
+  - A04 Cryptographic Failures: '2025/A04_Cryptographic_Failures.md'
+  - A05 Injection: '2025/A05_Injection.md'
+  - A06 Insecure Design: '2025/A06_Insecure_Design.md'
+  - A07 Authentication Failures: '2025/A07_Authentication_Failures.md'
+  - A08 Software or Data Integrity Failures: '2025/A08_Software_or_Data_Integrity_Failures.md'
+  - A09 Security Logging and Alerting Failures: '2025/A09_Security_Logging_and_Alerting_Failures.md'
+  - A10 Mishandling of Exceptional Conditions: '2025/A10_Mishandling_of_Exceptional_Conditions.md'

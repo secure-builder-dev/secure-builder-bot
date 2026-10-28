@@ -1,0 +1,2 @@
+# hadolint, as the bot runs it: every rule; an error-level finding blocks (scanners/scripts/tool-runner.sh: own_config_args).
+ignored: []

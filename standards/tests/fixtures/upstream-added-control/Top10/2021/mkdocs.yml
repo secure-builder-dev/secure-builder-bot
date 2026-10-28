@@ -1,0 +1,13 @@
+site_name: OWASP Top 10 2021 (fixture)
+nav:
+  - Home: 'index.md'
+  - A01 Broken Access Control: '2021/A01_Broken_Access_Control.md'
+  - A02 Cryptographic Failures: '2021/A02_Cryptographic_Failures.md'
+  - A03 Injection: '2021/A03_Injection.md'
+  - A04 Insecure Design: '2021/A04_Insecure_Design.md'
+  - A05 Security Misconfiguration: '2021/A05_Security_Misconfiguration.md'
+  - A06 Vulnerable and Outdated Components: '2021/A06_Vulnerable_and_Outdated_Components.md'
+  - A07 Identification and Authentication Failures: '2021/A07_Identification_and_Authentication_Failures.md'
+  - A08 Software and Data Integrity Failures: '2021/A08_Software_and_Data_Integrity_Failures.md'
+  - A09 Security Logging and Monitoring Failures: '2021/A09_Security_Logging_and_Monitoring_Failures.md'
+  - A10 Server Side Request Forgery (SSRF): '2021/A10_Server_Side_Request_Forgery_(SSRF).md'

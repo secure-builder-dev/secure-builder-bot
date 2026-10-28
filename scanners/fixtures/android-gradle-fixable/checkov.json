@@ -1,0 +1,8 @@
+{
+  "results": {
+    "passed_checks": [],
+    "failed_checks": [],
+    "skipped_checks": []
+  },
+  "summary": {"passed": 0, "failed": 0, "skipped": 0, "parsing_error": 0, "resource_count": 0}
+}

@@ -1,0 +1,5257 @@
+{
+"_catalog_last_modified": "2026-05-11T16:01:09.00000-00:00",
+"_catalog_title": "Electronic (OSCAL) Version of NIST SP 800-53 Rev 5.2.0 Controls and SP 800-53A Rev 5.2.0 Assessment Procedures",
+"_catalog_version": "5.2.0",
+"_counts": {
+"controls": 1196,
+"withdrawn": 182
+},
+"_generator": "standards/scripts/build-control-index.py",
+"_retrieved": "2026-09-19",
+"_source": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json",
+"_source_sha256": "01f37cf90ea99d92242c936cbfbdebcc338eef1f71454e2acac36cc56e9bc062",
+"controls": {
+"AC-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"AC-10": {
+"s": "active",
+"t": "Concurrent Session Control"
+},
+"AC-11": {
+"s": "active",
+"t": "Device Lock"
+},
+"AC-11(1)": {
+"s": "active",
+"t": "Pattern-hiding Displays"
+},
+"AC-12": {
+"s": "active",
+"t": "Session Termination"
+},
+"AC-12(1)": {
+"s": "active",
+"t": "User-initiated Logouts"
+},
+"AC-12(2)": {
+"s": "active",
+"t": "Termination Message"
+},
+"AC-12(3)": {
+"s": "active",
+"t": "Timeout Warning Message"
+},
+"AC-13": {
+"into": [
+"AC-2",
+"AU-6"
+],
+"s": "withdrawn",
+"t": "Supervision and Review \u2014 Access Control"
+},
+"AC-14": {
+"s": "active",
+"t": "Permitted Actions Without Identification or Authentication"
+},
+"AC-14(1)": {
+"into": [
+"AC-14"
+],
+"s": "withdrawn",
+"t": "Necessary Uses"
+},
+"AC-15": {
+"into": [
+"MP-3"
+],
+"s": "withdrawn",
+"t": "Automated Marking"
+},
+"AC-16": {
+"s": "active",
+"t": "Security and Privacy Attributes"
+},
+"AC-16(1)": {
+"s": "active",
+"t": "Dynamic Attribute Association"
+},
+"AC-16(10)": {
+"s": "active",
+"t": "Attribute Configuration by Authorized Individuals"
+},
+"AC-16(2)": {
+"s": "active",
+"t": "Attribute Value Changes by Authorized Individuals"
+},
+"AC-16(3)": {
+"s": "active",
+"t": "Maintenance of Attribute Associations by System"
+},
+"AC-16(4)": {
+"s": "active",
+"t": "Association of Attributes by Authorized Individuals"
+},
+"AC-16(5)": {
+"s": "active",
+"t": "Attribute Displays on Objects to Be Output"
+},
+"AC-16(6)": {
+"s": "active",
+"t": "Maintenance of Attribute Association"
+},
+"AC-16(7)": {
+"s": "active",
+"t": "Consistent Attribute Interpretation"
+},
+"AC-16(8)": {
+"s": "active",
+"t": "Association Techniques and Technologies"
+},
+"AC-16(9)": {
+"s": "active",
+"t": "Attribute Reassignment \u2014 Regrading Mechanisms"
+},
+"AC-17": {
+"s": "active",
+"t": "Remote Access"
+},
+"AC-17(1)": {
+"s": "active",
+"t": "Monitoring and Control"
+},
+"AC-17(10)": {
+"s": "active",
+"t": "Authenticate Remote Commands"
+},
+"AC-17(2)": {
+"s": "active",
+"t": "Protection of Confidentiality and Integrity Using Encryption"
+},
+"AC-17(3)": {
+"s": "active",
+"t": "Managed Access Control Points"
+},
+"AC-17(4)": {
+"s": "active",
+"t": "Privileged Commands and Access"
+},
+"AC-17(5)": {
+"into": [
+"SI-4"
+],
+"s": "withdrawn",
+"t": "Monitoring for Unauthorized Connections"
+},
+"AC-17(6)": {
+"s": "active",
+"t": "Protection of Mechanism Information"
+},
+"AC-17(7)": {
+"into": [
+"AC-3(10)"
+],
+"s": "withdrawn",
+"t": "Additional Protection for Security Function Access"
+},
+"AC-17(8)": {
+"into": [
+"CM-7"
+],
+"s": "withdrawn",
+"t": "Disable Nonsecure Network Protocols"
+},
+"AC-17(9)": {
+"s": "active",
+"t": "Disconnect or Disable Access"
+},
+"AC-18": {
+"s": "active",
+"t": "Wireless Access"
+},
+"AC-18(1)": {
+"s": "active",
+"t": "Authentication and Encryption"
+},
+"AC-18(2)": {
+"into": [
+"SI-4"
+],
+"s": "withdrawn",
+"t": "Monitoring Unauthorized Connections"
+},
+"AC-18(3)": {
+"s": "active",
+"t": "Disable Wireless Networking"
+},
+"AC-18(4)": {
+"s": "active",
+"t": "Restrict Configurations by Users"
+},
+"AC-18(5)": {
+"s": "active",
+"t": "Antennas and Transmission Power Levels"
+},
+"AC-19": {
+"s": "active",
+"t": "Access Control for Mobile Devices"
+},
+"AC-19(1)": {
+"into": [
+"MP-7"
+],
+"s": "withdrawn",
+"t": "Use of Writable and Portable Storage Devices"
+},
+"AC-19(2)": {
+"into": [
+"MP-7"
+],
+"s": "withdrawn",
+"t": "Use of Personally Owned Portable Storage Devices"
+},
+"AC-19(3)": {
+"into": [
+"MP-7"
+],
+"s": "withdrawn",
+"t": "Use of Portable Storage Devices with No Identifiable Owner"
+},
+"AC-19(4)": {
+"s": "active",
+"t": "Restrictions for Classified Information"
+},
+"AC-19(5)": {
+"s": "active",
+"t": "Full Device or Container-based Encryption"
+},
+"AC-2": {
+"s": "active",
+"t": "Account Management"
+},
+"AC-2(1)": {
+"s": "active",
+"t": "Automated System Account Management"
+},
+"AC-2(10)": {
+"into": [
+"AC-2_SMT(k)"
+],
+"s": "withdrawn",
+"t": "Shared and Group Account Credential Change"
+},
+"AC-2(11)": {
+"s": "active",
+"t": "Usage Conditions"
+},
+"AC-2(12)": {
+"s": "active",
+"t": "Account Monitoring for Atypical Usage"
+},
+"AC-2(13)": {
+"s": "active",
+"t": "Disable Accounts for High-risk Individuals"
+},
+"AC-2(2)": {
+"s": "active",
+"t": "Automated Temporary and Emergency Account Management"
+},
+"AC-2(3)": {
+"s": "active",
+"t": "Disable Accounts"
+},
+"AC-2(4)": {
+"s": "active",
+"t": "Automated Audit Actions"
+},
+"AC-2(5)": {
+"s": "active",
+"t": "Inactivity Logout"
+},
+"AC-2(6)": {
+"s": "active",
+"t": "Dynamic Privilege Management"
+},
+"AC-2(7)": {
+"s": "active",
+"t": "Privileged User Accounts"
+},
+"AC-2(8)": {
+"s": "active",
+"t": "Dynamic Account Management"
+},
+"AC-2(9)": {
+"s": "active",
+"t": "Restrictions on Use of Shared and Group Accounts"
+},
+"AC-20": {
+"s": "active",
+"t": "Use of External Systems"
+},
+"AC-20(1)": {
+"s": "active",
+"t": "Limits on Authorized Use"
+},
+"AC-20(2)": {
+"s": "active",
+"t": "Portable Storage Devices \u2014 Restricted Use"
+},
+"AC-20(3)": {
+"s": "active",
+"t": "Non-organizationally Owned Systems \u2014 Restricted Use"
+},
+"AC-20(4)": {
+"s": "active",
+"t": "Network Accessible Storage Devices \u2014 Prohibited Use"
+},
+"AC-20(5)": {
+"s": "active",
+"t": "Portable Storage Devices \u2014 Prohibited Use"
+},
+"AC-21": {
+"s": "active",
+"t": "Information Sharing"
+},
+"AC-21(1)": {
+"s": "active",
+"t": "Automated Decision Support"
+},
+"AC-21(2)": {
+"s": "active",
+"t": "Information Search and Retrieval"
+},
+"AC-22": {
+"s": "active",
+"t": "Publicly Accessible Content"
+},
+"AC-23": {
+"s": "active",
+"t": "Data Mining Protection"
+},
+"AC-24": {
+"s": "active",
+"t": "Access Control Decisions"
+},
+"AC-24(1)": {
+"s": "active",
+"t": "Transmit Access Authorization Information"
+},
+"AC-24(2)": {
+"s": "active",
+"t": "No User or Process Identity"
+},
+"AC-25": {
+"s": "active",
+"t": "Reference Monitor"
+},
+"AC-3": {
+"s": "active",
+"t": "Access Enforcement"
+},
+"AC-3(1)": {
+"into": [
+"AC-6"
+],
+"s": "withdrawn",
+"t": "Restricted Access to Privileged Functions"
+},
+"AC-3(10)": {
+"s": "active",
+"t": "Audited Override of Access Control Mechanisms"
+},
+"AC-3(11)": {
+"s": "active",
+"t": "Restrict Access to Specific Information Types"
+},
+"AC-3(12)": {
+"s": "active",
+"t": "Assert and Enforce Application Access"
+},
+"AC-3(13)": {
+"s": "active",
+"t": "Attribute-based Access Control"
+},
+"AC-3(14)": {
+"s": "active",
+"t": "Individual Access"
+},
+"AC-3(15)": {
+"s": "active",
+"t": "Discretionary and Mandatory Access Control"
+},
+"AC-3(2)": {
+"s": "active",
+"t": "Dual Authorization"
+},
+"AC-3(3)": {
+"s": "active",
+"t": "Mandatory Access Control"
+},
+"AC-3(4)": {
+"s": "active",
+"t": "Discretionary Access Control"
+},
+"AC-3(5)": {
+"s": "active",
+"t": "Security-relevant Information"
+},
+"AC-3(6)": {
+"into": [
+"MP-4",
+"SC-28"
+],
+"s": "withdrawn",
+"t": "Protection of User and System Information"
+},
+"AC-3(7)": {
+"s": "active",
+"t": "Role-based Access Control"
+},
+"AC-3(8)": {
+"s": "active",
+"t": "Revocation of Access Authorizations"
+},
+"AC-3(9)": {
+"s": "active",
+"t": "Controlled Release"
+},
+"AC-4": {
+"s": "active",
+"t": "Information Flow Enforcement"
+},
+"AC-4(1)": {
+"s": "active",
+"t": "Object Security and Privacy Attributes"
+},
+"AC-4(10)": {
+"s": "active",
+"t": "Enable and Disable Security or Privacy Policy Filters"
+},
+"AC-4(11)": {
+"s": "active",
+"t": "Configuration of Security or Privacy Policy Filters"
+},
+"AC-4(12)": {
+"s": "active",
+"t": "Data Type Identifiers"
+},
+"AC-4(13)": {
+"s": "active",
+"t": "Decomposition into Policy-relevant Subcomponents"
+},
+"AC-4(14)": {
+"s": "active",
+"t": "Security or Privacy Policy Filter Constraints"
+},
+"AC-4(15)": {
+"s": "active",
+"t": "Detection of Unsanctioned Information"
+},
+"AC-4(16)": {
+"into": [
+"AC-4"
+],
+"s": "withdrawn",
+"t": "Information Transfers on Interconnected Systems"
+},
+"AC-4(17)": {
+"s": "active",
+"t": "Domain Authentication"
+},
+"AC-4(18)": {
+"into": [
+"AC-16"
+],
+"s": "withdrawn",
+"t": "Security Attribute Binding"
+},
+"AC-4(19)": {
+"s": "active",
+"t": "Validation of Metadata"
+},
+"AC-4(2)": {
+"s": "active",
+"t": "Processing Domains"
+},
+"AC-4(20)": {
+"s": "active",
+"t": "Approved Solutions"
+},
+"AC-4(21)": {
+"s": "active",
+"t": "Physical or Logical Separation of Information Flows"
+},
+"AC-4(22)": {
+"s": "active",
+"t": "Access Only"
+},
+"AC-4(23)": {
+"s": "active",
+"t": "Modify Non-releasable Information"
+},
+"AC-4(24)": {
+"s": "active",
+"t": "Internal Normalized Format"
+},
+"AC-4(25)": {
+"s": "active",
+"t": "Data Sanitization"
+},
+"AC-4(26)": {
+"s": "active",
+"t": "Audit Filtering Actions"
+},
+"AC-4(27)": {
+"s": "active",
+"t": "Redundant/Independent Filtering Mechanisms"
+},
+"AC-4(28)": {
+"s": "active",
+"t": "Linear Filter Pipelines"
+},
+"AC-4(29)": {
+"s": "active",
+"t": "Filter Orchestration Engines"
+},
+"AC-4(3)": {
+"s": "active",
+"t": "Dynamic Information Flow Control"
+},
+"AC-4(30)": {
+"s": "active",
+"t": "Filter Mechanisms Using Multiple Processes"
+},
+"AC-4(31)": {
+"s": "active",
+"t": "Failed Content Transfer Prevention"
+},
+"AC-4(32)": {
+"s": "active",
+"t": "Process Requirements for Information Transfer"
+},
+"AC-4(4)": {
+"s": "active",
+"t": "Flow Control of Encrypted Information"
+},
+"AC-4(5)": {
+"s": "active",
+"t": "Embedded Data Types"
+},
+"AC-4(6)": {
+"s": "active",
+"t": "Metadata"
+},
+"AC-4(7)": {
+"s": "active",
+"t": "One-way Flow Mechanisms"
+},
+"AC-4(8)": {
+"s": "active",
+"t": "Security and Privacy Policy Filters"
+},
+"AC-4(9)": {
+"s": "active",
+"t": "Human Reviews"
+},
+"AC-5": {
+"s": "active",
+"t": "Separation of Duties"
+},
+"AC-6": {
+"s": "active",
+"t": "Least Privilege"
+},
+"AC-6(1)": {
+"s": "active",
+"t": "Authorize Access to Security Functions"
+},
+"AC-6(10)": {
+"s": "active",
+"t": "Prohibit Non-privileged Users from Executing Privileged Functions"
+},
+"AC-6(2)": {
+"s": "active",
+"t": "Non-privileged Access for Nonsecurity Functions"
+},
+"AC-6(3)": {
+"s": "active",
+"t": "Network Access to Privileged Commands"
+},
+"AC-6(4)": {
+"s": "active",
+"t": "Separate Processing Domains"
+},
+"AC-6(5)": {
+"s": "active",
+"t": "Privileged Accounts"
+},
+"AC-6(6)": {
+"s": "active",
+"t": "Privileged Access by Non-organizational Users"
+},
+"AC-6(7)": {
+"s": "active",
+"t": "Review of User Privileges"
+},
+"AC-6(8)": {
+"s": "active",
+"t": "Privilege Levels for Code Execution"
+},
+"AC-6(9)": {
+"s": "active",
+"t": "Log Use of Privileged Functions"
+},
+"AC-7": {
+"s": "active",
+"t": "Unsuccessful Logon Attempts"
+},
+"AC-7(1)": {
+"into": [
+"AC-7"
+],
+"s": "withdrawn",
+"t": "Automatic Account Lock"
+},
+"AC-7(2)": {
+"s": "active",
+"t": "Purge or Wipe Mobile Device"
+},
+"AC-7(3)": {
+"s": "active",
+"t": "Biometric Attempt Limiting"
+},
+"AC-7(4)": {
+"s": "active",
+"t": "Use of Alternate Authentication Factor"
+},
+"AC-8": {
+"s": "active",
+"t": "System Use Notification"
+},
+"AC-9": {
+"s": "active",
+"t": "Previous Logon Notification"
+},
+"AC-9(1)": {
+"s": "active",
+"t": "Unsuccessful Logons"
+},
+"AC-9(2)": {
+"s": "active",
+"t": "Successful and Unsuccessful Logons"
+},
+"AC-9(3)": {
+"s": "active",
+"t": "Notification of Account Changes"
+},
+"AC-9(4)": {
+"s": "active",
+"t": "Additional Logon Information"
+},
+"AT-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"AT-2": {
+"s": "active",
+"t": "Literacy Training and Awareness"
+},
+"AT-2(1)": {
+"s": "active",
+"t": "Practical Exercises"
+},
+"AT-2(2)": {
+"s": "active",
+"t": "Insider Threat"
+},
+"AT-2(3)": {
+"s": "active",
+"t": "Social Engineering and Mining"
+},
+"AT-2(4)": {
+"s": "active",
+"t": "Suspicious Communications and Anomalous System Behavior"
+},
+"AT-2(5)": {
+"s": "active",
+"t": "Advanced Persistent Threat"
+},
+"AT-2(6)": {
+"s": "active",
+"t": "Cyber Threat Environment"
+},
+"AT-3": {
+"s": "active",
+"t": "Role-based Training"
+},
+"AT-3(1)": {
+"s": "active",
+"t": "Environmental Controls"
+},
+"AT-3(2)": {
+"s": "active",
+"t": "Physical Security Controls"
+},
+"AT-3(3)": {
+"s": "active",
+"t": "Practical Exercises"
+},
+"AT-3(4)": {
+"s": "withdrawn",
+"t": "Suspicious Communications and Anomalous System Behavior"
+},
+"AT-3(5)": {
+"s": "active",
+"t": "Processing Personally Identifiable Information"
+},
+"AT-4": {
+"s": "active",
+"t": "Training Records"
+},
+"AT-5": {
+"into": [
+"PM-15"
+],
+"s": "withdrawn",
+"t": "Contacts with Security Groups and Associations"
+},
+"AT-6": {
+"s": "active",
+"t": "Training Feedback"
+},
+"AU-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"AU-10": {
+"s": "active",
+"t": "Non-repudiation"
+},
+"AU-10(1)": {
+"s": "active",
+"t": "Association of Identities"
+},
+"AU-10(2)": {
+"s": "active",
+"t": "Validate Binding of Information Producer Identity"
+},
+"AU-10(3)": {
+"s": "active",
+"t": "Chain of Custody"
+},
+"AU-10(4)": {
+"s": "active",
+"t": "Validate Binding of Information Reviewer Identity"
+},
+"AU-10(5)": {
+"into": [
+"SI-7"
+],
+"s": "withdrawn",
+"t": "Digital Signatures"
+},
+"AU-11": {
+"s": "active",
+"t": "Audit Record Retention"
+},
+"AU-11(1)": {
+"s": "active",
+"t": "Long-term Retrieval Capability"
+},
+"AU-12": {
+"s": "active",
+"t": "Audit Record Generation"
+},
+"AU-12(1)": {
+"s": "active",
+"t": "System-wide and Time-correlated Audit Trail"
+},
+"AU-12(2)": {
+"s": "active",
+"t": "Standardized Formats"
+},
+"AU-12(3)": {
+"s": "active",
+"t": "Changes by Authorized Individuals"
+},
+"AU-12(4)": {
+"s": "active",
+"t": "Query Parameter Audits of Personally Identifiable Information"
+},
+"AU-13": {
+"s": "active",
+"t": "Monitoring for Information Disclosure"
+},
+"AU-13(1)": {
+"s": "active",
+"t": "Use of Automated Tools"
+},
+"AU-13(2)": {
+"s": "active",
+"t": "Review of Monitored Sites"
+},
+"AU-13(3)": {
+"s": "active",
+"t": "Unauthorized Replication of Information"
+},
+"AU-14": {
+"s": "active",
+"t": "Session Audit"
+},
+"AU-14(1)": {
+"s": "active",
+"t": "System Start-up"
+},
+"AU-14(2)": {
+"into": [
+"AU-14"
+],
+"s": "withdrawn",
+"t": "Capture and Record Content"
+},
+"AU-14(3)": {
+"s": "active",
+"t": "Remote Viewing and Listening"
+},
+"AU-15": {
+"s": "withdrawn",
+"t": "Alternate Audit Logging Capability"
+},
+"AU-16": {
+"s": "active",
+"t": "Cross-organizational Audit Logging"
+},
+"AU-16(1)": {
+"s": "active",
+"t": "Identity Preservation"
+},
+"AU-16(2)": {
+"s": "active",
+"t": "Sharing of Audit Information"
+},
+"AU-16(3)": {
+"s": "active",
+"t": "Disassociability"
+},
+"AU-2": {
+"s": "active",
+"t": "Event Logging"
+},
+"AU-2(1)": {
+"into": [
+"AU-12"
+],
+"s": "withdrawn",
+"t": "Compilation of Audit Records from Multiple Sources"
+},
+"AU-2(2)": {
+"into": [
+"AU-12"
+],
+"s": "withdrawn",
+"t": "Selection of Audit Events by Component"
+},
+"AU-2(3)": {
+"into": [
+"AU-2"
+],
+"s": "withdrawn",
+"t": "Reviews and Updates"
+},
+"AU-2(4)": {
+"into": [
+"AC-6(9)"
+],
+"s": "withdrawn",
+"t": "Privileged Functions"
+},
+"AU-3": {
+"s": "active",
+"t": "Content of Audit Records"
+},
+"AU-3(1)": {
+"s": "active",
+"t": "Additional Audit Information"
+},
+"AU-3(2)": {
+"into": [
+"PL-9"
+],
+"s": "withdrawn",
+"t": "Centralized Management of Planned Audit Record Content"
+},
+"AU-3(3)": {
+"s": "active",
+"t": "Limit Personally Identifiable Information Elements"
+},
+"AU-4": {
+"s": "active",
+"t": "Audit Log Storage Capacity"
+},
+"AU-4(1)": {
+"s": "active",
+"t": "Transfer to Alternate Storage"
+},
+"AU-5": {
+"s": "active",
+"t": "Response to Audit Logging Process Failures"
+},
+"AU-5(1)": {
+"s": "active",
+"t": "Storage Capacity Warning"
+},
+"AU-5(2)": {
+"s": "active",
+"t": "Real-time Alerts"
+},
+"AU-5(3)": {
+"s": "active",
+"t": "Configurable Traffic Volume Thresholds"
+},
+"AU-5(4)": {
+"s": "active",
+"t": "Shutdown on Failure"
+},
+"AU-5(5)": {
+"s": "active",
+"t": "Alternate Audit Logging Capability"
+},
+"AU-6": {
+"s": "active",
+"t": "Audit Record Review, Analysis, and Reporting"
+},
+"AU-6(1)": {
+"s": "active",
+"t": "Automated Process Integration"
+},
+"AU-6(10)": {
+"into": [
+"AU-6"
+],
+"s": "withdrawn",
+"t": "Audit Level Adjustment"
+},
+"AU-6(2)": {
+"into": [
+"SI-4"
+],
+"s": "withdrawn",
+"t": "Automated Security Alerts"
+},
+"AU-6(3)": {
+"s": "active",
+"t": "Correlate Audit Record Repositories"
+},
+"AU-6(4)": {
+"s": "active",
+"t": "Central Review and Analysis"
+},
+"AU-6(5)": {
+"s": "active",
+"t": "Integrated Analysis of Audit Records"
+},
+"AU-6(6)": {
+"s": "active",
+"t": "Correlation with Physical Monitoring"
+},
+"AU-6(7)": {
+"s": "active",
+"t": "Permitted Actions"
+},
+"AU-6(8)": {
+"s": "active",
+"t": "Full Text Analysis of Privileged Commands"
+},
+"AU-6(9)": {
+"s": "active",
+"t": "Correlation with Information from Nontechnical Sources"
+},
+"AU-7": {
+"s": "active",
+"t": "Audit Record Reduction and Report Generation"
+},
+"AU-7(1)": {
+"s": "active",
+"t": "Automatic Processing"
+},
+"AU-7(2)": {
+"into": [
+"AU-7(1)"
+],
+"s": "withdrawn",
+"t": "Automatic Sort and Search"
+},
+"AU-8": {
+"s": "active",
+"t": "Time Stamps"
+},
+"AU-8(1)": {
+"s": "withdrawn",
+"t": "Synchronization with Authoritative Time Source"
+},
+"AU-8(2)": {
+"s": "withdrawn",
+"t": "Secondary Authoritative Time Source"
+},
+"AU-9": {
+"s": "active",
+"t": "Protection of Audit Information"
+},
+"AU-9(1)": {
+"s": "active",
+"t": "Hardware Write-once Media"
+},
+"AU-9(2)": {
+"s": "active",
+"t": "Store on Separate Physical Systems or Components"
+},
+"AU-9(3)": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"AU-9(4)": {
+"s": "active",
+"t": "Access by Subset of Privileged Users"
+},
+"AU-9(5)": {
+"s": "active",
+"t": "Dual Authorization"
+},
+"AU-9(6)": {
+"s": "active",
+"t": "Read-only Access"
+},
+"AU-9(7)": {
+"s": "active",
+"t": "Store on Component with Different Operating System"
+},
+"CA-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"CA-2": {
+"s": "active",
+"t": "Control Assessments"
+},
+"CA-2(1)": {
+"s": "active",
+"t": "Independent Assessors"
+},
+"CA-2(2)": {
+"s": "active",
+"t": "Specialized Assessments"
+},
+"CA-2(3)": {
+"s": "active",
+"t": "Leveraging Results from External Organizations"
+},
+"CA-3": {
+"s": "active",
+"t": "Information Exchange"
+},
+"CA-3(1)": {
+"s": "withdrawn",
+"t": "Unclassified National Security System Connections"
+},
+"CA-3(2)": {
+"s": "withdrawn",
+"t": "Classified National Security System Connections"
+},
+"CA-3(3)": {
+"s": "withdrawn",
+"t": "Unclassified Non-national Security System Connections"
+},
+"CA-3(4)": {
+"s": "withdrawn",
+"t": "Connections to Public Networks"
+},
+"CA-3(5)": {
+"s": "withdrawn",
+"t": "Restrictions on External System Connections"
+},
+"CA-3(6)": {
+"s": "active",
+"t": "Transfer Authorizations"
+},
+"CA-3(7)": {
+"s": "active",
+"t": "Transitive Information Exchanges"
+},
+"CA-4": {
+"into": [
+"CA-2"
+],
+"s": "withdrawn",
+"t": "Security Certification"
+},
+"CA-5": {
+"s": "active",
+"t": "Plan of Action and Milestones"
+},
+"CA-5(1)": {
+"s": "active",
+"t": "Automation Support for Accuracy and Currency"
+},
+"CA-6": {
+"s": "active",
+"t": "Authorization"
+},
+"CA-6(1)": {
+"s": "active",
+"t": "Joint Authorization \u2014 Intra-organization"
+},
+"CA-6(2)": {
+"s": "active",
+"t": "Joint Authorization \u2014 Inter-organization"
+},
+"CA-7": {
+"s": "active",
+"t": "Continuous Monitoring"
+},
+"CA-7(1)": {
+"s": "active",
+"t": "Independent Assessment"
+},
+"CA-7(2)": {
+"into": [
+"CA-2"
+],
+"s": "withdrawn",
+"t": "Types of Assessments"
+},
+"CA-7(3)": {
+"s": "active",
+"t": "Trend Analyses"
+},
+"CA-7(4)": {
+"s": "active",
+"t": "Risk Monitoring"
+},
+"CA-7(5)": {
+"s": "active",
+"t": "Consistency Analysis"
+},
+"CA-7(6)": {
+"s": "active",
+"t": "Automation Support for Monitoring"
+},
+"CA-8": {
+"s": "active",
+"t": "Penetration Testing"
+},
+"CA-8(1)": {
+"s": "active",
+"t": "Independent Penetration Testing Agent or Team"
+},
+"CA-8(2)": {
+"s": "active",
+"t": "Red Team Exercises"
+},
+"CA-8(3)": {
+"s": "active",
+"t": "Facility Penetration Testing"
+},
+"CA-9": {
+"s": "active",
+"t": "Internal System Connections"
+},
+"CA-9(1)": {
+"s": "active",
+"t": "Compliance Checks"
+},
+"CM-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"CM-10": {
+"s": "active",
+"t": "Software Usage Restrictions"
+},
+"CM-10(1)": {
+"s": "active",
+"t": "Open-source Software"
+},
+"CM-11": {
+"s": "active",
+"t": "User-installed Software"
+},
+"CM-11(1)": {
+"into": [
+"CM-8(3)"
+],
+"s": "withdrawn",
+"t": "Alerts for Unauthorized Installations"
+},
+"CM-11(2)": {
+"s": "active",
+"t": "Software Installation with Privileged Status"
+},
+"CM-11(3)": {
+"s": "active",
+"t": "Automated Enforcement and Monitoring"
+},
+"CM-12": {
+"s": "active",
+"t": "Information Location"
+},
+"CM-12(1)": {
+"s": "active",
+"t": "Automated Tools to Support Information Location"
+},
+"CM-13": {
+"s": "active",
+"t": "Data Action Mapping"
+},
+"CM-14": {
+"s": "active",
+"t": "Signed Components"
+},
+"CM-2": {
+"s": "active",
+"t": "Baseline Configuration"
+},
+"CM-2(1)": {
+"into": [
+"CM-2"
+],
+"s": "withdrawn",
+"t": "Reviews and Updates"
+},
+"CM-2(2)": {
+"s": "active",
+"t": "Automation Support for Accuracy and Currency"
+},
+"CM-2(3)": {
+"s": "active",
+"t": "Retention of Previous Configurations"
+},
+"CM-2(4)": {
+"into": [
+"CM-7(4)"
+],
+"s": "withdrawn",
+"t": "Unauthorized Software"
+},
+"CM-2(5)": {
+"into": [
+"CM-7(5)"
+],
+"s": "withdrawn",
+"t": "Authorized Software"
+},
+"CM-2(6)": {
+"s": "active",
+"t": "Development and Test Environments"
+},
+"CM-2(7)": {
+"s": "active",
+"t": "Configure Systems and Components for High-risk Areas"
+},
+"CM-3": {
+"s": "active",
+"t": "Configuration Change Control"
+},
+"CM-3(1)": {
+"s": "active",
+"t": "Automated Documentation, Notification, and Prohibition of Changes"
+},
+"CM-3(2)": {
+"s": "active",
+"t": "Testing, Validation, and Documentation of Changes"
+},
+"CM-3(3)": {
+"s": "active",
+"t": "Automated Change Implementation"
+},
+"CM-3(4)": {
+"s": "active",
+"t": "Security and Privacy Representatives"
+},
+"CM-3(5)": {
+"s": "active",
+"t": "Automated Security Response"
+},
+"CM-3(6)": {
+"s": "active",
+"t": "Cryptography Management"
+},
+"CM-3(7)": {
+"s": "active",
+"t": "Review System Changes"
+},
+"CM-3(8)": {
+"s": "active",
+"t": "Prevent or Restrict Configuration Changes"
+},
+"CM-4": {
+"s": "active",
+"t": "Impact Analyses"
+},
+"CM-4(1)": {
+"s": "active",
+"t": "Separate Test Environments"
+},
+"CM-4(2)": {
+"s": "active",
+"t": "Verification of Controls"
+},
+"CM-5": {
+"s": "active",
+"t": "Access Restrictions for Change"
+},
+"CM-5(1)": {
+"s": "active",
+"t": "Automated Access Enforcement and Audit Records"
+},
+"CM-5(2)": {
+"into": [
+"CM-3(7)"
+],
+"s": "withdrawn",
+"t": "Review System Changes"
+},
+"CM-5(3)": {
+"s": "withdrawn",
+"t": "Signed Components"
+},
+"CM-5(4)": {
+"s": "active",
+"t": "Dual Authorization"
+},
+"CM-5(5)": {
+"s": "active",
+"t": "Privilege Limitation for Production and Operation"
+},
+"CM-5(6)": {
+"s": "active",
+"t": "Limit Library Privileges"
+},
+"CM-5(7)": {
+"into": [
+"SI-7"
+],
+"s": "withdrawn",
+"t": "Automatic Implementation of Security Safeguards"
+},
+"CM-6": {
+"s": "active",
+"t": "Configuration Settings"
+},
+"CM-6(1)": {
+"s": "active",
+"t": "Automated Management, Application, and Verification"
+},
+"CM-6(2)": {
+"s": "active",
+"t": "Respond to Unauthorized Changes"
+},
+"CM-6(3)": {
+"into": [
+"SI-7"
+],
+"s": "withdrawn",
+"t": "Unauthorized Change Detection"
+},
+"CM-6(4)": {
+"into": [
+"CM-4"
+],
+"s": "withdrawn",
+"t": "Conformance Demonstration"
+},
+"CM-7": {
+"s": "active",
+"t": "Least Functionality"
+},
+"CM-7(1)": {
+"s": "active",
+"t": "Periodic Review"
+},
+"CM-7(2)": {
+"s": "active",
+"t": "Prevent Program Execution"
+},
+"CM-7(3)": {
+"s": "active",
+"t": "Registration Compliance"
+},
+"CM-7(4)": {
+"s": "active",
+"t": "Unauthorized Software \u2014 Deny-by-exception"
+},
+"CM-7(5)": {
+"s": "active",
+"t": "Authorized Software \u2014 Allow-by-exception"
+},
+"CM-7(6)": {
+"s": "active",
+"t": "Confined Environments with Limited Privileges"
+},
+"CM-7(7)": {
+"s": "active",
+"t": "Code Execution in Protected Environments"
+},
+"CM-7(8)": {
+"s": "active",
+"t": "Binary or Machine Executable Code"
+},
+"CM-7(9)": {
+"s": "active",
+"t": "Prohibiting The Use of Unauthorized Hardware"
+},
+"CM-8": {
+"s": "active",
+"t": "System Component Inventory"
+},
+"CM-8(1)": {
+"s": "active",
+"t": "Updates During Installation and Removal"
+},
+"CM-8(2)": {
+"s": "active",
+"t": "Automated Maintenance"
+},
+"CM-8(3)": {
+"s": "active",
+"t": "Automated Unauthorized Component Detection"
+},
+"CM-8(4)": {
+"s": "active",
+"t": "Accountability Information"
+},
+"CM-8(5)": {
+"into": [
+"CM-8"
+],
+"s": "withdrawn",
+"t": "No Duplicate Accounting of Components"
+},
+"CM-8(6)": {
+"s": "active",
+"t": "Assessed Configurations and Approved Deviations"
+},
+"CM-8(7)": {
+"s": "active",
+"t": "Centralized Repository"
+},
+"CM-8(8)": {
+"s": "active",
+"t": "Automated Location Tracking"
+},
+"CM-8(9)": {
+"s": "active",
+"t": "Assignment of Components to Systems"
+},
+"CM-9": {
+"s": "active",
+"t": "Configuration Management Plan"
+},
+"CM-9(1)": {
+"s": "active",
+"t": "Assignment of Responsibility"
+},
+"CP-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"CP-10": {
+"s": "active",
+"t": "System Recovery and Reconstitution"
+},
+"CP-10(1)": {
+"into": [
+"CP-4"
+],
+"s": "withdrawn",
+"t": "Contingency Plan Testing"
+},
+"CP-10(2)": {
+"s": "active",
+"t": "Transaction Recovery"
+},
+"CP-10(3)": {
+"s": "withdrawn",
+"t": "Compensating Security Controls"
+},
+"CP-10(4)": {
+"s": "active",
+"t": "Restore Within Time Period"
+},
+"CP-10(5)": {
+"into": [
+"SI-13"
+],
+"s": "withdrawn",
+"t": "Failover Capability"
+},
+"CP-10(6)": {
+"s": "active",
+"t": "Component Protection"
+},
+"CP-11": {
+"s": "active",
+"t": "Alternate Communications Protocols"
+},
+"CP-12": {
+"s": "active",
+"t": "Safe Mode"
+},
+"CP-13": {
+"s": "active",
+"t": "Alternative Security Mechanisms"
+},
+"CP-2": {
+"s": "active",
+"t": "Contingency Plan"
+},
+"CP-2(1)": {
+"s": "active",
+"t": "Coordinate with Related Plans"
+},
+"CP-2(2)": {
+"s": "active",
+"t": "Capacity Planning"
+},
+"CP-2(3)": {
+"s": "active",
+"t": "Resume Mission and Business Functions"
+},
+"CP-2(4)": {
+"into": [
+"CP-2(3)"
+],
+"s": "withdrawn",
+"t": "Resume All Mission and Business Functions"
+},
+"CP-2(5)": {
+"s": "active",
+"t": "Continue Mission and Business Functions"
+},
+"CP-2(6)": {
+"s": "active",
+"t": "Alternate Processing and Storage Sites"
+},
+"CP-2(7)": {
+"s": "active",
+"t": "Coordinate with External Service Providers"
+},
+"CP-2(8)": {
+"s": "active",
+"t": "Identify Critical Assets"
+},
+"CP-3": {
+"s": "active",
+"t": "Contingency Training"
+},
+"CP-3(1)": {
+"s": "active",
+"t": "Simulated Events"
+},
+"CP-3(2)": {
+"s": "active",
+"t": "Mechanisms Used in Training Environments"
+},
+"CP-4": {
+"s": "active",
+"t": "Contingency Plan Testing"
+},
+"CP-4(1)": {
+"s": "active",
+"t": "Coordinate with Related Plans"
+},
+"CP-4(2)": {
+"s": "active",
+"t": "Alternate Processing Site"
+},
+"CP-4(3)": {
+"s": "active",
+"t": "Automated Testing"
+},
+"CP-4(4)": {
+"s": "active",
+"t": "Full Recovery and Reconstitution"
+},
+"CP-4(5)": {
+"s": "active",
+"t": "Self-challenge"
+},
+"CP-5": {
+"into": [
+"CP-2"
+],
+"s": "withdrawn",
+"t": "Contingency Plan Update"
+},
+"CP-6": {
+"s": "active",
+"t": "Alternate Storage Site"
+},
+"CP-6(1)": {
+"s": "active",
+"t": "Separation from Primary Site"
+},
+"CP-6(2)": {
+"s": "active",
+"t": "Recovery Time and Recovery Point Objectives"
+},
+"CP-6(3)": {
+"s": "active",
+"t": "Accessibility"
+},
+"CP-7": {
+"s": "active",
+"t": "Alternate Processing Site"
+},
+"CP-7(1)": {
+"s": "active",
+"t": "Separation from Primary Site"
+},
+"CP-7(2)": {
+"s": "active",
+"t": "Accessibility"
+},
+"CP-7(3)": {
+"s": "active",
+"t": "Priority of Service"
+},
+"CP-7(4)": {
+"s": "active",
+"t": "Preparation for Use"
+},
+"CP-7(5)": {
+"into": [
+"CP-7"
+],
+"s": "withdrawn",
+"t": "Equivalent Information Security Safeguards"
+},
+"CP-7(6)": {
+"s": "active",
+"t": "Inability to Return to Primary Site"
+},
+"CP-8": {
+"s": "active",
+"t": "Telecommunications Services"
+},
+"CP-8(1)": {
+"s": "active",
+"t": "Priority of Service Provisions"
+},
+"CP-8(2)": {
+"s": "active",
+"t": "Single Points of Failure"
+},
+"CP-8(3)": {
+"s": "active",
+"t": "Separation of Primary and Alternate Providers"
+},
+"CP-8(4)": {
+"s": "active",
+"t": "Provider Contingency Plan"
+},
+"CP-8(5)": {
+"s": "active",
+"t": "Alternate Telecommunication Service Testing"
+},
+"CP-9": {
+"s": "active",
+"t": "System Backup"
+},
+"CP-9(1)": {
+"s": "active",
+"t": "Testing for Reliability and Integrity"
+},
+"CP-9(2)": {
+"s": "active",
+"t": "Test Restoration Using Sampling"
+},
+"CP-9(3)": {
+"s": "active",
+"t": "Separate Storage for Critical Information"
+},
+"CP-9(4)": {
+"into": [
+"CP-9"
+],
+"s": "withdrawn",
+"t": "Protection from Unauthorized Modification"
+},
+"CP-9(5)": {
+"s": "active",
+"t": "Transfer to Alternate Storage Site"
+},
+"CP-9(6)": {
+"s": "active",
+"t": "Redundant Secondary System"
+},
+"CP-9(7)": {
+"s": "active",
+"t": "Dual Authorization for Deletion or Destruction"
+},
+"CP-9(8)": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"IA-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"IA-10": {
+"s": "active",
+"t": "Adaptive Authentication"
+},
+"IA-11": {
+"s": "active",
+"t": "Re-authentication"
+},
+"IA-12": {
+"s": "active",
+"t": "Identity Proofing"
+},
+"IA-12(1)": {
+"s": "active",
+"t": "Supervisor Authorization"
+},
+"IA-12(2)": {
+"s": "active",
+"t": "Identity Evidence"
+},
+"IA-12(3)": {
+"s": "active",
+"t": "Identity Evidence Validation and Verification"
+},
+"IA-12(4)": {
+"s": "active",
+"t": "In-person Validation and Verification"
+},
+"IA-12(5)": {
+"s": "active",
+"t": "Address Confirmation"
+},
+"IA-12(6)": {
+"s": "active",
+"t": "Accept Externally-proofed Identities"
+},
+"IA-13": {
+"s": "active",
+"t": "Identity Providers and Authorization Servers"
+},
+"IA-13(1)": {
+"s": "active",
+"t": "Protection of Cryptographic Keys"
+},
+"IA-13(2)": {
+"s": "active",
+"t": "Verification of Identity Assertions and Access Tokens"
+},
+"IA-13(3)": {
+"s": "active",
+"t": "Token Management"
+},
+"IA-2": {
+"s": "active",
+"t": "Identification and Authentication (Organizational Users)"
+},
+"IA-2(1)": {
+"s": "active",
+"t": "Multi-factor Authentication to Privileged Accounts"
+},
+"IA-2(10)": {
+"s": "active",
+"t": "Single Sign-on"
+},
+"IA-2(11)": {
+"into": [
+"IA-2(6)"
+],
+"s": "withdrawn",
+"t": "Remote Access \u2014 Separate Device"
+},
+"IA-2(12)": {
+"s": "active",
+"t": "Acceptance of PIV Credentials"
+},
+"IA-2(13)": {
+"s": "active",
+"t": "Out-of-band Authentication"
+},
+"IA-2(2)": {
+"s": "active",
+"t": "Multi-factor Authentication to Non-privileged Accounts"
+},
+"IA-2(3)": {
+"into": [
+"IA-2(1)"
+],
+"s": "withdrawn",
+"t": "Local Access to Privileged Accounts"
+},
+"IA-2(4)": {
+"into": [
+"IA-2(2)"
+],
+"s": "withdrawn",
+"t": "Local Access to Non-privileged Accounts"
+},
+"IA-2(5)": {
+"s": "active",
+"t": "Individual Authentication with Group Authentication"
+},
+"IA-2(6)": {
+"s": "active",
+"t": "Access to Accounts \u2014separate Device"
+},
+"IA-2(7)": {
+"into": [
+"IA-2(6)"
+],
+"s": "withdrawn",
+"t": "Network Access to Non-privileged Accounts \u2014 Separate Device"
+},
+"IA-2(8)": {
+"s": "active",
+"t": "Access to Accounts \u2014 Replay Resistant"
+},
+"IA-2(9)": {
+"into": [
+"IA-2(8)"
+],
+"s": "withdrawn",
+"t": "Network Access to Non-privileged Accounts \u2014 Replay Resistant"
+},
+"IA-3": {
+"s": "active",
+"t": "Device Identification and Authentication"
+},
+"IA-3(1)": {
+"s": "active",
+"t": "Cryptographic Bidirectional Authentication"
+},
+"IA-3(2)": {
+"into": [
+"IA-3(1)"
+],
+"s": "withdrawn",
+"t": "Cryptographic Bidirectional Network Authentication"
+},
+"IA-3(3)": {
+"s": "active",
+"t": "Dynamic Address Allocation"
+},
+"IA-3(4)": {
+"s": "active",
+"t": "Device Attestation"
+},
+"IA-4": {
+"s": "active",
+"t": "Identifier Management"
+},
+"IA-4(1)": {
+"s": "active",
+"t": "Prohibit Account Identifiers as Public Identifiers"
+},
+"IA-4(2)": {
+"into": [
+"IA-12(1)"
+],
+"s": "withdrawn",
+"t": "Supervisor Authorization"
+},
+"IA-4(3)": {
+"into": [
+"IA-12(2)"
+],
+"s": "withdrawn",
+"t": "Multiple Forms of Certification"
+},
+"IA-4(4)": {
+"s": "active",
+"t": "Identify User Status"
+},
+"IA-4(5)": {
+"s": "active",
+"t": "Dynamic Management"
+},
+"IA-4(6)": {
+"s": "active",
+"t": "Cross-organization Management"
+},
+"IA-4(7)": {
+"into": [
+"IA-12(4)"
+],
+"s": "withdrawn",
+"t": "In-person Registration"
+},
+"IA-4(8)": {
+"s": "active",
+"t": "Pairwise Pseudonymous Identifiers"
+},
+"IA-4(9)": {
+"s": "active",
+"t": "Attribute Maintenance and Protection"
+},
+"IA-5": {
+"s": "active",
+"t": "Authenticator Management"
+},
+"IA-5(1)": {
+"s": "active",
+"t": "Password-based Authentication"
+},
+"IA-5(10)": {
+"s": "active",
+"t": "Dynamic Credential Binding"
+},
+"IA-5(11)": {
+"into": [
+"IA-2(1)",
+"IA-2(2)"
+],
+"s": "withdrawn",
+"t": "Hardware Token-based Authentication"
+},
+"IA-5(12)": {
+"s": "active",
+"t": "Biometric Authentication Performance"
+},
+"IA-5(13)": {
+"s": "active",
+"t": "Expiration of Cached Authenticators"
+},
+"IA-5(14)": {
+"s": "active",
+"t": "Managing Content of PKI Trust Stores"
+},
+"IA-5(15)": {
+"s": "active",
+"t": "GSA-approved Products and Services"
+},
+"IA-5(16)": {
+"s": "active",
+"t": "In-person or Trusted External Party Authenticator Issuance"
+},
+"IA-5(17)": {
+"s": "active",
+"t": "Presentation Attack Detection for Biometric Authenticators"
+},
+"IA-5(18)": {
+"s": "active",
+"t": "Password Managers"
+},
+"IA-5(2)": {
+"s": "active",
+"t": "Public Key-based Authentication"
+},
+"IA-5(3)": {
+"into": [
+"IA-12(4)"
+],
+"s": "withdrawn",
+"t": "In-person or Trusted External Party Registration"
+},
+"IA-5(4)": {
+"into": [
+"IA-5(1)"
+],
+"s": "withdrawn",
+"t": "Automated Support for Password Strength Determination"
+},
+"IA-5(5)": {
+"s": "active",
+"t": "Change Authenticators Prior to Delivery"
+},
+"IA-5(6)": {
+"s": "active",
+"t": "Protection of Authenticators"
+},
+"IA-5(7)": {
+"s": "active",
+"t": "No Embedded Unencrypted Static Authenticators"
+},
+"IA-5(8)": {
+"s": "active",
+"t": "Multiple System Accounts"
+},
+"IA-5(9)": {
+"s": "active",
+"t": "Federated Credential Management"
+},
+"IA-6": {
+"s": "active",
+"t": "Authentication Feedback"
+},
+"IA-7": {
+"s": "active",
+"t": "Cryptographic Module Authentication"
+},
+"IA-8": {
+"s": "active",
+"t": "Identification and Authentication (Non-organizational Users)"
+},
+"IA-8(1)": {
+"s": "active",
+"t": "Acceptance of PIV Credentials from Other Agencies"
+},
+"IA-8(2)": {
+"s": "active",
+"t": "Acceptance of External Authenticators"
+},
+"IA-8(3)": {
+"into": [
+"IA-8(2)"
+],
+"s": "withdrawn",
+"t": "Use of FICAM-approved Products"
+},
+"IA-8(4)": {
+"s": "active",
+"t": "Use of Defined Profiles"
+},
+"IA-8(5)": {
+"s": "active",
+"t": "Acceptance of PIV-I Credentials"
+},
+"IA-8(6)": {
+"s": "active",
+"t": "Disassociability"
+},
+"IA-9": {
+"s": "active",
+"t": "Service Identification and Authentication"
+},
+"IA-9(1)": {
+"into": [
+"IA-9"
+],
+"s": "withdrawn",
+"t": "Information Exchange"
+},
+"IA-9(2)": {
+"into": [
+"IA-9"
+],
+"s": "withdrawn",
+"t": "Transmission of Decisions"
+},
+"IR-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"IR-10": {
+"s": "withdrawn",
+"t": "Integrated Information Security Analysis Team"
+},
+"IR-2": {
+"s": "active",
+"t": "Incident Response Training"
+},
+"IR-2(1)": {
+"s": "active",
+"t": "Simulated Events"
+},
+"IR-2(2)": {
+"s": "active",
+"t": "Automated Training Environments"
+},
+"IR-2(3)": {
+"s": "active",
+"t": "Breach"
+},
+"IR-3": {
+"s": "active",
+"t": "Incident Response Testing"
+},
+"IR-3(1)": {
+"s": "active",
+"t": "Automated Testing"
+},
+"IR-3(2)": {
+"s": "active",
+"t": "Coordination with Related Plans"
+},
+"IR-3(3)": {
+"s": "active",
+"t": "Continuous Improvement"
+},
+"IR-4": {
+"s": "active",
+"t": "Incident Handling"
+},
+"IR-4(1)": {
+"s": "active",
+"t": "Automated Incident Handling Processes"
+},
+"IR-4(10)": {
+"s": "active",
+"t": "Supply Chain Coordination"
+},
+"IR-4(11)": {
+"s": "active",
+"t": "Integrated Incident Response Team"
+},
+"IR-4(12)": {
+"s": "active",
+"t": "Malicious Code and Forensic Analysis"
+},
+"IR-4(13)": {
+"s": "active",
+"t": "Behavior Analysis"
+},
+"IR-4(14)": {
+"s": "active",
+"t": "Security Operations Center"
+},
+"IR-4(15)": {
+"s": "active",
+"t": "Public Relations and Reputation Repair"
+},
+"IR-4(2)": {
+"s": "active",
+"t": "Dynamic Reconfiguration"
+},
+"IR-4(3)": {
+"s": "active",
+"t": "Continuity of Operations"
+},
+"IR-4(4)": {
+"s": "active",
+"t": "Information Correlation"
+},
+"IR-4(5)": {
+"s": "active",
+"t": "Automatic Disabling of System"
+},
+"IR-4(6)": {
+"s": "active",
+"t": "Insider Threats"
+},
+"IR-4(7)": {
+"s": "active",
+"t": "Insider Threats \u2014 Intra-organization Coordination"
+},
+"IR-4(8)": {
+"s": "active",
+"t": "Correlation with External Organizations"
+},
+"IR-4(9)": {
+"s": "active",
+"t": "Dynamic Response Capability"
+},
+"IR-5": {
+"s": "active",
+"t": "Incident Monitoring"
+},
+"IR-5(1)": {
+"s": "active",
+"t": "Automated Tracking, Data Collection, and Analysis"
+},
+"IR-6": {
+"s": "active",
+"t": "Incident Reporting"
+},
+"IR-6(1)": {
+"s": "active",
+"t": "Automated Reporting"
+},
+"IR-6(2)": {
+"s": "active",
+"t": "Vulnerabilities Related to Incidents"
+},
+"IR-6(3)": {
+"s": "active",
+"t": "Supply Chain Coordination"
+},
+"IR-7": {
+"s": "active",
+"t": "Incident Response Assistance"
+},
+"IR-7(1)": {
+"s": "active",
+"t": "Automation Support for Availability of Information and Support"
+},
+"IR-7(2)": {
+"s": "active",
+"t": "Coordination with External Providers"
+},
+"IR-8": {
+"s": "active",
+"t": "Incident Response Plan"
+},
+"IR-8(1)": {
+"s": "active",
+"t": "Breaches"
+},
+"IR-9": {
+"s": "active",
+"t": "Information Spillage Response"
+},
+"IR-9(1)": {
+"into": [
+"IR-9"
+],
+"s": "withdrawn",
+"t": "Responsible Personnel"
+},
+"IR-9(2)": {
+"s": "active",
+"t": "Training"
+},
+"IR-9(3)": {
+"s": "active",
+"t": "Post-spill Operations"
+},
+"IR-9(4)": {
+"s": "active",
+"t": "Exposure to Unauthorized Personnel"
+},
+"MA-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"MA-2": {
+"s": "active",
+"t": "Controlled Maintenance"
+},
+"MA-2(1)": {
+"into": [
+"MA-2"
+],
+"s": "withdrawn",
+"t": "Record Content"
+},
+"MA-2(2)": {
+"s": "active",
+"t": "Automated Maintenance Activities"
+},
+"MA-3": {
+"s": "active",
+"t": "Maintenance Tools"
+},
+"MA-3(1)": {
+"s": "active",
+"t": "Inspect Tools"
+},
+"MA-3(2)": {
+"s": "active",
+"t": "Inspect Media"
+},
+"MA-3(3)": {
+"s": "active",
+"t": "Prevent Unauthorized Removal"
+},
+"MA-3(4)": {
+"s": "active",
+"t": "Restricted Tool Use"
+},
+"MA-3(5)": {
+"s": "active",
+"t": "Execution with Privilege"
+},
+"MA-3(6)": {
+"s": "active",
+"t": "Software Updates and Patches"
+},
+"MA-4": {
+"s": "active",
+"t": "Nonlocal Maintenance"
+},
+"MA-4(1)": {
+"s": "active",
+"t": "Logging and Review"
+},
+"MA-4(2)": {
+"into": [
+"MA-1",
+"MA-4"
+],
+"s": "withdrawn",
+"t": "Document Nonlocal Maintenance"
+},
+"MA-4(3)": {
+"s": "active",
+"t": "Comparable Security and Sanitization"
+},
+"MA-4(4)": {
+"s": "active",
+"t": "Authentication and Separation of Maintenance Sessions"
+},
+"MA-4(5)": {
+"s": "active",
+"t": "Approvals and Notifications"
+},
+"MA-4(6)": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"MA-4(7)": {
+"s": "active",
+"t": "Disconnect Verification"
+},
+"MA-5": {
+"s": "active",
+"t": "Maintenance Personnel"
+},
+"MA-5(1)": {
+"s": "active",
+"t": "Individuals Without Appropriate Access"
+},
+"MA-5(2)": {
+"s": "active",
+"t": "Security Clearances for Classified Systems"
+},
+"MA-5(3)": {
+"s": "active",
+"t": "Citizenship Requirements for Classified Systems"
+},
+"MA-5(4)": {
+"s": "active",
+"t": "Foreign Nationals"
+},
+"MA-5(5)": {
+"s": "active",
+"t": "Non-system Maintenance"
+},
+"MA-6": {
+"s": "active",
+"t": "Timely Maintenance"
+},
+"MA-6(1)": {
+"s": "active",
+"t": "Preventive Maintenance"
+},
+"MA-6(2)": {
+"s": "active",
+"t": "Predictive Maintenance"
+},
+"MA-6(3)": {
+"s": "active",
+"t": "Automated Support for Predictive Maintenance"
+},
+"MA-7": {
+"s": "active",
+"t": "Field Maintenance"
+},
+"MP-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"MP-2": {
+"s": "active",
+"t": "Media Access"
+},
+"MP-2(1)": {
+"into": [
+"MP-4(2)"
+],
+"s": "withdrawn",
+"t": "Automated Restricted Access"
+},
+"MP-2(2)": {
+"into": [
+"SC-28(1)"
+],
+"s": "withdrawn",
+"t": "Cryptographic Protection"
+},
+"MP-3": {
+"s": "active",
+"t": "Media Marking"
+},
+"MP-4": {
+"s": "active",
+"t": "Media Storage"
+},
+"MP-4(1)": {
+"into": [
+"SC-28(1)"
+],
+"s": "withdrawn",
+"t": "Cryptographic Protection"
+},
+"MP-4(2)": {
+"s": "active",
+"t": "Automated Restricted Access"
+},
+"MP-5": {
+"s": "active",
+"t": "Media Transport"
+},
+"MP-5(1)": {
+"into": [
+"MP-5"
+],
+"s": "withdrawn",
+"t": "Protection Outside of Controlled Areas"
+},
+"MP-5(2)": {
+"into": [
+"MP-5"
+],
+"s": "withdrawn",
+"t": "Documentation of Activities"
+},
+"MP-5(3)": {
+"s": "active",
+"t": "Custodians"
+},
+"MP-5(4)": {
+"into": [
+"SC-28(1)"
+],
+"s": "withdrawn",
+"t": "Cryptographic Protection"
+},
+"MP-6": {
+"s": "active",
+"t": "Media Sanitization"
+},
+"MP-6(1)": {
+"s": "active",
+"t": "Review, Approve, Track, Document, and Verify"
+},
+"MP-6(2)": {
+"s": "active",
+"t": "Equipment Testing"
+},
+"MP-6(3)": {
+"s": "active",
+"t": "Nondestructive Techniques"
+},
+"MP-6(4)": {
+"into": [
+"MP-6"
+],
+"s": "withdrawn",
+"t": "Controlled Unclassified Information"
+},
+"MP-6(5)": {
+"into": [
+"MP-6"
+],
+"s": "withdrawn",
+"t": "Classified Information"
+},
+"MP-6(6)": {
+"into": [
+"MP-6"
+],
+"s": "withdrawn",
+"t": "Media Destruction"
+},
+"MP-6(7)": {
+"s": "active",
+"t": "Dual Authorization"
+},
+"MP-6(8)": {
+"s": "active",
+"t": "Remote Purging or Wiping of Information"
+},
+"MP-7": {
+"s": "active",
+"t": "Media Use"
+},
+"MP-7(1)": {
+"into": [
+"MP-7"
+],
+"s": "withdrawn",
+"t": "Prohibit Use Without Owner"
+},
+"MP-7(2)": {
+"s": "active",
+"t": "Prohibit Use of Sanitization-resistant Media"
+},
+"MP-8": {
+"s": "active",
+"t": "Media Downgrading"
+},
+"MP-8(1)": {
+"s": "active",
+"t": "Documentation of Process"
+},
+"MP-8(2)": {
+"s": "active",
+"t": "Equipment Testing"
+},
+"MP-8(3)": {
+"s": "active",
+"t": "Controlled Unclassified Information"
+},
+"MP-8(4)": {
+"s": "active",
+"t": "Classified Information"
+},
+"PE-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"PE-10": {
+"s": "active",
+"t": "Emergency Shutoff"
+},
+"PE-10(1)": {
+"into": [
+"PE-10"
+],
+"s": "withdrawn",
+"t": "Accidental and Unauthorized Activation"
+},
+"PE-11": {
+"s": "active",
+"t": "Emergency Power"
+},
+"PE-11(1)": {
+"s": "active",
+"t": "Alternate Power Supply \u2014 Minimal Operational Capability"
+},
+"PE-11(2)": {
+"s": "active",
+"t": "Alternate Power Supply \u2014 Self-contained"
+},
+"PE-12": {
+"s": "active",
+"t": "Emergency Lighting"
+},
+"PE-12(1)": {
+"s": "active",
+"t": "Essential Mission and Business Functions"
+},
+"PE-13": {
+"s": "active",
+"t": "Fire Protection"
+},
+"PE-13(1)": {
+"s": "active",
+"t": "Detection Systems \u2014 Automatic Activation and Notification"
+},
+"PE-13(2)": {
+"s": "active",
+"t": "Suppression Systems \u2014 Automatic Activation and Notification"
+},
+"PE-13(3)": {
+"into": [
+"PE-13(2)"
+],
+"s": "withdrawn",
+"t": "Automatic Fire Suppression"
+},
+"PE-13(4)": {
+"s": "active",
+"t": "Inspections"
+},
+"PE-14": {
+"s": "active",
+"t": "Environmental Controls"
+},
+"PE-14(1)": {
+"s": "active",
+"t": "Automatic Controls"
+},
+"PE-14(2)": {
+"s": "active",
+"t": "Monitoring with Alarms and Notifications"
+},
+"PE-15": {
+"s": "active",
+"t": "Water Damage Protection"
+},
+"PE-15(1)": {
+"s": "active",
+"t": "Automation Support"
+},
+"PE-16": {
+"s": "active",
+"t": "Delivery and Removal"
+},
+"PE-17": {
+"s": "active",
+"t": "Alternate Work Site"
+},
+"PE-18": {
+"s": "active",
+"t": "Location of System Components"
+},
+"PE-18(1)": {
+"s": "withdrawn",
+"t": "Facility Site"
+},
+"PE-19": {
+"s": "active",
+"t": "Information Leakage"
+},
+"PE-19(1)": {
+"s": "active",
+"t": "National Emissions Policies and Procedures"
+},
+"PE-2": {
+"s": "active",
+"t": "Physical Access Authorizations"
+},
+"PE-2(1)": {
+"s": "active",
+"t": "Access by Position or Role"
+},
+"PE-2(2)": {
+"s": "active",
+"t": "Two Forms of Identification"
+},
+"PE-2(3)": {
+"s": "active",
+"t": "Restrict Unescorted Access"
+},
+"PE-20": {
+"s": "active",
+"t": "Asset Monitoring and Tracking"
+},
+"PE-21": {
+"s": "active",
+"t": "Electromagnetic Pulse Protection"
+},
+"PE-22": {
+"s": "active",
+"t": "Component Marking"
+},
+"PE-23": {
+"s": "active",
+"t": "Facility Location"
+},
+"PE-3": {
+"s": "active",
+"t": "Physical Access Control"
+},
+"PE-3(1)": {
+"s": "active",
+"t": "System Access"
+},
+"PE-3(2)": {
+"s": "active",
+"t": "Facility and Systems"
+},
+"PE-3(3)": {
+"s": "active",
+"t": "Continuous Guards"
+},
+"PE-3(4)": {
+"s": "active",
+"t": "Lockable Casings"
+},
+"PE-3(5)": {
+"s": "active",
+"t": "Tamper Protection"
+},
+"PE-3(6)": {
+"into": [
+"CA-8"
+],
+"s": "withdrawn",
+"t": "Facility Penetration Testing"
+},
+"PE-3(7)": {
+"s": "active",
+"t": "Physical Barriers"
+},
+"PE-3(8)": {
+"s": "active",
+"t": "Access Control Vestibules"
+},
+"PE-4": {
+"s": "active",
+"t": "Access Control for Transmission"
+},
+"PE-5": {
+"s": "active",
+"t": "Access Control for Output Devices"
+},
+"PE-5(1)": {
+"into": [
+"PE-5"
+],
+"s": "withdrawn",
+"t": "Access to Output by Authorized Individuals"
+},
+"PE-5(2)": {
+"s": "active",
+"t": "Link to Individual Identity"
+},
+"PE-5(3)": {
+"into": [
+"PE-22"
+],
+"s": "withdrawn",
+"t": "Marking Output Devices"
+},
+"PE-6": {
+"s": "active",
+"t": "Monitoring Physical Access"
+},
+"PE-6(1)": {
+"s": "active",
+"t": "Intrusion Alarms and Surveillance Equipment"
+},
+"PE-6(2)": {
+"s": "active",
+"t": "Automated Intrusion Recognition and Responses"
+},
+"PE-6(3)": {
+"s": "active",
+"t": "Video Surveillance"
+},
+"PE-6(4)": {
+"s": "active",
+"t": "Monitoring Physical Access to Systems"
+},
+"PE-7": {
+"into": [
+"PE-2",
+"PE-3"
+],
+"s": "withdrawn",
+"t": "Visitor Control"
+},
+"PE-8": {
+"s": "active",
+"t": "Visitor Access Records"
+},
+"PE-8(1)": {
+"s": "active",
+"t": "Automated Records Maintenance and Review"
+},
+"PE-8(2)": {
+"into": [
+"PE-2"
+],
+"s": "withdrawn",
+"t": "Physical Access Records"
+},
+"PE-8(3)": {
+"s": "active",
+"t": "Limit Personally Identifiable Information Elements"
+},
+"PE-9": {
+"s": "active",
+"t": "Power Equipment and Cabling"
+},
+"PE-9(1)": {
+"s": "active",
+"t": "Redundant Cabling"
+},
+"PE-9(2)": {
+"s": "active",
+"t": "Automatic Voltage Controls"
+},
+"PL-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"PL-10": {
+"s": "active",
+"t": "Baseline Selection"
+},
+"PL-11": {
+"s": "active",
+"t": "Baseline Tailoring"
+},
+"PL-2": {
+"s": "active",
+"t": "System Security and Privacy Plans"
+},
+"PL-2(1)": {
+"into": [
+"PL-7"
+],
+"s": "withdrawn",
+"t": "Concept of Operations"
+},
+"PL-2(2)": {
+"into": [
+"PL-8"
+],
+"s": "withdrawn",
+"t": "Functional Architecture"
+},
+"PL-2(3)": {
+"into": [
+"PL-2"
+],
+"s": "withdrawn",
+"t": "Plan and Coordinate with Other Organizational Entities"
+},
+"PL-3": {
+"into": [
+"PL-2"
+],
+"s": "withdrawn",
+"t": "System Security Plan Update"
+},
+"PL-4": {
+"s": "active",
+"t": "Rules of Behavior"
+},
+"PL-4(1)": {
+"s": "active",
+"t": "Social Media and External Site/Application Usage Restrictions"
+},
+"PL-5": {
+"into": [
+"RA-8"
+],
+"s": "withdrawn",
+"t": "Privacy Impact Assessment"
+},
+"PL-6": {
+"into": [
+"PL-2"
+],
+"s": "withdrawn",
+"t": "Security-related Activity Planning"
+},
+"PL-7": {
+"s": "active",
+"t": "Concept of Operations"
+},
+"PL-8": {
+"s": "active",
+"t": "Security and Privacy Architectures"
+},
+"PL-8(1)": {
+"s": "active",
+"t": "Defense in Depth"
+},
+"PL-8(2)": {
+"s": "active",
+"t": "Supplier Diversity"
+},
+"PL-9": {
+"s": "active",
+"t": "Central Management"
+},
+"PM-1": {
+"s": "active",
+"t": "Information Security Program Plan"
+},
+"PM-10": {
+"s": "active",
+"t": "Authorization Process"
+},
+"PM-11": {
+"s": "active",
+"t": "Mission and Business Process Definition"
+},
+"PM-12": {
+"s": "active",
+"t": "Insider Threat Program"
+},
+"PM-13": {
+"s": "active",
+"t": "Security and Privacy Workforce"
+},
+"PM-14": {
+"s": "active",
+"t": "Testing, Training, and Monitoring"
+},
+"PM-15": {
+"s": "active",
+"t": "Security and Privacy Groups and Associations"
+},
+"PM-16": {
+"s": "active",
+"t": "Threat Awareness Program"
+},
+"PM-16(1)": {
+"s": "active",
+"t": "Automated Means for Sharing Threat Intelligence"
+},
+"PM-17": {
+"s": "active",
+"t": "Protecting Controlled Unclassified Information on External Systems"
+},
+"PM-18": {
+"s": "active",
+"t": "Privacy Program Plan"
+},
+"PM-19": {
+"s": "active",
+"t": "Privacy Program Leadership Role"
+},
+"PM-2": {
+"s": "active",
+"t": "Information Security Program Leadership Role"
+},
+"PM-20": {
+"s": "active",
+"t": "Dissemination of Privacy Program Information"
+},
+"PM-20(1)": {
+"s": "active",
+"t": "Privacy Policies on Websites, Applications, and Digital Services"
+},
+"PM-21": {
+"s": "active",
+"t": "Accounting of Disclosures"
+},
+"PM-22": {
+"s": "active",
+"t": "Personally Identifiable Information Quality Management"
+},
+"PM-23": {
+"s": "active",
+"t": "Data Governance Body"
+},
+"PM-24": {
+"s": "active",
+"t": "Data Integrity Board"
+},
+"PM-25": {
+"s": "active",
+"t": "Minimization of Personally Identifiable Information Used in Testing, Training, and Research"
+},
+"PM-26": {
+"s": "active",
+"t": "Complaint Management"
+},
+"PM-27": {
+"s": "active",
+"t": "Privacy Reporting"
+},
+"PM-28": {
+"s": "active",
+"t": "Risk Framing"
+},
+"PM-29": {
+"s": "active",
+"t": "Risk Management Program Leadership Roles"
+},
+"PM-3": {
+"s": "active",
+"t": "Information Security and Privacy Resources"
+},
+"PM-30": {
+"s": "active",
+"t": "Supply Chain Risk Management Strategy"
+},
+"PM-30(1)": {
+"s": "active",
+"t": "Suppliers of Critical or Mission-essential Items"
+},
+"PM-31": {
+"s": "active",
+"t": "Continuous Monitoring Strategy"
+},
+"PM-32": {
+"s": "active",
+"t": "Purposing"
+},
+"PM-4": {
+"s": "active",
+"t": "Plan of Action and Milestones Process"
+},
+"PM-5": {
+"s": "active",
+"t": "System Inventory"
+},
+"PM-5(1)": {
+"s": "active",
+"t": "Inventory of Personally Identifiable Information"
+},
+"PM-6": {
+"s": "active",
+"t": "Measures of Performance"
+},
+"PM-7": {
+"s": "active",
+"t": "Enterprise Architecture"
+},
+"PM-7(1)": {
+"s": "active",
+"t": "Offloading"
+},
+"PM-8": {
+"s": "active",
+"t": "Critical Infrastructure Plan"
+},
+"PM-9": {
+"s": "active",
+"t": "Risk Management Strategy"
+},
+"PS-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"PS-2": {
+"s": "active",
+"t": "Position Risk Designation"
+},
+"PS-3": {
+"s": "active",
+"t": "Personnel Screening"
+},
+"PS-3(1)": {
+"s": "active",
+"t": "Classified Information"
+},
+"PS-3(2)": {
+"s": "active",
+"t": "Formal Indoctrination"
+},
+"PS-3(3)": {
+"s": "active",
+"t": "Information Requiring Special Protective Measures"
+},
+"PS-3(4)": {
+"s": "active",
+"t": "Citizenship Requirements"
+},
+"PS-4": {
+"s": "active",
+"t": "Personnel Termination"
+},
+"PS-4(1)": {
+"s": "active",
+"t": "Post-employment Requirements"
+},
+"PS-4(2)": {
+"s": "active",
+"t": "Automated Actions"
+},
+"PS-5": {
+"s": "active",
+"t": "Personnel Transfer"
+},
+"PS-6": {
+"s": "active",
+"t": "Access Agreements"
+},
+"PS-6(1)": {
+"into": [
+"PS-3"
+],
+"s": "withdrawn",
+"t": "Information Requiring Special Protection"
+},
+"PS-6(2)": {
+"s": "active",
+"t": "Classified Information Requiring Special Protection"
+},
+"PS-6(3)": {
+"s": "active",
+"t": "Post-employment Requirements"
+},
+"PS-7": {
+"s": "active",
+"t": "External Personnel Security"
+},
+"PS-8": {
+"s": "active",
+"t": "Personnel Sanctions"
+},
+"PS-9": {
+"s": "active",
+"t": "Position Descriptions"
+},
+"PT-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"PT-2": {
+"s": "active",
+"t": "Authority to Process Personally Identifiable Information"
+},
+"PT-2(1)": {
+"s": "active",
+"t": "Data Tagging"
+},
+"PT-2(2)": {
+"s": "active",
+"t": "Automation"
+},
+"PT-3": {
+"s": "active",
+"t": "Personally Identifiable Information Processing Purposes"
+},
+"PT-3(1)": {
+"s": "active",
+"t": "Data Tagging"
+},
+"PT-3(2)": {
+"s": "active",
+"t": "Automation"
+},
+"PT-4": {
+"s": "active",
+"t": "Consent"
+},
+"PT-4(1)": {
+"s": "active",
+"t": "Tailored Consent"
+},
+"PT-4(2)": {
+"s": "active",
+"t": "Just-in-time Consent"
+},
+"PT-4(3)": {
+"s": "active",
+"t": "Revocation"
+},
+"PT-5": {
+"s": "active",
+"t": "Privacy Notice"
+},
+"PT-5(1)": {
+"s": "active",
+"t": "Just-in-time Notice"
+},
+"PT-5(2)": {
+"s": "active",
+"t": "Privacy Act Statements"
+},
+"PT-6": {
+"s": "active",
+"t": "System of Records Notice"
+},
+"PT-6(1)": {
+"s": "active",
+"t": "Routine Uses"
+},
+"PT-6(2)": {
+"s": "active",
+"t": "Exemption Rules"
+},
+"PT-7": {
+"s": "active",
+"t": "Specific Categories of Personally Identifiable Information"
+},
+"PT-7(1)": {
+"s": "active",
+"t": "Social Security Numbers"
+},
+"PT-7(2)": {
+"s": "active",
+"t": "First Amendment Information"
+},
+"PT-8": {
+"s": "active",
+"t": "Computer Matching Requirements"
+},
+"RA-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"RA-10": {
+"s": "active",
+"t": "Threat Hunting"
+},
+"RA-2": {
+"s": "active",
+"t": "Security Categorization"
+},
+"RA-2(1)": {
+"s": "active",
+"t": "Impact-level Prioritization"
+},
+"RA-3": {
+"s": "active",
+"t": "Risk Assessment"
+},
+"RA-3(1)": {
+"s": "active",
+"t": "Supply Chain Risk Assessment"
+},
+"RA-3(2)": {
+"s": "active",
+"t": "Use of All-source Intelligence"
+},
+"RA-3(3)": {
+"s": "active",
+"t": "Dynamic Threat Awareness"
+},
+"RA-3(4)": {
+"s": "active",
+"t": "Predictive Cyber Analytics"
+},
+"RA-4": {
+"into": [
+"RA-3"
+],
+"s": "withdrawn",
+"t": "Risk Assessment Update"
+},
+"RA-5": {
+"s": "active",
+"t": "Vulnerability Monitoring and Scanning"
+},
+"RA-5(1)": {
+"into": [
+"RA-5"
+],
+"s": "withdrawn",
+"t": "Update Tool Capability"
+},
+"RA-5(10)": {
+"s": "active",
+"t": "Correlate Scanning Information"
+},
+"RA-5(11)": {
+"s": "active",
+"t": "Public Disclosure Program"
+},
+"RA-5(2)": {
+"s": "active",
+"t": "Update Vulnerabilities to Be Scanned"
+},
+"RA-5(3)": {
+"s": "active",
+"t": "Breadth and Depth of Coverage"
+},
+"RA-5(4)": {
+"s": "active",
+"t": "Discoverable Information"
+},
+"RA-5(5)": {
+"s": "active",
+"t": "Privileged Access"
+},
+"RA-5(6)": {
+"s": "active",
+"t": "Automated Trend Analyses"
+},
+"RA-5(7)": {
+"into": [
+"CM-8"
+],
+"s": "withdrawn",
+"t": "Automated Detection and Notification of Unauthorized Components"
+},
+"RA-5(8)": {
+"s": "active",
+"t": "Review Historic Audit Logs"
+},
+"RA-5(9)": {
+"into": [
+"CA-8"
+],
+"s": "withdrawn",
+"t": "Penetration Testing and Analyses"
+},
+"RA-6": {
+"s": "active",
+"t": "Technical Surveillance Countermeasures Survey"
+},
+"RA-7": {
+"s": "active",
+"t": "Risk Response"
+},
+"RA-8": {
+"s": "active",
+"t": "Privacy Impact Assessments"
+},
+"RA-9": {
+"s": "active",
+"t": "Criticality Analysis"
+},
+"SA-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"SA-10": {
+"s": "active",
+"t": "Developer Configuration Management"
+},
+"SA-10(1)": {
+"s": "active",
+"t": "Software and Firmware Integrity Verification"
+},
+"SA-10(2)": {
+"s": "active",
+"t": "Alternative Configuration Management Processes"
+},
+"SA-10(3)": {
+"s": "active",
+"t": "Hardware Integrity Verification"
+},
+"SA-10(4)": {
+"s": "active",
+"t": "Trusted Generation"
+},
+"SA-10(5)": {
+"s": "active",
+"t": "Mapping Integrity for Version Control"
+},
+"SA-10(6)": {
+"s": "active",
+"t": "Trusted Distribution"
+},
+"SA-10(7)": {
+"s": "active",
+"t": "Security and Privacy Representatives"
+},
+"SA-11": {
+"s": "active",
+"t": "Developer Testing and Evaluation"
+},
+"SA-11(1)": {
+"s": "active",
+"t": "Static Code Analysis"
+},
+"SA-11(2)": {
+"s": "active",
+"t": "Threat Modeling and Vulnerability Analyses"
+},
+"SA-11(3)": {
+"s": "active",
+"t": "Independent Verification of Assessment Plans and Evidence"
+},
+"SA-11(4)": {
+"s": "active",
+"t": "Manual Code Reviews"
+},
+"SA-11(5)": {
+"s": "active",
+"t": "Penetration Testing"
+},
+"SA-11(6)": {
+"s": "active",
+"t": "Attack Surface Reviews"
+},
+"SA-11(7)": {
+"s": "active",
+"t": "Verify Scope of Testing and Evaluation"
+},
+"SA-11(8)": {
+"s": "active",
+"t": "Dynamic Code Analysis"
+},
+"SA-11(9)": {
+"s": "active",
+"t": "Interactive Application Security Testing"
+},
+"SA-12": {
+"into": [
+"SR"
+],
+"s": "withdrawn",
+"t": "Supply Chain Protection"
+},
+"SA-12(1)": {
+"s": "withdrawn",
+"t": "Acquisition Strategies / Tools / Methods"
+},
+"SA-12(10)": {
+"s": "withdrawn",
+"t": "Validate as Genuine and Not Altered"
+},
+"SA-12(11)": {
+"s": "withdrawn",
+"t": "Penetration Testing / Analysis of Elements, Processes, and Actors"
+},
+"SA-12(12)": {
+"s": "withdrawn",
+"t": "Inter-organizational Agreements"
+},
+"SA-12(13)": {
+"into": [
+"MA-6",
+"RA-9"
+],
+"s": "withdrawn",
+"t": "Critical Information System Components"
+},
+"SA-12(14)": {
+"into": [
+"SR-4(1)",
+"SR-4(2)"
+],
+"s": "withdrawn",
+"t": "Identity and Traceability"
+},
+"SA-12(15)": {
+"into": [
+"SR-3"
+],
+"s": "withdrawn",
+"t": "Processes to Address Weaknesses or Deficiencies"
+},
+"SA-12(2)": {
+"s": "withdrawn",
+"t": "Supplier Reviews"
+},
+"SA-12(3)": {
+"into": [
+"SR-3"
+],
+"s": "withdrawn",
+"t": "Trusted Shipping and Warehousing"
+},
+"SA-12(4)": {
+"s": "withdrawn",
+"t": "Diversity of Suppliers"
+},
+"SA-12(5)": {
+"s": "withdrawn",
+"t": "Limitation of Harm"
+},
+"SA-12(6)": {
+"into": [
+"SR-5(1)"
+],
+"s": "withdrawn",
+"t": "Minimizing Procurement Time"
+},
+"SA-12(7)": {
+"s": "withdrawn",
+"t": "Assessments Prior to Selection / Acceptance / Update"
+},
+"SA-12(8)": {
+"into": [
+"RA-3(2)"
+],
+"s": "withdrawn",
+"t": "Use of All-source Intelligence"
+},
+"SA-12(9)": {
+"s": "withdrawn",
+"t": "Operations Security"
+},
+"SA-13": {
+"into": [
+"SA-8"
+],
+"s": "withdrawn",
+"t": "Trustworthiness"
+},
+"SA-14": {
+"into": [
+"RA-9"
+],
+"s": "withdrawn",
+"t": "Criticality Analysis"
+},
+"SA-14(1)": {
+"into": [
+"SA-20"
+],
+"s": "withdrawn",
+"t": "Critical Components with No Viable Alternative Sourcing"
+},
+"SA-15": {
+"s": "active",
+"t": "Development Process, Standards, and Tools"
+},
+"SA-15(1)": {
+"s": "active",
+"t": "Quality Metrics"
+},
+"SA-15(10)": {
+"s": "active",
+"t": "Incident Response Plan"
+},
+"SA-15(11)": {
+"s": "active",
+"t": "Archive System or Component"
+},
+"SA-15(12)": {
+"s": "active",
+"t": "Minimize Personally Identifiable Information"
+},
+"SA-15(13)": {
+"s": "active",
+"t": "Logging Syntax"
+},
+"SA-15(2)": {
+"s": "active",
+"t": "Security and Privacy Tracking Tools"
+},
+"SA-15(3)": {
+"s": "active",
+"t": "Criticality Analysis"
+},
+"SA-15(4)": {
+"into": [
+"SA-11(2)"
+],
+"s": "withdrawn",
+"t": "Threat Modeling and Vulnerability Analysis"
+},
+"SA-15(5)": {
+"s": "active",
+"t": "Attack Surface Reduction"
+},
+"SA-15(6)": {
+"s": "active",
+"t": "Continuous Improvement"
+},
+"SA-15(7)": {
+"s": "active",
+"t": "Automated Vulnerability Analysis"
+},
+"SA-15(8)": {
+"s": "active",
+"t": "Reuse of Threat and Vulnerability Information"
+},
+"SA-15(9)": {
+"into": [
+"SA-3(2)"
+],
+"s": "withdrawn",
+"t": "Use of Live Data"
+},
+"SA-16": {
+"s": "active",
+"t": "Developer-provided Training"
+},
+"SA-17": {
+"s": "active",
+"t": "Developer Security and Privacy Architecture and Design"
+},
+"SA-17(1)": {
+"s": "active",
+"t": "Formal Policy Model"
+},
+"SA-17(2)": {
+"s": "active",
+"t": "Security-relevant Components"
+},
+"SA-17(3)": {
+"s": "active",
+"t": "Formal Correspondence"
+},
+"SA-17(4)": {
+"s": "active",
+"t": "Informal Correspondence"
+},
+"SA-17(5)": {
+"s": "active",
+"t": "Conceptually Simple Design"
+},
+"SA-17(6)": {
+"s": "active",
+"t": "Structure for Testing"
+},
+"SA-17(7)": {
+"s": "active",
+"t": "Structure for Least Privilege"
+},
+"SA-17(8)": {
+"s": "active",
+"t": "Orchestration"
+},
+"SA-17(9)": {
+"s": "active",
+"t": "Design Diversity"
+},
+"SA-18": {
+"s": "withdrawn",
+"t": "Tamper Resistance and Detection"
+},
+"SA-18(1)": {
+"s": "withdrawn",
+"t": "Multiple Phases of System Development Life Cycle"
+},
+"SA-18(2)": {
+"s": "withdrawn",
+"t": "Inspection of Systems or Components"
+},
+"SA-19": {
+"s": "withdrawn",
+"t": "Component Authenticity"
+},
+"SA-19(1)": {
+"s": "withdrawn",
+"t": "Anti-counterfeit Training"
+},
+"SA-19(2)": {
+"s": "withdrawn",
+"t": "Configuration Control for Component Service and Repair"
+},
+"SA-19(3)": {
+"s": "withdrawn",
+"t": "Component Disposal"
+},
+"SA-19(4)": {
+"s": "withdrawn",
+"t": "Anti-counterfeit Scanning"
+},
+"SA-2": {
+"s": "active",
+"t": "Allocation of Resources"
+},
+"SA-20": {
+"s": "active",
+"t": "Customized Development of Critical Components"
+},
+"SA-21": {
+"s": "active",
+"t": "Developer Screening"
+},
+"SA-21(1)": {
+"into": [
+"SA-21"
+],
+"s": "withdrawn",
+"t": "Validation of Screening"
+},
+"SA-22": {
+"s": "active",
+"t": "Unsupported System Components"
+},
+"SA-22(1)": {
+"into": [
+"SA-22"
+],
+"s": "withdrawn",
+"t": "Alternative Sources for Continued Support"
+},
+"SA-23": {
+"s": "active",
+"t": "Specialization"
+},
+"SA-24": {
+"s": "active",
+"t": "Design For Cyber Resiliency"
+},
+"SA-3": {
+"s": "active",
+"t": "System Development Life Cycle"
+},
+"SA-3(1)": {
+"s": "active",
+"t": "Manage Preproduction Environment"
+},
+"SA-3(2)": {
+"s": "active",
+"t": "Use of Live or Operational Data"
+},
+"SA-3(3)": {
+"s": "active",
+"t": "Technology Refresh"
+},
+"SA-4": {
+"s": "active",
+"t": "Acquisition Process"
+},
+"SA-4(1)": {
+"s": "active",
+"t": "Functional Properties of Controls"
+},
+"SA-4(10)": {
+"s": "active",
+"t": "Use of Approved PIV Products"
+},
+"SA-4(11)": {
+"s": "active",
+"t": "System of Records"
+},
+"SA-4(12)": {
+"s": "active",
+"t": "Data Ownership"
+},
+"SA-4(2)": {
+"s": "active",
+"t": "Design and Implementation Information for Controls"
+},
+"SA-4(3)": {
+"s": "active",
+"t": "Development Methods, Techniques, and Practices"
+},
+"SA-4(4)": {
+"into": [
+"CM-8(9)"
+],
+"s": "withdrawn",
+"t": "Assignment of Components to Systems"
+},
+"SA-4(5)": {
+"s": "active",
+"t": "System, Component, and Service Configurations"
+},
+"SA-4(6)": {
+"s": "active",
+"t": "Use of Information Assurance Products"
+},
+"SA-4(7)": {
+"s": "active",
+"t": "NIAP-approved Protection Profiles "
+},
+"SA-4(8)": {
+"s": "active",
+"t": "Continuous Monitoring Plan for Controls"
+},
+"SA-4(9)": {
+"s": "active",
+"t": "Functions, Ports, Protocols, and Services in Use"
+},
+"SA-5": {
+"s": "active",
+"t": "System Documentation"
+},
+"SA-5(1)": {
+"into": [
+"SA-4(1)"
+],
+"s": "withdrawn",
+"t": "Functional Properties of Security Controls"
+},
+"SA-5(2)": {
+"into": [
+"SA-4(2)"
+],
+"s": "withdrawn",
+"t": "Security-relevant External System Interfaces"
+},
+"SA-5(3)": {
+"into": [
+"SA-4(2)"
+],
+"s": "withdrawn",
+"t": "High-level Design"
+},
+"SA-5(4)": {
+"into": [
+"SA-4(2)"
+],
+"s": "withdrawn",
+"t": "Low-level Design"
+},
+"SA-5(5)": {
+"into": [
+"SA-4(2)"
+],
+"s": "withdrawn",
+"t": "Source Code"
+},
+"SA-6": {
+"into": [
+"CM-10",
+"SI-7"
+],
+"s": "withdrawn",
+"t": "Software Usage Restrictions"
+},
+"SA-7": {
+"into": [
+"CM-11",
+"SI-7"
+],
+"s": "withdrawn",
+"t": "User-installed Software"
+},
+"SA-8": {
+"s": "active",
+"t": "Security and Privacy Engineering Principles"
+},
+"SA-8(1)": {
+"s": "active",
+"t": "Clear Abstractions"
+},
+"SA-8(10)": {
+"s": "active",
+"t": "Hierarchical Trust"
+},
+"SA-8(11)": {
+"s": "active",
+"t": "Inverse Modification Threshold"
+},
+"SA-8(12)": {
+"s": "active",
+"t": "Hierarchical Protection"
+},
+"SA-8(13)": {
+"s": "active",
+"t": "Minimized Security Elements"
+},
+"SA-8(14)": {
+"s": "active",
+"t": "Least Privilege"
+},
+"SA-8(15)": {
+"s": "active",
+"t": "Predicate Permission"
+},
+"SA-8(16)": {
+"s": "active",
+"t": "Self-reliant Trustworthiness"
+},
+"SA-8(17)": {
+"s": "active",
+"t": "Secure Distributed Composition"
+},
+"SA-8(18)": {
+"s": "active",
+"t": "Trusted Communications Channels"
+},
+"SA-8(19)": {
+"s": "active",
+"t": "Continuous Protection"
+},
+"SA-8(2)": {
+"s": "active",
+"t": "Least Common Mechanism"
+},
+"SA-8(20)": {
+"s": "active",
+"t": "Secure Metadata Management"
+},
+"SA-8(21)": {
+"s": "active",
+"t": "Self-analysis"
+},
+"SA-8(22)": {
+"s": "active",
+"t": "Accountability and Traceability"
+},
+"SA-8(23)": {
+"s": "active",
+"t": "Secure Defaults"
+},
+"SA-8(24)": {
+"s": "active",
+"t": "Secure Failure and Recovery"
+},
+"SA-8(25)": {
+"s": "active",
+"t": "Economic Security"
+},
+"SA-8(26)": {
+"s": "active",
+"t": "Performance Security"
+},
+"SA-8(27)": {
+"s": "active",
+"t": "Human Factored Security"
+},
+"SA-8(28)": {
+"s": "active",
+"t": "Acceptable Security"
+},
+"SA-8(29)": {
+"s": "active",
+"t": "Repeatable and Documented Procedures"
+},
+"SA-8(3)": {
+"s": "active",
+"t": "Modularity and Layering"
+},
+"SA-8(30)": {
+"s": "active",
+"t": "Procedural Rigor"
+},
+"SA-8(31)": {
+"s": "active",
+"t": "Secure System Modification"
+},
+"SA-8(32)": {
+"s": "active",
+"t": "Sufficient Documentation"
+},
+"SA-8(33)": {
+"s": "active",
+"t": "Minimization"
+},
+"SA-8(4)": {
+"s": "active",
+"t": "Partially Ordered Dependencies"
+},
+"SA-8(5)": {
+"s": "active",
+"t": "Efficiently Mediated Access"
+},
+"SA-8(6)": {
+"s": "active",
+"t": "Minimized Sharing"
+},
+"SA-8(7)": {
+"s": "active",
+"t": "Reduced Complexity"
+},
+"SA-8(8)": {
+"s": "active",
+"t": "Secure Evolvability"
+},
+"SA-8(9)": {
+"s": "active",
+"t": "Trusted Components"
+},
+"SA-9": {
+"s": "active",
+"t": "External System Services"
+},
+"SA-9(1)": {
+"s": "active",
+"t": "Risk Assessments and Organizational Approvals"
+},
+"SA-9(2)": {
+"s": "active",
+"t": "Identification of Functions, Ports, Protocols, and Services"
+},
+"SA-9(3)": {
+"s": "active",
+"t": "Establish and Maintain Trust Relationship with Providers"
+},
+"SA-9(4)": {
+"s": "active",
+"t": "Consistent Interests of Consumers and Providers"
+},
+"SA-9(5)": {
+"s": "active",
+"t": "Processing, Storage, and Service Location"
+},
+"SA-9(6)": {
+"s": "active",
+"t": "Organization-controlled Cryptographic Keys"
+},
+"SA-9(7)": {
+"s": "active",
+"t": "Organization-controlled Integrity Checking"
+},
+"SA-9(8)": {
+"s": "active",
+"t": "Processing and Storage Location \u2014 U.S. Jurisdiction"
+},
+"SC-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"SC-10": {
+"s": "active",
+"t": "Network Disconnect"
+},
+"SC-11": {
+"s": "active",
+"t": "Trusted Path"
+},
+"SC-11(1)": {
+"s": "active",
+"t": "Irrefutable Communications Path"
+},
+"SC-12": {
+"s": "active",
+"t": "Cryptographic Key Establishment and Management"
+},
+"SC-12(1)": {
+"s": "active",
+"t": "Availability"
+},
+"SC-12(2)": {
+"s": "active",
+"t": "Symmetric Keys"
+},
+"SC-12(3)": {
+"s": "active",
+"t": "Asymmetric Keys"
+},
+"SC-12(4)": {
+"into": [
+"SC-12(3)"
+],
+"s": "withdrawn",
+"t": "PKI Certificates"
+},
+"SC-12(5)": {
+"into": [
+"SC-12(3)"
+],
+"s": "withdrawn",
+"t": "PKI Certificates / Hardware Tokens"
+},
+"SC-12(6)": {
+"s": "active",
+"t": "Physical Control of Keys"
+},
+"SC-13": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"SC-13(1)": {
+"into": [
+"SC-13"
+],
+"s": "withdrawn",
+"t": "FIPS-validated Cryptography"
+},
+"SC-13(2)": {
+"into": [
+"SC-13"
+],
+"s": "withdrawn",
+"t": "NSA-approved Cryptography"
+},
+"SC-13(3)": {
+"into": [
+"SC-13"
+],
+"s": "withdrawn",
+"t": "Individuals Without Formal Access Approvals"
+},
+"SC-13(4)": {
+"into": [
+"SC-13"
+],
+"s": "withdrawn",
+"t": "Digital Signatures"
+},
+"SC-14": {
+"into": [
+"AC-2",
+"AC-3",
+"AC-5",
+"AC-6",
+"SI-3",
+"SI-4",
+"SI-5",
+"SI-7",
+"SI-10"
+],
+"s": "withdrawn",
+"t": "Public Access Protections"
+},
+"SC-15": {
+"s": "active",
+"t": "Collaborative Computing Devices and Applications"
+},
+"SC-15(1)": {
+"s": "active",
+"t": "Physical or Logical Disconnect"
+},
+"SC-15(2)": {
+"into": [
+"SC-7"
+],
+"s": "withdrawn",
+"t": "Blocking Inbound and Outbound Communications Traffic"
+},
+"SC-15(3)": {
+"s": "active",
+"t": "Disabling and Removal in Secure Work Areas"
+},
+"SC-15(4)": {
+"s": "active",
+"t": "Explicitly Indicate Current Participants"
+},
+"SC-16": {
+"s": "active",
+"t": "Transmission of Security and Privacy Attributes"
+},
+"SC-16(1)": {
+"s": "active",
+"t": "Integrity Verification"
+},
+"SC-16(2)": {
+"s": "active",
+"t": "Anti-spoofing Mechanisms"
+},
+"SC-16(3)": {
+"s": "active",
+"t": "Cryptographic Binding"
+},
+"SC-17": {
+"s": "active",
+"t": "Public Key Infrastructure Certificates"
+},
+"SC-18": {
+"s": "active",
+"t": "Mobile Code"
+},
+"SC-18(1)": {
+"s": "active",
+"t": "Identify Unacceptable Code and Take Corrective Actions"
+},
+"SC-18(2)": {
+"s": "active",
+"t": "Acquisition, Development, and Use"
+},
+"SC-18(3)": {
+"s": "active",
+"t": "Prevent Downloading and Execution"
+},
+"SC-18(4)": {
+"s": "active",
+"t": "Prevent Automatic Execution"
+},
+"SC-18(5)": {
+"s": "active",
+"t": "Allow Execution Only in Confined Environments"
+},
+"SC-19": {
+"s": "withdrawn",
+"t": "Voice Over Internet Protocol"
+},
+"SC-2": {
+"s": "active",
+"t": "Separation of System and User Functionality"
+},
+"SC-2(1)": {
+"s": "active",
+"t": "Interfaces for Non-privileged Users"
+},
+"SC-2(2)": {
+"s": "active",
+"t": "Disassociability"
+},
+"SC-20": {
+"s": "active",
+"t": "Secure Name/Address Resolution Service (Authoritative Source)"
+},
+"SC-20(1)": {
+"into": [
+"SC-20"
+],
+"s": "withdrawn",
+"t": "Child Subspaces"
+},
+"SC-20(2)": {
+"s": "active",
+"t": "Data Origin and Integrity"
+},
+"SC-21": {
+"s": "active",
+"t": "Secure Name/Address Resolution Service (Recursive or Caching Resolver)"
+},
+"SC-21(1)": {
+"into": [
+"SC-21"
+],
+"s": "withdrawn",
+"t": "Data Origin and Integrity"
+},
+"SC-22": {
+"s": "active",
+"t": "Architecture and Provisioning for Name/Address Resolution Service"
+},
+"SC-23": {
+"s": "active",
+"t": "Session Authenticity"
+},
+"SC-23(1)": {
+"s": "active",
+"t": "Invalidate Session Identifiers at Logout"
+},
+"SC-23(2)": {
+"into": [
+"AC-12(1)"
+],
+"s": "withdrawn",
+"t": "User-initiated Logouts and Message Displays"
+},
+"SC-23(3)": {
+"s": "active",
+"t": "Unique System-generated Session Identifiers"
+},
+"SC-23(4)": {
+"into": [
+"SC-23(3)"
+],
+"s": "withdrawn",
+"t": "Unique Session Identifiers with Randomization"
+},
+"SC-23(5)": {
+"s": "active",
+"t": "Allowed Certificate Authorities"
+},
+"SC-24": {
+"s": "active",
+"t": "Fail in Known State"
+},
+"SC-25": {
+"s": "active",
+"t": "Thin Nodes"
+},
+"SC-26": {
+"s": "active",
+"t": "Decoys"
+},
+"SC-26(1)": {
+"into": [
+"SC-35"
+],
+"s": "withdrawn",
+"t": "Detection of Malicious Code"
+},
+"SC-27": {
+"s": "active",
+"t": "Platform-independent Applications"
+},
+"SC-28": {
+"s": "active",
+"t": "Protection of Information at Rest"
+},
+"SC-28(1)": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"SC-28(2)": {
+"s": "active",
+"t": "Offline Storage"
+},
+"SC-28(3)": {
+"s": "active",
+"t": "Cryptographic Keys"
+},
+"SC-29": {
+"s": "active",
+"t": "Heterogeneity"
+},
+"SC-29(1)": {
+"s": "active",
+"t": "Virtualization Techniques"
+},
+"SC-3": {
+"s": "active",
+"t": "Security Function Isolation"
+},
+"SC-3(1)": {
+"s": "active",
+"t": "Hardware Separation"
+},
+"SC-3(2)": {
+"s": "active",
+"t": "Access and Flow Control Functions"
+},
+"SC-3(3)": {
+"s": "active",
+"t": "Minimize Nonsecurity Functionality"
+},
+"SC-3(4)": {
+"s": "active",
+"t": "Module Coupling and Cohesiveness"
+},
+"SC-3(5)": {
+"s": "active",
+"t": "Layered Structures"
+},
+"SC-30": {
+"s": "active",
+"t": "Concealment and Misdirection"
+},
+"SC-30(1)": {
+"into": [
+"SC-29(1)"
+],
+"s": "withdrawn",
+"t": "Virtualization Techniques"
+},
+"SC-30(2)": {
+"s": "active",
+"t": "Randomness"
+},
+"SC-30(3)": {
+"s": "active",
+"t": "Change Processing and Storage Locations"
+},
+"SC-30(4)": {
+"s": "active",
+"t": "Misleading Information"
+},
+"SC-30(5)": {
+"s": "active",
+"t": "Concealment of System Components"
+},
+"SC-31": {
+"s": "active",
+"t": "Covert Channel Analysis"
+},
+"SC-31(1)": {
+"s": "active",
+"t": "Test Covert Channels for Exploitability"
+},
+"SC-31(2)": {
+"s": "active",
+"t": "Maximum Bandwidth"
+},
+"SC-31(3)": {
+"s": "active",
+"t": "Measure Bandwidth in Operational Environments"
+},
+"SC-32": {
+"s": "active",
+"t": "System Partitioning"
+},
+"SC-32(1)": {
+"s": "active",
+"t": "Separate Physical Domains for Privileged Functions"
+},
+"SC-33": {
+"into": [
+"SC-8"
+],
+"s": "withdrawn",
+"t": "Transmission Preparation Integrity"
+},
+"SC-34": {
+"s": "active",
+"t": "Non-modifiable Executable Programs"
+},
+"SC-34(1)": {
+"s": "active",
+"t": "No Writable Storage"
+},
+"SC-34(2)": {
+"s": "active",
+"t": "Integrity Protection on Read-only Media"
+},
+"SC-34(3)": {
+"s": "withdrawn",
+"t": "Hardware-based Protection"
+},
+"SC-35": {
+"s": "active",
+"t": "External Malicious Code Identification"
+},
+"SC-36": {
+"s": "active",
+"t": "Distributed Processing and Storage"
+},
+"SC-36(1)": {
+"s": "active",
+"t": "Polling Techniques"
+},
+"SC-36(2)": {
+"s": "active",
+"t": "Synchronization"
+},
+"SC-37": {
+"s": "active",
+"t": "Out-of-band Channels"
+},
+"SC-37(1)": {
+"s": "active",
+"t": "Ensure Delivery and Transmission"
+},
+"SC-38": {
+"s": "active",
+"t": "Operations Security"
+},
+"SC-39": {
+"s": "active",
+"t": "Process Isolation"
+},
+"SC-39(1)": {
+"s": "active",
+"t": "Hardware Separation"
+},
+"SC-39(2)": {
+"s": "active",
+"t": "Separate Execution Domain Per Thread"
+},
+"SC-4": {
+"s": "active",
+"t": "Information in Shared System Resources"
+},
+"SC-4(1)": {
+"into": [
+"SC-4"
+],
+"s": "withdrawn",
+"t": "Security Levels"
+},
+"SC-4(2)": {
+"s": "active",
+"t": "Multilevel or Periods Processing"
+},
+"SC-40": {
+"s": "active",
+"t": "Wireless Link Protection"
+},
+"SC-40(1)": {
+"s": "active",
+"t": "Electromagnetic Interference"
+},
+"SC-40(2)": {
+"s": "active",
+"t": "Reduce Detection Potential"
+},
+"SC-40(3)": {
+"s": "active",
+"t": "Imitative or Manipulative Communications Deception"
+},
+"SC-40(4)": {
+"s": "active",
+"t": "Signal Parameter Identification"
+},
+"SC-41": {
+"s": "active",
+"t": "Port and I/O Device Access"
+},
+"SC-42": {
+"s": "active",
+"t": "Sensor Capability and Data"
+},
+"SC-42(1)": {
+"s": "active",
+"t": "Reporting to Authorized Individuals or Roles"
+},
+"SC-42(2)": {
+"s": "active",
+"t": "Authorized Use"
+},
+"SC-42(3)": {
+"into": [
+"SC-42"
+],
+"s": "withdrawn",
+"t": "Prohibit Use of Devices"
+},
+"SC-42(4)": {
+"s": "active",
+"t": "Notice of Collection"
+},
+"SC-42(5)": {
+"s": "active",
+"t": "Collection Minimization"
+},
+"SC-43": {
+"s": "active",
+"t": "Usage Restrictions"
+},
+"SC-44": {
+"s": "active",
+"t": "Detonation Chambers"
+},
+"SC-45": {
+"s": "active",
+"t": "System Time Synchronization"
+},
+"SC-45(1)": {
+"s": "active",
+"t": "Synchronization with Authoritative Time Source"
+},
+"SC-45(2)": {
+"s": "active",
+"t": "Secondary Authoritative Time Source"
+},
+"SC-46": {
+"s": "active",
+"t": "Cross Domain Policy Enforcement"
+},
+"SC-47": {
+"s": "active",
+"t": "Alternate Communications Paths"
+},
+"SC-48": {
+"s": "active",
+"t": "Sensor Relocation"
+},
+"SC-48(1)": {
+"s": "active",
+"t": "Dynamic Relocation of Sensors or Monitoring Capabilities"
+},
+"SC-49": {
+"s": "active",
+"t": "Hardware-enforced Separation and Policy Enforcement"
+},
+"SC-5": {
+"s": "active",
+"t": "Denial-of-service Protection"
+},
+"SC-5(1)": {
+"s": "active",
+"t": "Restrict Ability to Attack Other Systems"
+},
+"SC-5(2)": {
+"s": "active",
+"t": "Capacity, Bandwidth, and Redundancy"
+},
+"SC-5(3)": {
+"s": "active",
+"t": "Detection and Monitoring"
+},
+"SC-50": {
+"s": "active",
+"t": "Software-enforced Separation and Policy Enforcement"
+},
+"SC-51": {
+"s": "active",
+"t": "Hardware-based Protection"
+},
+"SC-6": {
+"s": "active",
+"t": "Resource Availability"
+},
+"SC-7": {
+"s": "active",
+"t": "Boundary Protection"
+},
+"SC-7(1)": {
+"into": [
+"SC-7"
+],
+"s": "withdrawn",
+"t": "Physically Separated Subnetworks"
+},
+"SC-7(10)": {
+"s": "active",
+"t": "Prevent Exfiltration"
+},
+"SC-7(11)": {
+"s": "active",
+"t": "Restrict Incoming Communications Traffic"
+},
+"SC-7(12)": {
+"s": "active",
+"t": "Host-based Protection"
+},
+"SC-7(13)": {
+"s": "active",
+"t": "Isolation of Security Tools, Mechanisms, and Support Components"
+},
+"SC-7(14)": {
+"s": "active",
+"t": "Protect Against Unauthorized Physical Connections"
+},
+"SC-7(15)": {
+"s": "active",
+"t": "Networked Privileged Accesses"
+},
+"SC-7(16)": {
+"s": "active",
+"t": "Prevent Discovery of System Components"
+},
+"SC-7(17)": {
+"s": "active",
+"t": "Automated Enforcement of Protocol Formats"
+},
+"SC-7(18)": {
+"s": "active",
+"t": "Fail Secure"
+},
+"SC-7(19)": {
+"s": "active",
+"t": "Block Communication from Non-organizationally Configured Hosts"
+},
+"SC-7(2)": {
+"into": [
+"SC-7"
+],
+"s": "withdrawn",
+"t": "Public Access"
+},
+"SC-7(20)": {
+"s": "active",
+"t": "Dynamic Isolation and Segregation"
+},
+"SC-7(21)": {
+"s": "active",
+"t": "Isolation of System Components"
+},
+"SC-7(22)": {
+"s": "active",
+"t": "Separate Subnets for Connecting to Different Security Domains"
+},
+"SC-7(23)": {
+"s": "active",
+"t": "Disable Sender Feedback on Protocol Validation Failure"
+},
+"SC-7(24)": {
+"s": "active",
+"t": "Personally Identifiable Information"
+},
+"SC-7(25)": {
+"s": "active",
+"t": "Unclassified National Security System Connections"
+},
+"SC-7(26)": {
+"s": "active",
+"t": "Classified National Security System Connections"
+},
+"SC-7(27)": {
+"s": "active",
+"t": "Unclassified Non-national Security System Connections"
+},
+"SC-7(28)": {
+"s": "active",
+"t": "Connections to Public Networks"
+},
+"SC-7(29)": {
+"s": "active",
+"t": "Separate Subnets to Isolate Functions"
+},
+"SC-7(3)": {
+"s": "active",
+"t": "Access Points"
+},
+"SC-7(4)": {
+"s": "active",
+"t": "External Telecommunications Services"
+},
+"SC-7(5)": {
+"s": "active",
+"t": "Deny by Default \u2014 Allow by Exception"
+},
+"SC-7(6)": {
+"into": [
+"SC-7(18)"
+],
+"s": "withdrawn",
+"t": "Response to Recognized Failures"
+},
+"SC-7(7)": {
+"s": "active",
+"t": "Split Tunneling for Remote Devices"
+},
+"SC-7(8)": {
+"s": "active",
+"t": "Route Traffic to Authenticated Proxy Servers"
+},
+"SC-7(9)": {
+"s": "active",
+"t": "Restrict Threatening Outgoing Communications Traffic"
+},
+"SC-8": {
+"s": "active",
+"t": "Transmission Confidentiality and Integrity"
+},
+"SC-8(1)": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"SC-8(2)": {
+"s": "active",
+"t": "Pre- and Post-transmission Handling"
+},
+"SC-8(3)": {
+"s": "active",
+"t": "Cryptographic Protection for Message Externals"
+},
+"SC-8(4)": {
+"s": "active",
+"t": "Conceal or Randomize Communications"
+},
+"SC-8(5)": {
+"s": "active",
+"t": "Protected Distribution System"
+},
+"SC-9": {
+"into": [
+"SC-8"
+],
+"s": "withdrawn",
+"t": "Transmission Confidentiality"
+},
+"SI-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"SI-10": {
+"s": "active",
+"t": "Information Input Validation"
+},
+"SI-10(1)": {
+"s": "active",
+"t": "Manual Override Capability"
+},
+"SI-10(2)": {
+"s": "active",
+"t": "Review and Resolve Errors"
+},
+"SI-10(3)": {
+"s": "active",
+"t": "Predictable Behavior"
+},
+"SI-10(4)": {
+"s": "active",
+"t": "Timing Interactions"
+},
+"SI-10(5)": {
+"s": "active",
+"t": "Restrict Inputs to Trusted Sources and Approved Formats"
+},
+"SI-10(6)": {
+"s": "active",
+"t": "Injection Prevention"
+},
+"SI-11": {
+"s": "active",
+"t": "Error Handling"
+},
+"SI-12": {
+"s": "active",
+"t": "Information Management and Retention"
+},
+"SI-12(1)": {
+"s": "active",
+"t": "Limit Personally Identifiable Information Elements"
+},
+"SI-12(2)": {
+"s": "active",
+"t": "Minimize Personally Identifiable Information in Testing, Training, and Research"
+},
+"SI-12(3)": {
+"s": "active",
+"t": "Information Disposal"
+},
+"SI-13": {
+"s": "active",
+"t": "Predictable Failure Prevention"
+},
+"SI-13(1)": {
+"s": "active",
+"t": "Transferring Component Responsibilities"
+},
+"SI-13(2)": {
+"into": [
+"SI-7(16)"
+],
+"s": "withdrawn",
+"t": "Time Limit on Process Execution Without Supervision"
+},
+"SI-13(3)": {
+"s": "active",
+"t": "Manual Transfer Between Components"
+},
+"SI-13(4)": {
+"s": "active",
+"t": "Standby Component Installation and Notification"
+},
+"SI-13(5)": {
+"s": "active",
+"t": "Failover Capability"
+},
+"SI-14": {
+"s": "active",
+"t": "Non-persistence"
+},
+"SI-14(1)": {
+"s": "active",
+"t": "Refresh from Trusted Sources"
+},
+"SI-14(2)": {
+"s": "active",
+"t": "Non-persistent Information"
+},
+"SI-14(3)": {
+"s": "active",
+"t": "Non-persistent Connectivity"
+},
+"SI-15": {
+"s": "active",
+"t": "Information Output Filtering"
+},
+"SI-16": {
+"s": "active",
+"t": "Memory Protection"
+},
+"SI-17": {
+"s": "active",
+"t": "Fail-safe Procedures"
+},
+"SI-18": {
+"s": "active",
+"t": "Personally Identifiable Information Quality Operations"
+},
+"SI-18(1)": {
+"s": "active",
+"t": "Automation Support"
+},
+"SI-18(2)": {
+"s": "active",
+"t": "Data Tags"
+},
+"SI-18(3)": {
+"s": "active",
+"t": "Collection"
+},
+"SI-18(4)": {
+"s": "active",
+"t": "Individual Requests"
+},
+"SI-18(5)": {
+"s": "active",
+"t": "Notice of Correction or Deletion"
+},
+"SI-19": {
+"s": "active",
+"t": "De-identification"
+},
+"SI-19(1)": {
+"s": "active",
+"t": "Collection"
+},
+"SI-19(2)": {
+"s": "active",
+"t": "Archiving"
+},
+"SI-19(3)": {
+"s": "active",
+"t": "Release"
+},
+"SI-19(4)": {
+"s": "active",
+"t": "Removal, Masking, Encryption, Hashing, or Replacement of Direct Identifiers"
+},
+"SI-19(5)": {
+"s": "active",
+"t": "Statistical Disclosure Control"
+},
+"SI-19(6)": {
+"s": "active",
+"t": "Differential Privacy"
+},
+"SI-19(7)": {
+"s": "active",
+"t": "Validated Algorithms and Software"
+},
+"SI-19(8)": {
+"s": "active",
+"t": "Motivated Intruder"
+},
+"SI-2": {
+"s": "active",
+"t": "Flaw Remediation"
+},
+"SI-2(1)": {
+"into": [
+"PL-9"
+],
+"s": "withdrawn",
+"t": "Central Management"
+},
+"SI-2(2)": {
+"s": "active",
+"t": "Automated Flaw Remediation Status"
+},
+"SI-2(3)": {
+"s": "active",
+"t": "Time to Remediate Flaws and Benchmarks for Corrective Actions"
+},
+"SI-2(4)": {
+"s": "active",
+"t": "Automated Patch Management Tools"
+},
+"SI-2(5)": {
+"s": "active",
+"t": "Automatic Software and Firmware Updates"
+},
+"SI-2(6)": {
+"s": "active",
+"t": "Removal of Previous Versions of Software and Firmware"
+},
+"SI-2(7)": {
+"s": "active",
+"t": "Root Cause Analysis"
+},
+"SI-20": {
+"s": "active",
+"t": "Tainting"
+},
+"SI-21": {
+"s": "active",
+"t": "Information Refresh"
+},
+"SI-22": {
+"s": "active",
+"t": "Information Diversity"
+},
+"SI-23": {
+"s": "active",
+"t": "Information Fragmentation"
+},
+"SI-3": {
+"s": "active",
+"t": "Malicious Code Protection"
+},
+"SI-3(1)": {
+"into": [
+"PL-9"
+],
+"s": "withdrawn",
+"t": "Central Management"
+},
+"SI-3(10)": {
+"s": "active",
+"t": "Malicious Code Analysis"
+},
+"SI-3(2)": {
+"into": [
+"SI-3"
+],
+"s": "withdrawn",
+"t": "Automatic Updates"
+},
+"SI-3(3)": {
+"into": [
+"AC-6(10)"
+],
+"s": "withdrawn",
+"t": "Non-privileged Users"
+},
+"SI-3(4)": {
+"s": "active",
+"t": "Updates Only by Privileged Users"
+},
+"SI-3(5)": {
+"into": [
+"MP-7"
+],
+"s": "withdrawn",
+"t": "Portable Storage Devices"
+},
+"SI-3(6)": {
+"s": "active",
+"t": "Testing and Verification"
+},
+"SI-3(7)": {
+"into": [
+"SI-3"
+],
+"s": "withdrawn",
+"t": "Nonsignature-based Detection"
+},
+"SI-3(8)": {
+"s": "active",
+"t": "Detect Unauthorized Commands"
+},
+"SI-3(9)": {
+"s": "withdrawn",
+"t": "Authenticate Remote Commands"
+},
+"SI-4": {
+"s": "active",
+"t": "System Monitoring"
+},
+"SI-4(1)": {
+"s": "active",
+"t": "System-wide Intrusion Detection System"
+},
+"SI-4(10)": {
+"s": "active",
+"t": "Visibility of Encrypted Communications"
+},
+"SI-4(11)": {
+"s": "active",
+"t": "Analyze Communications Traffic Anomalies"
+},
+"SI-4(12)": {
+"s": "active",
+"t": "Automated Organization-generated Alerts"
+},
+"SI-4(13)": {
+"s": "active",
+"t": "Analyze Traffic and Event Patterns"
+},
+"SI-4(14)": {
+"s": "active",
+"t": "Wireless Intrusion Detection"
+},
+"SI-4(15)": {
+"s": "active",
+"t": "Wireless to Wireline Communications"
+},
+"SI-4(16)": {
+"s": "active",
+"t": "Correlate Monitoring Information"
+},
+"SI-4(17)": {
+"s": "active",
+"t": "Integrated Situational Awareness"
+},
+"SI-4(18)": {
+"s": "active",
+"t": "Analyze Traffic and Covert Exfiltration"
+},
+"SI-4(19)": {
+"s": "active",
+"t": "Risk for Individuals"
+},
+"SI-4(2)": {
+"s": "active",
+"t": "Automated Tools and Mechanisms for Real-time Analysis"
+},
+"SI-4(20)": {
+"s": "active",
+"t": "Privileged Users"
+},
+"SI-4(21)": {
+"s": "active",
+"t": "Probationary Periods"
+},
+"SI-4(22)": {
+"s": "active",
+"t": "Unauthorized Network Services"
+},
+"SI-4(23)": {
+"s": "active",
+"t": "Host-based Devices"
+},
+"SI-4(24)": {
+"s": "active",
+"t": "Indicators of Compromise"
+},
+"SI-4(25)": {
+"s": "active",
+"t": "Optimize Network Traffic Analysis"
+},
+"SI-4(3)": {
+"s": "active",
+"t": "Automated Tool and Mechanism Integration"
+},
+"SI-4(4)": {
+"s": "active",
+"t": "Inbound and Outbound Communications Traffic"
+},
+"SI-4(5)": {
+"s": "active",
+"t": "System-generated Alerts"
+},
+"SI-4(6)": {
+"into": [
+"AC-6(10)"
+],
+"s": "withdrawn",
+"t": "Restrict Non-privileged Users"
+},
+"SI-4(7)": {
+"s": "active",
+"t": "Automated Response to Suspicious Events"
+},
+"SI-4(8)": {
+"into": [
+"SI-4"
+],
+"s": "withdrawn",
+"t": "Protection of Monitoring Information"
+},
+"SI-4(9)": {
+"s": "active",
+"t": "Testing of Monitoring Tools and Mechanisms"
+},
+"SI-5": {
+"s": "active",
+"t": "Security Alerts, Advisories, and Directives"
+},
+"SI-5(1)": {
+"s": "active",
+"t": "Automated Alerts and Advisories"
+},
+"SI-6": {
+"s": "active",
+"t": "Security and Privacy Function Verification"
+},
+"SI-6(1)": {
+"into": [
+"SI-6"
+],
+"s": "withdrawn",
+"t": "Notification of Failed Security Tests"
+},
+"SI-6(2)": {
+"s": "active",
+"t": "Automation Support for Distributed Testing"
+},
+"SI-6(3)": {
+"s": "active",
+"t": "Report Verification Results"
+},
+"SI-7": {
+"s": "active",
+"t": "Software, Firmware, and Information Integrity"
+},
+"SI-7(1)": {
+"s": "active",
+"t": "Integrity Checks"
+},
+"SI-7(10)": {
+"s": "active",
+"t": "Protection of Boot Firmware"
+},
+"SI-7(11)": {
+"s": "withdrawn",
+"t": "Confined Environments with Limited Privileges"
+},
+"SI-7(12)": {
+"s": "active",
+"t": "Integrity Verification"
+},
+"SI-7(13)": {
+"s": "withdrawn",
+"t": "Code Execution in Protected Environments"
+},
+"SI-7(14)": {
+"s": "withdrawn",
+"t": "Binary or Machine Executable Code"
+},
+"SI-7(15)": {
+"s": "active",
+"t": "Code Authentication"
+},
+"SI-7(16)": {
+"s": "active",
+"t": "Time Limit on Process Execution Without Supervision"
+},
+"SI-7(17)": {
+"s": "active",
+"t": "Runtime Application Self-protection"
+},
+"SI-7(2)": {
+"s": "active",
+"t": "Automated Notifications of Integrity Violations"
+},
+"SI-7(3)": {
+"s": "active",
+"t": "Centrally Managed Integrity Tools"
+},
+"SI-7(4)": {
+"into": [
+"SR-9"
+],
+"s": "withdrawn",
+"t": "Tamper-evident Packaging"
+},
+"SI-7(5)": {
+"s": "active",
+"t": "Automated Response to Integrity Violations"
+},
+"SI-7(6)": {
+"s": "active",
+"t": "Cryptographic Protection"
+},
+"SI-7(7)": {
+"s": "active",
+"t": "Integration of Detection and Response"
+},
+"SI-7(8)": {
+"s": "active",
+"t": "Auditing Capability for Significant Events"
+},
+"SI-7(9)": {
+"s": "active",
+"t": "Verify Boot Process"
+},
+"SI-8": {
+"s": "active",
+"t": "Spam Protection"
+},
+"SI-8(1)": {
+"into": [
+"PL-9"
+],
+"s": "withdrawn",
+"t": "Central Management"
+},
+"SI-8(2)": {
+"s": "active",
+"t": "Automatic Updates"
+},
+"SI-8(3)": {
+"s": "active",
+"t": "Continuous Learning Capability"
+},
+"SI-9": {
+"into": [
+"AC-2",
+"AC-3",
+"AC-5",
+"AC-6"
+],
+"s": "withdrawn",
+"t": "Information Input Restrictions"
+},
+"SR-1": {
+"s": "active",
+"t": "Policy and Procedures"
+},
+"SR-10": {
+"s": "active",
+"t": "Inspection of Systems or Components"
+},
+"SR-11": {
+"s": "active",
+"t": "Component Authenticity"
+},
+"SR-11(1)": {
+"s": "active",
+"t": "Anti-counterfeit Training"
+},
+"SR-11(2)": {
+"s": "active",
+"t": "Configuration Control for Component Service and Repair"
+},
+"SR-11(3)": {
+"s": "active",
+"t": "Anti-counterfeit Scanning"
+},
+"SR-12": {
+"s": "active",
+"t": "Component Disposal"
+},
+"SR-2": {
+"s": "active",
+"t": "Supply Chain Risk Management Plan"
+},
+"SR-2(1)": {
+"s": "active",
+"t": "Establish SCRM Team"
+},
+"SR-3": {
+"s": "active",
+"t": "Supply Chain Controls and Processes"
+},
+"SR-3(1)": {
+"s": "active",
+"t": "Diverse Supply Base"
+},
+"SR-3(2)": {
+"s": "active",
+"t": "Limitation of Harm"
+},
+"SR-3(3)": {
+"s": "active",
+"t": "Sub-tier Flow Down"
+},
+"SR-4": {
+"s": "active",
+"t": "Provenance"
+},
+"SR-4(1)": {
+"s": "active",
+"t": "Identity"
+},
+"SR-4(2)": {
+"s": "active",
+"t": "Track and Trace"
+},
+"SR-4(3)": {
+"s": "active",
+"t": "Validate as Genuine and Not Altered"
+},
+"SR-4(4)": {
+"s": "active",
+"t": "Supply Chain Integrity \u2014 Pedigree"
+},
+"SR-5": {
+"s": "active",
+"t": "Acquisition Strategies, Tools, and Methods"
+},
+"SR-5(1)": {
+"s": "active",
+"t": "Adequate Supply"
+},
+"SR-5(2)": {
+"s": "active",
+"t": "Assessments Prior to Selection, Acceptance, Modification, or Update"
+},
+"SR-6": {
+"s": "active",
+"t": "Supplier Assessments and Reviews"
+},
+"SR-6(1)": {
+"s": "active",
+"t": "Testing and Analysis"
+},
+"SR-7": {
+"s": "active",
+"t": "Supply Chain Operations Security"
+},
+"SR-8": {
+"s": "active",
+"t": "Notification Agreements"
+},
+"SR-9": {
+"s": "active",
+"t": "Tamper Resistance and Detection"
+},
+"SR-9(1)": {
+"s": "active",
+"t": "Multiple Stages of System Development Life Cycle"
+}
+}
+}

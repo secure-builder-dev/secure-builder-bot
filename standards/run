@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# standards/run — the standards module's command line, from anywhere.
+# Usage: standards/run <verify FILE...|versions|catalog ID...|refresh> [args]
+# The module depends on nothing but the standard library, so only its own package goes on the path.
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec env PYTHONPATH="$here${PYTHONPATH:+:$PYTHONPATH}" python3 -m securebuilderbot_standards "$@"

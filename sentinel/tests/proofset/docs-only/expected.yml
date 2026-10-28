@@ -1,0 +1,9 @@
+# A docs-only change: light depth, one checklist request, no findings, every item n/a or cited.
+profile: il4
+depth: light
+status: pass
+requests: [checklist]
+control_completeness: []
+answers: [n/a, cited]
+findings: []
+unchanged_without: [pr_body]

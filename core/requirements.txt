@@ -1,0 +1,2 @@
+# Runtime dependencies of the core module. One, by decision (SPEC-core.md § Open Questions).
+PyYAML==6.0.2

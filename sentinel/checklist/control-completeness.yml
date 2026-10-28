@@ -1,0 +1,23 @@
+# The Control Completeness questions (engine/SENTINEL-CHECKLIST.md § Control Completeness Review),
+# word for word: a deep review asks all six for each manifest control the diff touches, and the
+# answer comes back in the block shape that section prints. test_checklist.py holds each question to
+# its row of the markdown table, so the two cannot drift.
+questions:
+  - id: Q1
+    label: recursion
+    question: 'Does the guard recurse into nested objects and arrays, or does it inspect only top-level keys?'
+  - id: Q2
+    label: write paths
+    question: 'Is there a second write path to this same state, and is the guard present on **both**?'
+  - id: Q3
+    label: entry points
+    question: 'Which framework entry points does this hook **not** cover? List them.'
+  - id: Q4
+    label: not-verified
+    question: 'What does this verification **not** verify? List it.'
+  - id: Q5
+    label: call site
+    question: 'Name the production call site — file and line.'
+  - id: Q6
+    label: strict/mount
+    question: 'If it rejects input: is the schema strict, and is it actually mounted?'

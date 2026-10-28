@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.env
+.env.*
+*.log
+.DS_Store
+
+# per-clone gate runtime state
+gate-records/state/
+.ruff_cache/
+__pycache__/
+.pytest_cache/
+.coverage
+# per-run receipts: uploaded as CI artifacts, never committed (SPEC-core.md); only the gate-log row is
+gate-records/runs/
+# scan results: per-run, rewritten by every scan
+gate-records/scan/
+# scan fixtures carry a canned clamav.log each; the verdict tests read them
+!scanners/fixtures/**/*.log
+# vitest writes coverage/ in a package; measured, never committed
+coverage/

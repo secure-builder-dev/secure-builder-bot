@@ -1,0 +1,12 @@
+{
+  "SchemaVersion": 2,
+  "ArtifactName": "<APP_NAME>-api:latest",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {"Family": "debian", "Name": "11.6"},
+    "ImageID": "sha256:aaa111bbb222ccc333",
+    "RepoTags": ["<APP_NAME>-api:latest"],
+    "RepoDigests": []
+  },
+  "Results": []
+}

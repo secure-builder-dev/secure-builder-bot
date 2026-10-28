@@ -1,0 +1,158 @@
+name: Secure Builder
+description: >-
+  The three gates (Scan, QA, Sentinel) on a pull request: one check per gate, findings as review
+  comments on the diff, the receipt as a workflow artifact.
+# Token permissions the calling workflow must grant, and nothing more (PRD § Security of the bot
+# itself, least permission):
+#   contents: read         check out the code and read the pull request's files
+#   checks: write          one check run per gate
+#   pull-requests: write   review comments on the diff, and replies on the bot's own comments
+# With these the action cannot push, merge, read other secrets or change settings. It runs from
+# the bot's own checkout at the ref the workflow's `uses:` names, so the user's repository needs
+# only the workflow file the setup pull request writes.
+inputs:
+  version:
+    description: >-
+      The bot release the run records (latest, or x.y.z), the same value .securebuilderbot.yml
+      names. What actually runs is the ref the workflow's `uses:` points at.
+    default: latest
+  base:
+    description: The git ref the gated range starts at. Defaults to the pull request's base sha.
+    default: ${{ github.event.pull_request.base.sha }}
+  python-version:
+    description: The Python the core runner uses.
+    default: '3.12'
+  token:
+    description: The token the checks and comments are posted with; the workflow's own is enough.
+    default: ${{ github.token }}
+  model-key:
+    description: >-
+      Sentinel's model key, from the CI secret .securebuilderbot.yml's sentinel.key_secret names.
+      An input, not env on the step that uses this action, so only the step that runs core is given
+      it: the install, publish and upload steps never see it. Empty when Sentinel is off.
+    default: ''
+  part:
+    description: >-
+      Empty (the default): every gate in this one job. untrusted: only Scan and QA, the gates that run
+      the pull request's code, with no model key and no publishing; the run is uploaded as the artifact
+      secure-builder-untrusted-run. trusted: in a later job of the same workflow run, Sentinel and the
+      verdict, reading that artifact as an untrusted claim, then publishing. The workflow the setup
+      pull request writes uses the two parts (PRD § Configuration).
+    default: ''
+  model-key-name:
+    description: >-
+      The environment variable core's Sentinel gate reads the key from: the value of
+      sentinel.key_secret. A name already set in the environment is refused.
+    default: SB_MODEL_KEY
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      with:
+        python-version: ${{ inputs.python-version }}
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: '22'
+    # Every value from the github or inputs context reaches a script through env:, never by ${{ }}
+    # inside run:, so a branch name or input cannot become shell code (semgrep run-shell-injection).
+    - name: Install the core runner, and the scanners' requirements when present
+      shell: bash
+      env:
+        SB_ACTION_PATH: ${{ github.action_path }}
+      run: |
+        bot="$SB_ACTION_PATH/.."
+        pip install -q -r "$bot/core/requirements.txt"
+        if [ -f "$bot/scanners/requirements.txt" ]; then pip install -q -r "$bot/scanners/requirements.txt"; fi
+    # The trusted part reads the untrusted job's run from its artifact, into a directory of its own
+    # outside the checkout. Everything in it was written where the pull request's code ran.
+    - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      if: inputs.part == 'trusted'
+      # A gates job that left no artifact is Scan and QA not running, reported by core, never no checks at all.
+      continue-on-error: true
+      with:
+        name: secure-builder-untrusted-run
+        path: ${{ runner.temp }}/securebuilderbot-untrusted
+    - name: core/run run — every gate .securebuilderbot.yml turns on, on the pull request's range
+      id: core
+      shell: bash
+      env:
+        SB_VERSION: ${{ inputs.version }}
+        SB_BASE: ${{ inputs.base }}
+        SB_BASE_REF: ${{ github.base_ref }}
+        SB_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        SB_ACTION_PATH: ${{ github.action_path }}
+        # The model key reaches this step and no other. In a whole run the gates share this process,
+        # so the scan and QA gates (which run the pull request's code) could read it; split in two
+        # parts, the untrusted part refuses a key and only the trusted part, which runs no pull
+        # request code, holds it.
+        SB_MODEL_KEY_VALUE: ${{ inputs.model-key }}
+        SB_MODEL_KEY_NAME: ${{ inputs.model-key-name }}
+        SB_PART: ${{ inputs.part }}
+        SB_UNTRUSTED_DIR: ${{ runner.temp }}/securebuilderbot-untrusted
+      run: |
+        case "$SB_PART" in
+          '') part=() ;;
+          untrusted)
+            # This part runs the pull request's code: it is never handed the model key.
+            if [ -n "$SB_MODEL_KEY_VALUE" ]; then echo "part untrusted runs the pull request's code and must not be given the model key" >&2; exit 2; fi
+            part=(--part untrusted) ;;
+          trusted) part=(--part trusted --untrusted-run "$SB_UNTRUSTED_DIR") ;;
+          *) echo "part must be empty, untrusted or trusted" >&2; exit 2 ;;
+        esac
+        base="$SB_BASE"
+        if [ -z "$base" ]; then base="$(git rev-parse HEAD~1)"; fi
+        if [ -n "$SB_MODEL_KEY_VALUE" ]; then
+          if ! [[ "$SB_MODEL_KEY_NAME" =~ ^[A-Z_][A-Z0-9_]*$ ]] || [ -n "${!SB_MODEL_KEY_NAME+set}" ]; then
+            echo "model-key-name must name a CI secret (A-Z, 0-9, _) that is not already set in the environment" >&2
+            exit 2
+          fi
+          export "$SB_MODEL_KEY_NAME=$SB_MODEL_KEY_VALUE"
+        fi
+        unset SB_MODEL_KEY_VALUE
+        # The run directory the publisher posts is the one core reports on its own stdout, after every
+        # gate has finished: the last "Receipt: gate-records/runs/<id>/receipt.md" line. It is passed
+        # on through $GITHUB_OUTPUT, never chosen from the checkout, where the pull request's suite
+        # can write a newer folder of its own. Core's exit code is the step's.
+        out="$RUNNER_TEMP/securebuilderbot-core.out"
+        set +e
+        # The rules (the config and every excusing list) are the target branch's tip as fetched by this
+        # job's checkout, never the event's base.sha snapshot: a re-run replays that after the target
+        # has revoked an exception. Outside a pull request there is no target, and --base decides.
+        if [ -n "$SB_BASE_REF" ]; then
+          "$SB_ACTION_PATH/../core/run" run --base "$base" --config-ref "refs/remotes/origin/$SB_BASE_REF" --head "$SB_HEAD" --config .securebuilderbot.yml "${part[@]}" | tee "$out"
+        else
+          "$SB_ACTION_PATH/../core/run" run --base "$base" --head "$SB_HEAD" --config .securebuilderbot.yml "${part[@]}" | tee "$out"
+        fi
+        rc=${PIPESTATUS[0]}
+        set -e
+        run_dir=$(sed -nE 's#^Receipt: (gate-records/runs/[0-9]{8}T[0-9]{6}Z-[0-9a-f]{7})/receipt\.md$#\1#p' "$out" | tail -n 1)
+        if [ -n "$run_dir" ]; then echo "run-dir=$PWD/$run_dir" >> "$GITHUB_OUTPUT"; fi
+        exit "$rc"
+    - name: Publish one check per gate and the findings as review comments, even after a red gate
+      if: always() && inputs.part != 'untrusted'
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        GITHUB_WORKSPACE: ${{ github.workspace }}
+        SB_ACTION_PATH: ${{ github.action_path }}
+        # The run core reported; empty when it reported none, which the publisher refuses.
+        SB_RUN_DIR: ${{ steps.core.outputs.run-dir }}
+      run: |
+        cd "$SB_ACTION_PATH"
+        npm ci --no-fund --no-audit
+        npx tsx src/main.ts
+    # The untrusted part hands on the one run core reported, for the trusted job to read as a claim.
+    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      if: always() && inputs.part == 'untrusted' && steps.core.outputs.run-dir != ''
+      with:
+        name: secure-builder-untrusted-run
+        path: ${{ steps.core.outputs.run-dir }}
+        if-no-files-found: error
+    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      if: always() && inputs.part != 'untrusted'
+      with:
+        name: secure-builder-receipt
+        # A receipt of that name the gates job's code planted with the run's artifact token is replaced.
+        overwrite: true
+        path: gate-records/runs/
+        if-no-files-found: warn

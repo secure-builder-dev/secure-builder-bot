@@ -1,0 +1,12 @@
+# A tenant scope removed (AC-3, AC-4). scopeToTenant is a manifest control; the range turns it into
+# a pass-through, so Control Completeness runs on it and only on it.
+profile: il6
+depth: deep
+status: fail
+requests: [checklist, control_completeness, adversarial, edge_case]
+control_completeness: [CM-02]
+findings:
+  - {rule_id: AC-3, path: backend/src/scope/tenant.js, line: 3, severity: blocking}
+  - {rule_id: AC-4, path: backend/src/scope/tenant.js, line: 3, severity: blocking}
+  - {rule_id: edge-case, path: backend/src/scope/tenant.js, line: 2, severity: advisory}
+unchanged_without: [pr_body]

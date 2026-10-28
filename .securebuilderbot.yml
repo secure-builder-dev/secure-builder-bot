@@ -1,0 +1,7 @@
+# The bot gates itself at the High baseline (docs/PRD.md § Security of the bot itself).
+profile: il6
+# qa runs the bot's own pytest suite with coverage, the changed-line check at il6's 90 and the mutation of
+# every manifest row. sentinel is built but needs a model key; without one it is not_run, so it is not
+# listed here. .github/securebuilderbot-full.yml turns on all three, run by CI when SB_MODEL_KEY is set.
+gates: [scan, qa]
+version: latest

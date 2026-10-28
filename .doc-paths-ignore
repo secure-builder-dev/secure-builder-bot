@@ -1,0 +1,4 @@
+# Vendored upstream text (Addy Osmani's agent-skills, MIT; see NOTICE and the commit that
+# vendored it). Its paths describe the project a skill is used on, not this repository, and the
+# text is kept as published so an upstream update stays a clean diff.
+^\.claude/(skills|commands)/

@@ -1,0 +1,16 @@
+# Profile il4 — NIST SP 800-53 Rev 5 Moderate baseline. Numbers from docs/PRD.md § Compliance profiles.
+title: IL4 (NIST SP 800-53 Rev 5 Moderate baseline)
+baseline: moderate
+owasp_top10: true
+stigs: [application-security-and-development]
+stigs_where_present: [container-platform, web-server]
+stig_cat1_enforced: false
+checklist_blocks: [base, moderate]
+scan:
+  fail_on: [critical, high]
+  medium_max_age_days: null
+  cve_data_max_age_days: 90
+qa:
+  coverage_changed_lines: 80
+  mutation_required: true
+accepted_risk_expiry_days: 180

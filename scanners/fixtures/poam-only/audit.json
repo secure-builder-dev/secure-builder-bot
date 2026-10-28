@@ -1,0 +1,35 @@
+{
+  "scanner": "npm-audit",
+  "generated": "2026-09-23",
+  "policy": "High and Critical block across all dependencies; Moderate and Low are reported",
+  "apps": [
+    {
+      "app": "backend",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "advisories": []
+    },
+    {
+      "app": "frontend",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "advisories": []
+    }
+  ],
+  "blocking": [],
+  "allowlisted": [],
+  "expired_allowlist": [],
+  "reported": []
+}

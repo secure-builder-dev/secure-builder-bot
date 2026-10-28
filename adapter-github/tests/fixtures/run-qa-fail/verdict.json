@@ -1,0 +1,21 @@
+{
+ "overall": "fail",
+ "exit_code": 1,
+ "relaxations": [],
+ "gates": [
+  {
+   "gate": "scan",
+   "status": "pass",
+   "reason": "",
+   "blocking_findings": 0,
+   "advisory_findings": 0
+  },
+  {
+   "gate": "qa",
+   "status": "fail",
+   "reason": "2 blocking findings: a control without an ownership check, a route without a negative test",
+   "blocking_findings": 2,
+   "advisory_findings": 0
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+name: refresh-standards
+# The one scheduled thing the bot runs, and it runs it here, in its own repository, never in a
+# user's (docs/PRD.md § Staying current). Weekly: fetch every upstream the vendored indexes record
+# (NIST's OSCAL catalog and baselines, the OWASP lists, the DISA STIGs as redistributed, OWASP MASVS,
+# NIST's publication list), compare, regenerate what moved, prove the tree still passes its own
+# checks, and open a pull request a maintainer reads. Users take the change as a release.
+#
+# A catalog revision that withdraws or drops a control this repository cites is refused by the
+# refresh itself (exit 1): nothing is adopted, the changelog records which item, and that record is
+# what the pull request carries, so the failure is loud and names the citation to fix.
+on:
+  schedule:
+    - cron: '17 6 * * 1'   # Mondays, 06:17 UTC
+  workflow_dispatch:
+# contents: write to push the refresh branch; pull-requests: write to open the PR. Nothing else.
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the tools make check-task needs
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q shellcheck jq
+          pip install -q ruff -r core/requirements-dev.txt
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz | sudo tar xz -C /usr/local/bin gitleaks
+      - name: Refresh the vendored standards
+        id: refresh
+        run: |
+          set +e
+          standards/run refresh 2>&1 | tee refresh.log
+          rc=${PIPESTATUS[0]}
+          set -e
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          { echo '## standards refresh'; echo; echo '```'; cat refresh.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          # 0 nothing to do · 3 changed · 1 refused (the changelog names the item) · 2 could not run
+          case "$rc" in 0|1|3) exit 0 ;; *) exit "$rc" ;; esac
+      - name: The refreshed tree still passes its own checks
+        if: steps.refresh.outputs.rc == '3'
+        run: make check-task
+      - name: Open the pull request carrying the changelog diff
+        if: steps.refresh.outputs.rc == '3' || steps.refresh.outputs.rc == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RC: ${{ steps.refresh.outputs.rc }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- standards/; then echo "no diff under standards/ — nothing to open"; exit 0; fi
+          if [ "$RC" = "1" ]; then kind="refused"; title="standards refresh REFUSED: a catalog revision breaks a citation"; else kind="refresh"; title="standards: weekly refresh $(date -u +%Y-%m-%d)"; fi
+          branch="standards/$kind-$(date -u +%Y-%m-%d)"
+          if gh pr list --head "$branch" --state open --json number --jq 'length' | grep -qv '^0$'; then echo "a PR for $branch is already open"; exit 0; fi
+          git config user.name "securebuilderbot"
+          git config user.email "securebuilderbot@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add standards/
+          git commit -q -m "$title"
+          git push -q -u origin "$branch"
+          { echo "Opened by the weekly refresh workflow. The changelog entry below is the whole change; read the index diff before merging."; echo; git diff --unified=0 HEAD~1 -- standards/CHANGELOG.md | sed -n '/^+[^+]/s/^+//p'; } > body.md
+          gh pr create --title "$title" --body-file body.md --base "${GITHUB_REF_NAME:-main}" --head "$branch"
+      - name: A refused refresh fails this run, loudly
+        if: steps.refresh.outputs.rc == '1'
+        run: |
+          echo "::error title=standards refresh refused::$(grep -A20 'REFUSED' refresh.log | head -20 | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}')"
+          exit 1

@@ -1,0 +1,12 @@
+# Files the floor guard never flags: the guard and its test carry every pattern it looks for.
+scripts/floor-guard.mjs
+scripts/tests/constraints-test.sh
+# The standards self-test proves the citation allow-marker exempts one line, so it has to write that marker.
+standards/tests/standards-selftest.sh
+# The citation verifier defines the allow marker and names it in its output; its test writes it to prove it.
+standards/securebuilderbot_standards/citations.py
+standards/tests/test_citations.py
+# The QA gate's skip and mocked-database checks, and their test, carry every pattern they look for; the
+# gate reads this list for those two checks exactly as the floor guard does.
+qa/securebuilderbot_qa/checks.py
+qa/tests/test_checks.py

@@ -1,0 +1,11 @@
+# All three gates on the bot's own repository (docs/PRD.md § Security of the bot itself: the bot gates
+# itself at il6). The scan workflow's `sentinel` job runs this file, and only when the maintainer has
+# added the model key as the repository secret SB_MODEL_KEY; .securebuilderbot.yml keeps scan and qa,
+# because without a key the Sentinel gate is not_run and an install must never show that as green.
+profile: il6
+gates: [scan, qa, sentinel]
+version: latest
+sentinel:
+  provider: anthropic
+  key_secret: SB_MODEL_KEY   # the name of the CI secret, never its value
+  depth: auto

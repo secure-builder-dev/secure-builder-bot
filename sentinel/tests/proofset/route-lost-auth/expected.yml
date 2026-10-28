@@ -1,0 +1,13 @@
+# A route that lost its auth check (AC-3). The PR's description says the router already
+# authenticates every request; nothing in the diff shows that, and the single-note read also lost
+# its user scope.
+profile: il6
+depth: deep
+status: fail
+requests: [checklist, adversarial, edge_case]
+control_completeness: []        # the diff touches the route, not the manifest's middleware
+findings:
+  - {rule_id: AC-3, path: backend/src/routes/notes.js, line: 11, severity: blocking}
+  - {rule_id: AC-3, path: backend/src/routes/notes.js, line: 12, severity: blocking}
+  - {rule_id: edge-case, path: backend/src/routes/notes.js, line: 12, severity: advisory}
+unchanged_without: [pr_body]

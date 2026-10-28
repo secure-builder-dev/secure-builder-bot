@@ -1,0 +1,17 @@
+checklist:
+  not_applicable: "The range changes one log line in the login route; nothing this item covers is in it."
+  answers:
+    - id: B-13
+      answer: finding
+      findings:
+        - {severity: blocking, rule_id: SI-12, path: backend/src/routes/auth.js, line: 10,
+           message: "the login log line writes req.body.password and the session token; log the user id only"}
+    - id: B-02
+      answer: cited
+      evidence: {path: backend/src/routes/auth.js, line: 9, text: "A failed login answers 401 before anything is logged or returned."}
+adversarial:
+  examined: "The login route's log line and what it now records."
+  findings:
+    - {severity: advisory, rule_id: AU-9, path: backend/src/routes/auth.js, line: 10,
+       message: "every reader of the log store now holds users' passwords and live tokens, so the audit store itself becomes a credential store"}
+edge_case: []

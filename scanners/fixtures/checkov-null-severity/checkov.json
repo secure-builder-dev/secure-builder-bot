@@ -1,0 +1,17 @@
+{
+  "results": {
+    "passed_checks": [],
+    "failed_checks": [
+      {
+        "check_id": "CKV_K8S_21",
+        "severity": null,
+        "file_path": "/fixture/templates/service.yaml",
+        "file_line_range": [1, 9],
+        "resource": "Service.default.fixture",
+        "check_name": "The default namespace should not be used"
+      }
+    ],
+    "skipped_checks": []
+  },
+  "summary": { "passed": 0, "failed": 1, "skipped": 0, "parsing_error": 0, "resource_count": 1 }
+}

@@ -1,0 +1,108 @@
+name: scan
+# The bot's own scan and QA gates, through its own runner: core/run run with .securebuilderbot.yml. Runs
+# on GitHub's runners, where every scanner can reach its vulnerability database.
+# Pull requests only: a push to a branch with an open PR would run every job a second time
+# on the same commit, for no extra signal, at double the Actions minutes.
+on:
+  pull_request:
+# Read-only: these jobs check out and scan; they never write to the repository (gate finding N-12).
+permissions:
+  contents: read
+jobs:
+  scan-gate:
+    name: scan and qa
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # The QA gate runs the pull request's own test suite; the token stays out of .git/config.
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install core's requirements (pytest and pytest-cov for the QA gate's suite run) and the scanners' (pip-audit, pinned)
+        run: pip install -q -r core/requirements-dev.txt -r scanners/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Every npm package in the checkout, from its lockfile: ESLint runs each package's own lint
+      # script and the QA gate its own test suite, and neither can run without node_modules. A
+      # package added later is picked up with no edit here.
+      - name: Install every npm package in the checkout (exact pins from each lockfile)
+        run: |
+          for lock in $(git ls-files '*package-lock.json'); do npm ci --prefix "$(dirname "$lock")" --no-fund --no-audit; done
+      - name: core/run run — the scan and QA gates, profile il6
+        run: |
+          set -o pipefail
+          # fetch-depth: 0 already fetched every branch, and the checkout keeps no token
+          # (persist-credentials: false), so a second fetch of this private repository would fail.
+          git rev-parse --verify -q origin/main >/dev/null || { echo "origin/main is not in the checkout"; exit 2; }
+          core/run run --base origin/main --head HEAD 2>&1 | tee run.log
+      - name: Publish the verdict and the receipt as an annotation
+        if: always()
+        run: |
+          enc() { sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}'; }
+          run_dir=$(ls -d gate-records/runs/*/ 2>/dev/null | tail -1)
+          { cat run.log 2>/dev/null; [ -n "$run_dir" ] && head -60 "$run_dir/receipt.md"; } | enc > note.txt
+          echo "::notice title=scan and qa gates::$(cat note.txt)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scan-gate-receipt
+          path: gate-records/runs/
+
+  # ── sentinel module: all three gates, when the maintainer has added the model key ──
+  # The key is the repository secret SB_MODEL_KEY. Without it (or on a fork's pull request, which is
+  # not given secrets) the job says so in a notice and runs nothing: a Sentinel gate with no key is
+  # not_run, and this workflow never dresses that up as a pass. With it, a red reviewer is a red check.
+  sentinel:
+    name: scan, qa and sentinel (full)
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEY: ${{ secrets.SB_MODEL_KEY != '' }}
+    steps:
+      - name: The model key is not set, so Sentinel did not run
+        if: env.HAS_KEY != 'true'
+        run: echo "::notice title=sentinel::The maintainer has not added the SB_MODEL_KEY repository secret, so the Sentinel gate did not run. Add it as a repository secret to turn the full gate on."
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          fetch-depth: 0
+          # The QA gate runs the pull request's own test suite; the token stays out of .git/config.
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        if: env.HAS_KEY == 'true'
+        with:
+          python-version: '3.12'
+      - name: Install core's requirements and the scanners'
+        if: env.HAS_KEY == 'true'
+        run: pip install -q -r core/requirements-dev.txt -r scanners/requirements.txt
+      - uses: actions/setup-node@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          node-version: '22'
+      # Every npm package in the checkout, from its lockfile, exactly as the scan job installs them:
+      # ESLint and the QA gate run each package's own scripts, which need node_modules.
+      - name: Install every npm package in the checkout (exact pins from each lockfile)
+        if: env.HAS_KEY == 'true'
+        run: |
+          for lock in $(git ls-files '*package-lock.json'); do npm ci --prefix "$(dirname "$lock")" --no-fund --no-audit; done
+      - name: core/run run — scan, qa and sentinel, profile il6
+        if: env.HAS_KEY == 'true'
+        env:
+          SB_MODEL_KEY: ${{ secrets.SB_MODEL_KEY }}
+          SB_CONFIG: .github/securebuilderbot-full.yml
+          SB_PR_TITLE: ${{ github.event.pull_request.title }}
+          SB_PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -o pipefail
+          # fetch-depth: 0 already fetched every branch, and the checkout keeps no token
+          # (persist-credentials: false), so a second fetch of this private repository would fail.
+          git rev-parse --verify -q origin/main >/dev/null || { echo "origin/main is not in the checkout"; exit 2; }
+          core/run run --config .github/securebuilderbot-full.yml --base origin/main --head HEAD 2>&1 | tee run.log
+      - uses: actions/upload-artifact@v4
+        if: env.HAS_KEY == 'true' && always()
+        with:
+          name: sentinel-gate-receipt
+          path: gate-records/runs/

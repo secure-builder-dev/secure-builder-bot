@@ -1,0 +1,21 @@
+{
+ "overall": "fail",
+ "exit_code": 1,
+ "relaxations": [],
+ "gates": [
+  {
+   "gate": "scan",
+   "status": "pass",
+   "reason": "",
+   "blocking_findings": 0,
+   "advisory_findings": 0
+  },
+  {
+   "gate": "qa",
+   "status": "fail",
+   "reason": "1 control survived mutation; coverage on changed lines 61% (profile asks 90%)",
+   "blocking_findings": 1,
+   "advisory_findings": 1
+  }
+ ]
+}

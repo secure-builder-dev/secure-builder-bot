@@ -1,0 +1,11 @@
+# A secret written to a log (SI-12, AU-9): the login log line now carries the submitted password and
+# the session token.
+profile: il6
+depth: deep
+status: fail
+requests: [checklist, adversarial, edge_case]
+control_completeness: []
+findings:
+  - {rule_id: SI-12, path: backend/src/routes/auth.js, line: 10, severity: blocking}
+  - {rule_id: AU-9, path: backend/src/routes/auth.js, line: 10, severity: advisory}
+unchanged_without: [pr_body]

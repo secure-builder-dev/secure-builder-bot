@@ -1,0 +1,22 @@
+checklist:
+  not_applicable: "The range changes the notes router only; nothing this item covers is in it."
+  answers:
+    - id: B-02
+      answer: finding
+      findings:
+        - {severity: blocking, rule_id: AC-3, path: backend/src/routes/notes.js, line: 11,
+           message: "GET /notes/:id is registered without requireAuth, so an unauthenticated request reaches the handler; put requireAuth back on the route"}
+    - id: B-05
+      answer: finding
+      findings:
+        - {severity: blocking, rule_id: AC-3, path: backend/src/routes/notes.js, line: 12,
+           message: "notes.get(req.params.id) reads any note by id, where notes.getFor scoped it to the caller; read through getFor(req.user, id)"}
+    - id: B-10
+      answer: cited
+      evidence: {path: backend/src/routes/notes.js, line: 13, text: "A missing note answers 404 with a code only, no internals."}
+adversarial:
+  examined: "Both route registrations in the notes router and the service call each handler makes."
+  findings: []
+edge_case:
+  - {location: "backend/src/routes/notes.js:12", trigger_condition: "an id that belongs to another user",
+     guard_snippet: "const note = await notes.getFor(req.user, req.params.id);", potential_consequence: "another user's note is returned"}

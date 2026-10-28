@@ -1,0 +1,110 @@
+{
+  "matches": [
+    {
+      "vulnerability": {
+        "id": "CVE-2021-23337",
+        "dataSource": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+        "namespace": "github:language:javascript",
+        "severity": "High",
+        "urls": ["https://github.com/advisories/GHSA-35jh-r3h4-6jhm"],
+        "description": "lodash command injection via template function.",
+        "cvss": [
+          {
+            "version": "3.1",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+            "metrics": {
+              "baseScore": 7.2,
+              "exploitabilityScore": 1.2,
+              "impactScore": 5.9
+            },
+            "vendorMetadata": {}
+          }
+        ],
+        "fix": {
+          "versions": ["4.17.21"],
+          "state": "fixed"
+        },
+        "advisories": []
+      },
+      "relatedVulnerabilities": [],
+      "matchDetails": [
+        {
+          "type": "exact-direct-match",
+          "matcher": "javascript-matcher",
+          "searchedBy": {},
+          "found": {}
+        }
+      ],
+      "artifact": {
+        "id": "abc123def456",
+        "name": "lodash",
+        "version": "4.17.20",
+        "type": "npm",
+        "locations": [
+          {
+            "path": "/app/node_modules/lodash/package.json",
+            "layerID": "sha256:aaabbbccc111"
+          }
+        ],
+        "language": "javascript",
+        "licenses": ["MIT"],
+        "cpes": ["cpe:2.3:a:lodash:lodash:4.17.20:*:*:*:*:node.js:*:*"],
+        "purl": "pkg:npm/lodash@4.17.20",
+        "metadataType": "NpmMetadata",
+        "metadata": {}
+      }
+    },
+    {
+      "vulnerability": {
+        "id": "CVE-2022-99999",
+        "dataSource": "https://github.com/advisories/GHSA-zzzz-zzzz-zzzz",
+        "namespace": "github:language:javascript",
+        "severity": "Medium",
+        "urls": [],
+        "description": "Synthetic grype-only CVE for discrepancy test.",
+        "cvss": [
+          {
+            "version": "3.1",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "metrics": {
+              "baseScore": 5.3,
+              "exploitabilityScore": 3.9,
+              "impactScore": 1.4
+            },
+            "vendorMetadata": {}
+          }
+        ],
+        "fix": {
+          "versions": ["2.0.1"],
+          "state": "fixed"
+        },
+        "advisories": []
+      },
+      "relatedVulnerabilities": [],
+      "matchDetails": [{"type": "exact-direct-match", "matcher": "javascript-matcher"}],
+      "artifact": {
+        "id": "grype-only-111",
+        "name": "some-pkg",
+        "version": "2.0.0",
+        "type": "npm",
+        "locations": [{"path": "/app/node_modules/some-pkg/package.json", "layerID": "sha256:aaabbbccc111"}],
+        "language": "javascript",
+        "licenses": ["MIT"],
+        "cpes": [],
+        "purl": "pkg:npm/some-pkg@2.0.0",
+        "metadataType": "NpmMetadata",
+        "metadata": {}
+      }
+    }
+  ],
+  "source": {
+    "type": "image",
+    "target": {
+      "userInput": "<APP_NAME>-api:latest",
+      "imageID": "sha256:aaa111bbb222ccc333",
+      "tags": ["<APP_NAME>-api:latest"]
+    }
+  },
+  "distro": {"name": "debian", "version": "11", "idLike": []},
+  "descriptor": {"name": "grype", "version": "0.74.0", "configuration": {}}
+}

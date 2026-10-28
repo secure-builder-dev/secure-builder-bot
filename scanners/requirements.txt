@@ -1,0 +1,3 @@
+# The scanners module's one Python dependency: the ecosystem audit for Python apps, pinned to the
+# version scanners/scripts/tool-versions.env names (run-pip-audit.sh refuses any other).
+pip-audit==2.10.1

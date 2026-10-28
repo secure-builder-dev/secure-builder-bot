@@ -1,0 +1,1 @@
+; npm global config, as the bot runs npm audit: empty, so npm keeps its defaults (scanners/scripts/run-npm-audit.sh).

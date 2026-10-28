@@ -1,0 +1,6 @@
+checklist:
+  not_applicable: "The range adds a configuration section to one documentation page and changes no code."
+  answers:
+    - id: B-01
+      answer: cited
+      evidence: {path: docs/guide.md, line: 7, text: "The page names the PORT variable and its default, and no secret or credential."}

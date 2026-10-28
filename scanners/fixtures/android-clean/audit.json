@@ -1,0 +1,6 @@
+{
+  "scanner": "npm-audit",
+  "generated": "2026-10-07",
+  "policy": "not applicable on the android track — no npm app dir; Gradle dependencies are scanned by trivy fs and grype dir",
+  "apps": [], "blocking": [], "allowlisted": [], "dev_only": [], "expired_allowlist": [], "reported": []
+}

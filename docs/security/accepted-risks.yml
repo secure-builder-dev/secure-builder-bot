@@ -1,0 +1,21 @@
+# accepted-risks.yml — the CVEs this repository accepts for a bounded time (scanners/securebuilderbot_scanners/policy.py).
+#
+# The Scan gate blocks on any CVE at or above the profile's fail-on severity (critical or high at
+# il4 and il6, critical at none), fix available or not, and at il6 on a medium older than 30 days.
+# An entry here lifts that block for one CVE, for a bounded time, and turns the run yellow with
+# the entry listed in the receipt. The path is `scan.accepted_risks` in .securebuilderbot.yml.
+#
+# Every entry carries `id` (a CVE, GHSA or PYSEC id, matched by id or alias), `reason` (why the
+# finding is not reachable or not fixable today), `expires` (YYYY-MM-DD, UTC) and, optionally,
+# `scope` (a package name or a result file, when the id matches more than one). An entry past its
+# expiry, with no reason, with a date the gate cannot read, or with a date further out than the
+# profile allows (90 days at il6, 180 at il4) is itself a blocking finding and covers nothing.
+#
+# Example (not active — it is inside this comment):
+#   entries:
+#     - id: CVE-2022-37434
+#       reason: zlib inflate is never given attacker-controlled input here; no fixed version published
+#       expires: 2026-12-01
+#       scope: zlib
+
+entries: []

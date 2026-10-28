@@ -1,0 +1,62 @@
+{
+ "_generator": "standards/scripts/build-owasp-index.py",
+ "_retrieved": "2026-09-19",
+ "_sources": {
+  "llm": {
+   "commit": "99f4395589bd",
+   "parsed_from": "2_0_vulns/ filenames",
+   "repo": "https://github.com/OWASP/www-project-top-10-for-large-language-model-applications"
+  },
+  "web": {
+   "commit": "66ebc4798d2c",
+   "parsed_from": "<edition>/mkdocs.yml nav",
+   "repo": "https://github.com/OWASP/Top10"
+  }
+ },
+ "llm": {
+  "current": "2025",
+  "editions": {
+   "2025": {
+    "LLM01": "Prompt Injection",
+    "LLM02": "Sensitive Information Disclosure",
+    "LLM03": "Supply Chain",
+    "LLM04": "Data Model Poisoning",
+    "LLM05": "Improper Output Handling",
+    "LLM06": "Excessive Agency",
+    "LLM07": "System Prompt Leakage",
+    "LLM08": "Vector And Embedding Weaknesses",
+    "LLM09": "Misinformation",
+    "LLM10": "Unbounded Consumption"
+   }
+  }
+ },
+ "web": {
+  "current": "2025",
+  "editions": {
+   "2021": {
+    "A01": "Broken Access Control",
+    "A02": "Cryptographic Failures",
+    "A03": "Injection",
+    "A04": "Insecure Design",
+    "A05": "Security Misconfiguration",
+    "A06": "Vulnerable and Outdated Components",
+    "A07": "Identification and Authentication Failures",
+    "A08": "Software and Data Integrity Failures",
+    "A09": "Security Logging and Monitoring Failures",
+    "A10": "Server Side Request Forgery (SSRF)"
+   },
+   "2025": {
+    "A01": "Broken Access Control",
+    "A02": "Security Misconfiguration",
+    "A03": "Software Supply Chain Failures",
+    "A04": "Cryptographic Failures",
+    "A05": "Injection",
+    "A06": "Insecure Design",
+    "A07": "Authentication Failures",
+    "A08": "Software or Data Integrity Failures",
+    "A09": "Security Logging and Alerting Failures",
+    "A10": "Mishandling of Exceptional Conditions"
+   }
+  }
+ }
+}

@@ -1,0 +1,5 @@
+{
+  "scanner": "eslint",
+  "policy": "not applicable on the android track — no npm app dir; Kotlin lint runs as make lint (ktlint, detekt)",
+  "apps": [], "blocking": []
+}

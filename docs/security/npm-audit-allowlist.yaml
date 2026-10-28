@@ -1,0 +1,27 @@
+# npm-audit-allowlist.yaml — the justification list for `npm audit` (scanners/scripts/run-npm-audit.sh).
+#
+# One entry per advisory that is High or Critical, has no usable fix, and is accepted for a bounded
+# time. The scanner fails on any High/Critical advisory that is not listed here with an expiry in
+# the future. An entry past its expiry, or with no expiry, suppresses nothing. Never a wildcard.
+#
+# Every entry carries the four keys below. `id` is the advisory id as npm prints it (GHSA-… or
+# CVE-…). `reason` says why the finding is not reachable or not fixable today, in one or two lines.
+# `owner` is who re-checks it. `expires` is the date the acceptance ends (YYYY-MM-DD, UTC).
+#
+# `expires` must be a real ISO date (YYYY-MM-DD). An entry the scanner cannot parse as one
+# suppresses nothing and is named in the output — `expires: soon` used to compare as later than
+# today and lift the block. DEPENDENCY_POLICY §5.2 asks for 90 days for a High and 30 for a
+# Critical; that is on whoever writes the entry and whoever reviews it, not enforced here.
+#
+# Moderate and Low advisories are reported by the scanner and never need an entry here.
+# Policy: docs/architecture/DEPENDENCY_POLICY.md §1.1 rules 3 and 7, §5.
+#
+# Example (not active — it is inside this comment):
+#   entries:
+#     - id: GHSA-xxxx-yyyy-zzzz
+#       package: some-package
+#       reason: dev-server only; the build never bundles it and no fixed version is published yet
+#       owner: <OWNER_EMAIL>
+#       expires: 2026-10-23
+
+entries: []

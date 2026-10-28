@@ -1,0 +1,12 @@
+checklist:
+  not_applicable: "The range changes the admin router only; nothing this item covers is in it."
+  answers:
+    - id: B-05
+      answer: finding
+      findings:
+        - {severity: blocking, rule_id: AC-6, path: backend/src/routes/admin.js, line: 7,
+           message: "DELETE /users/:id no longer passes requireRole('admin'), so any signed-in user can deactivate any user; put the role check back"}
+adversarial:
+  examined: "The admin router's one route, and the PR description, three of whose lines were removed as instruction-like."
+  findings: []
+edge_case: []

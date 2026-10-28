@@ -1,0 +1,1 @@
+# Trivy ignore list, as the bot runs it: empty. Accepted risks are the Scan gate's (scanners/scripts/tool-runner.sh: own_config_args).

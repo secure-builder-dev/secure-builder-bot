@@ -1,0 +1,15 @@
+name: forbidden-terms
+# Pull requests only: a push to a branch with an open PR would run every job a second time
+# on the same commit, for no extra signal, at double the Actions minutes.
+on:
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The check is the pull request's own script; the token stays out of .git/config.
+          persist-credentials: false
+      - name: Refuse any forbidden term in the tree
+        run: scripts/forbidden-terms.sh --all

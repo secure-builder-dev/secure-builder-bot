@@ -1,0 +1,53 @@
+# Secure Builder Bot on every pull request: the gates .securebuilderbot.yml turns on, as checks on the
+# pull request and comments on the diff. Written by the setup pull request; nothing runs until it is merged.
+name: Secure Builder
+on:
+  pull_request:
+    # edited: a pull request retargeted at another branch is gated again, against that branch's rules
+    types: [opened, synchronize, reopened, edited]
+# Least permission, per job (the bot asks for nothing else). Nothing below can push, merge, read other
+# secrets or change settings.
+permissions:
+  contents: read
+# One run per pull request: a retarget starts a second run on the same head, and the older one, against
+# the old target's rules, is cancelled rather than left to finish last and post the newest checks. A
+# title or body edit, whose job is skipped, gets a group of its own so it can never cancel a real run.
+concurrency:
+  group: ${{ (github.event.action == 'edited' && !github.event.changes.base) && format('secure-builder-noop-{0}', github.run_id) || format('secure-builder-{0}', github.event.pull_request.number) }}
+  cancel-in-progress: true
+jobs:
+  # Scan and QA run this pull request's code (its build scripts, its tests), so they run here, with
+  # read access only, no secret and no token that can write. Its run is handed on as an artifact.
+  gates:
+    # An edit re-runs the gates only when it changed the target branch, not on a title or body edit.
+    if: github.event.action != 'edited' || github.event.changes.base
+    runs-on: ubuntu-latest   # a fresh GitHub-hosted runner: nothing this job leaves behind reaches the next
+    permissions: { contents: read }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0   # the gates read the range from the base branch to the head
+          persist-credentials: false   # the token stays out of .git/config, where the tests could read it
+      - uses: secure-builder-dev/secure-builder-bot/adapter-github@v0
+        with:
+          version: latest   # the same release .securebuilderbot.yml names
+          part: untrusted
+  # Sentinel and the verdict, in a job that runs none of the pull request's code: it reads the gates
+  # job's result as a claim, marks Scan and QA as that job's word on every check, and publishes.
+  verdict:
+    needs: gates
+    if: ${{ !cancelled() && (github.event.action != 'edited' || github.event.changes.base) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: secure-builder-dev/secure-builder-bot/adapter-github@v0
+        with:
+          version: latest
+          part: trusted

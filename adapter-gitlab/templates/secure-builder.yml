@@ -1,0 +1,160 @@
+# Secure Builder Bot — the GitLab CI/CD component.
+#
+# Three jobs on every merge request pipeline. `secure-builder` checks out the bot at the release you
+# pin (latest is the newest release tag, never a branch) and runs Scan and QA, the gates that run the
+# merge request's own code (its build scripts, its tests), against its range: core/run run --part
+# untrusted. It holds no token and no key, is red when a gate failed, and hands on the one run core
+# reported. `secure-builder-verdict` runs whatever its result and runs no merge request code: it reads
+# that run as the gates job's claim, runs Sentinel, and decides the verdict (--part trusted).
+# `secure-builder-publish` publishes the verdict job's run: the verdict as one note, the findings as
+# discussions on the diff lines, and the code quality report for the merge request widget.
+#
+# The token is only ever named here. `token_variable` is the NAME of a masked CI/CD variable that
+# holds a project access token with the `api` scope (the job token cannot post merge request notes
+# on every GitLab). A project variable reaches every job unless it is scoped to an environment, so
+# the publish job alone declares the environment `secure-builder` and the variable is scoped to it
+# (templates/README.md). The publisher reads the value from that job's environment and nothing
+# writes it to a file, a log or an artifact. Sentinel's model key, when Sentinel is on, is a CI/CD
+# variable scoped the same way to the verdict job's environment `secure-builder-sentinel`, so it never
+# reaches the job that runs the merge request's code.
+spec:
+  inputs:
+    version:
+      default: latest
+      description: "The bot release to run: latest, or a pinned x.y.z"
+    base:
+      default: $CI_MERGE_REQUEST_DIFF_BASE_SHA
+      description: "The base of the range the gates review (the merge request's diff base)"
+    python_version:
+      default: "3.12"
+      description: "The python image tag both jobs run on; the bot targets 3.12"
+    token_variable:
+      default: SECURE_BUILDER_TOKEN
+      description: "The NAME of the CI/CD variable holding a project access token with the api scope — never the value"
+---
+secure-builder:
+  image: python:$[[ inputs.python_version ]]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GIT_DEPTH: "0"
+    GIT_STRATEGY: clone
+    SECURE_BUILDER_VERSION: $[[ inputs.version ]]
+    SECURE_BUILDER_BASE: $[[ inputs.base ]]
+  script:
+    # The bot itself, at the pinned release. SECURE_BUILDER_SOURCE points an air-gapped install at a mirror.
+    - 'src="${SECURE_BUILDER_SOURCE:-https://github.com/secure-builder-dev/secure-builder-bot.git}"'
+    # latest is the newest release tag vX.Y.Z in version order, never a branch: standards and scanner
+    # pins change only by a release. A pin must be x.y.z. No such tag at the source is a refusal.
+    - 'if [ "$SECURE_BUILDER_VERSION" = "latest" ]; then ref="$(git ls-remote --tags --refs "$src" "refs/tags/v*" | sed -n "s|^[0-9a-f]*[[:space:]]*refs/tags/\(v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$|\1|p" | sort -V | tail -n 1)"; else ref="$(printf "%s\n" "$SECURE_BUILDER_VERSION" | sed -n "s|^\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$|v\1|p")"; fi'
+    - 'if [ -z "$ref" ]; then echo "secure-builder: no release tag for version ${SECURE_BUILDER_VERSION} at ${src}: latest is the newest vX.Y.Z tag, never a branch, and a pin is x.y.z" >&2; exit 1; fi'
+    - 'git ls-remote --exit-code --tags --refs "$src" "refs/tags/${ref}" >/dev/null || { echo "secure-builder: no release tag ${ref} at ${src}" >&2; exit 1; }'
+    # Fetch the tag itself, never clone --branch: git prefers a branch named like the tag over the tag.
+    - 'if [ -e /tmp/secure-builder-bot ]; then echo "secure-builder: /tmp/secure-builder-bot already exists; refusing to reuse a directory an earlier job may have written" >&2; exit 1; fi; git init -q /tmp/secure-builder-bot && git -C /tmp/secure-builder-bot fetch -q --depth 1 "$src" "+refs/tags/${ref}:refs/tags/${ref}" && git -C /tmp/secure-builder-bot -c advice.detachedHead=false checkout -q "refs/tags/${ref}"'
+    - pip install -q -r /tmp/secure-builder-bot/core/requirements.txt
+    # The rules (the config and every excusing list) are the target branch's tip, never the diff base: the
+    # merge request chooses that by branching from an older commit. Only the range starts at the diff base.
+    # In a fork's pipeline origin is the fork, and its branch of the same name would pass for the target's
+    # rules (second trust review): the gates run in the parent project's pipeline or not at all.
+    - 'if [ "$CI_PROJECT_ID" != "$CI_MERGE_REQUEST_PROJECT_ID" ]; then echo "secure-builder: this pipeline runs in a fork; the gates read their rules from the target project, so run the pipeline in the parent project" >&2; exit 1; fi'
+    - 'git fetch -q origin "+refs/heads/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}:refs/remotes/origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"'
+    # Scan and QA, on the merge request's range. Core's exit code is this job's: red when a gate failed.
+    - 'rc=0; "/tmp/secure-builder-bot/core/run" run --base "$SECURE_BUILDER_BASE" --config-ref "refs/remotes/origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --head "$CI_COMMIT_SHA" --part untrusted > /tmp/secure-builder-core.out 2>&1 || rc=$?; cat /tmp/secure-builder-core.out'
+    # Hand on the one run core reported on its own output (its last Receipt line), at a fixed path,
+    # never a folder chosen from gate-records/runs/, where the merge request's code can write its own.
+    - 'run_dir="$(sed -nE "s#^Receipt: (gate-records/runs/[0-9]{8}T[0-9]{6}Z-[0-9a-f]{7})/receipt\.md\$#\1#p" /tmp/secure-builder-core.out | tail -n 1)"; rm -rf -- secure-builder-untrusted; if [ -n "$run_dir" ]; then cp -R -- "$run_dir" secure-builder-untrusted; fi; exit "$rc"'
+  artifacts:
+    when: always
+    paths:
+      - secure-builder-untrusted/
+
+secure-builder-verdict:
+  image: python:$[[ inputs.python_version ]]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+  needs:
+    - job: secure-builder
+      artifacts: true
+  # Sentinel's model key, when Sentinel is on, is scoped to this environment, so it reaches this job,
+  # which runs none of the merge request's code, and no other. `prepare`: it deploys nothing.
+  environment:
+    name: secure-builder-sentinel
+    action: prepare
+  variables:
+    # The checkout is read, never run: core reads the range, the config and the excusing lists from git.
+    GIT_DEPTH: "0"
+    GIT_STRATEGY: clone
+    SECURE_BUILDER_VERSION: $[[ inputs.version ]]
+    SECURE_BUILDER_BASE: $[[ inputs.base ]]
+  script:
+    # The bot itself, at the pinned release. SECURE_BUILDER_SOURCE points an air-gapped install at a mirror.
+    - 'src="${SECURE_BUILDER_SOURCE:-https://github.com/secure-builder-dev/secure-builder-bot.git}"'
+    # latest is the newest release tag vX.Y.Z in version order, never a branch: standards and scanner
+    # pins change only by a release. A pin must be x.y.z. No such tag at the source is a refusal.
+    - 'if [ "$SECURE_BUILDER_VERSION" = "latest" ]; then ref="$(git ls-remote --tags --refs "$src" "refs/tags/v*" | sed -n "s|^[0-9a-f]*[[:space:]]*refs/tags/\(v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$|\1|p" | sort -V | tail -n 1)"; else ref="$(printf "%s\n" "$SECURE_BUILDER_VERSION" | sed -n "s|^\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$|v\1|p")"; fi'
+    - 'if [ -z "$ref" ]; then echo "secure-builder: no release tag for version ${SECURE_BUILDER_VERSION} at ${src}: latest is the newest vX.Y.Z tag, never a branch, and a pin is x.y.z" >&2; exit 1; fi'
+    - 'git ls-remote --exit-code --tags --refs "$src" "refs/tags/${ref}" >/dev/null || { echo "secure-builder: no release tag ${ref} at ${src}" >&2; exit 1; }'
+    # Fetch the tag itself, never clone --branch: git prefers a branch named like the tag over the tag.
+    - 'if [ -e /tmp/secure-builder-bot ]; then echo "secure-builder: /tmp/secure-builder-bot already exists; refusing to reuse a directory an earlier job may have written" >&2; exit 1; fi; git init -q /tmp/secure-builder-bot && git -C /tmp/secure-builder-bot fetch -q --depth 1 "$src" "+refs/tags/${ref}:refs/tags/${ref}" && git -C /tmp/secure-builder-bot -c advice.detachedHead=false checkout -q "refs/tags/${ref}"'
+    - pip install -q -r /tmp/secure-builder-bot/core/requirements.txt
+    - 'if [ "$CI_PROJECT_ID" != "$CI_MERGE_REQUEST_PROJECT_ID" ]; then echo "secure-builder: this pipeline runs in a fork; the gates read their rules from the target project, so run the pipeline in the parent project" >&2; exit 1; fi'
+    - 'git fetch -q origin "+refs/heads/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}:refs/remotes/origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"'
+    # Sentinel and the verdict. The gates job's run is read as its claim: capped, checked against the
+    # shape core writes, never executed, and marked on every gate it carries. Red when a gate failed.
+    - '"/tmp/secure-builder-bot/core/run" run --base "$SECURE_BUILDER_BASE" --config-ref "refs/remotes/origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --head "$CI_COMMIT_SHA" --part trusted --untrusted-run "$CI_PROJECT_DIR/secure-builder-untrusted"'
+  artifacts:
+    when: always
+    paths:
+      - gate-records/runs/
+
+secure-builder-publish:
+  image: python:$[[ inputs.python_version ]]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+  needs:
+    - job: secure-builder-verdict
+      artifacts: true
+  # The token's variable is scoped to this environment, so it reaches this job and no other.
+  # `prepare`: the job only uses the environment's variables, it deploys nothing.
+  environment:
+    name: secure-builder
+    action: prepare
+  # Two pipelines on one merge request publish one after the other, so the second finds the first's
+  # verdict note and edits it instead of posting another.
+  resource_group: secure-builder/mr-$CI_MERGE_REQUEST_IID
+  variables:
+    # The checkout is read, never run: the publisher asks git which run directories the branch
+    # committed, and refuses them.
+    GIT_DEPTH: "1"
+    SECURE_BUILDER_VERSION: $[[ inputs.version ]]
+    SECURE_BUILDER_TOKEN_VARIABLE: $[[ inputs.token_variable ]]
+    SECURE_BUILDER_NODE_VERSION: "22.20.0"
+  script:
+    # First, before anything can fail: a report at this path is the branch's own, never this run's,
+    # and the artifact below is uploaded when: always. -r: a directory there too (gate run 4, N-02).
+    - 'rm -rf -- "$CI_PROJECT_DIR/gl-code-quality-report.json"'
+    # Node 22 for the publisher, from the official tarball, verified against its published checksum.
+    - cd /tmp
+    - 'curl -fsSLO "https://nodejs.org/dist/v${SECURE_BUILDER_NODE_VERSION}/node-v${SECURE_BUILDER_NODE_VERSION}-linux-x64.tar.xz"'
+    - 'curl -fsSL "https://nodejs.org/dist/v${SECURE_BUILDER_NODE_VERSION}/SHASUMS256.txt" | grep " node-v${SECURE_BUILDER_NODE_VERSION}-linux-x64.tar.xz$" | sha256sum -c -'
+    - 'tar -xJf "node-v${SECURE_BUILDER_NODE_VERSION}-linux-x64.tar.xz" -C /usr/local --strip-components=1'
+    # The bot itself, at the pinned release. SECURE_BUILDER_SOURCE points an air-gapped install at a mirror.
+    - 'src="${SECURE_BUILDER_SOURCE:-https://github.com/secure-builder-dev/secure-builder-bot.git}"'
+    # latest is the newest release tag vX.Y.Z in version order, never a branch: standards and scanner
+    # pins change only by a release. A pin must be x.y.z. No such tag at the source is a refusal.
+    - 'if [ "$SECURE_BUILDER_VERSION" = "latest" ]; then ref="$(git ls-remote --tags --refs "$src" "refs/tags/v*" | sed -n "s|^[0-9a-f]*[[:space:]]*refs/tags/\(v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$|\1|p" | sort -V | tail -n 1)"; else ref="$(printf "%s\n" "$SECURE_BUILDER_VERSION" | sed -n "s|^\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$|v\1|p")"; fi'
+    - 'if [ -z "$ref" ]; then echo "secure-builder: no release tag for version ${SECURE_BUILDER_VERSION} at ${src}: latest is the newest vX.Y.Z tag, never a branch, and a pin is x.y.z" >&2; exit 1; fi'
+    - 'git ls-remote --exit-code --tags --refs "$src" "refs/tags/${ref}" >/dev/null || { echo "secure-builder: no release tag ${ref} at ${src}" >&2; exit 1; }'
+    # Fetch the tag itself, never clone --branch: git prefers a branch named like the tag over the tag.
+    - 'if [ -e /tmp/secure-builder-bot ]; then echo "secure-builder: /tmp/secure-builder-bot already exists; refusing to reuse a directory an earlier job may have written" >&2; exit 1; fi; git init -q /tmp/secure-builder-bot && git -C /tmp/secure-builder-bot fetch -q --depth 1 "$src" "+refs/tags/${ref}:refs/tags/${ref}" && git -C /tmp/secure-builder-bot -c advice.detachedHead=false checkout -q "refs/tags/${ref}"'
+    - npm ci --omit=dev --no-fund --no-audit --prefix /tmp/secure-builder-bot/adapter-gitlab
+    # The run the verdict job wrote for this commit, as one note, the discussions and the report.
+    - 'cd /tmp/secure-builder-bot/adapter-gitlab && npx tsx src/main.ts --project-dir "$CI_PROJECT_DIR" --report "$CI_PROJECT_DIR/gl-code-quality-report.json"'
+  artifacts:
+    when: always
+    paths:
+      - gl-code-quality-report.json
+    reports:
+      codequality: gl-code-quality-report.json

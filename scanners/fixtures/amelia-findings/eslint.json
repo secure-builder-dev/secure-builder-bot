@@ -1,0 +1,21 @@
+{
+  "scanner": "eslint",
+  "policy": "every message blocks: both apps lint with --max-warnings 0 (T-018)",
+  "apps": [
+    {
+      "app": "backend",
+      "files": 40,
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "app": "frontend",
+      "files": 120,
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  ],
+  "blocking": []
+}

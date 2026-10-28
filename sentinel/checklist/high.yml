@@ -1,0 +1,70 @@
+# The Sentinel checklist, block `high` — il6 runs it (docs/PRD.md § Compliance profiles: cross-domain,
+# session lock, non-repudiation, covert channel). Same shape and rules as base.yml.
+#
+# H-01..H-07 are standards/data/checklists/IL6.md word for word. H-08..H-10 are the three topics the
+# PRD's profile table names for the High block that IL6.md has no line for (cross-domain is H-05);
+# their source is the PRD, so they have no markdown twin to drift from.
+items:
+  - id: H-01
+    block: high
+    text: 'FIPS 140-3 validated crypto libraries only — no MD5, SHA-1, RC4, or non-FIPS-validated TLS ciphers'
+    controls: [SC-13]
+    stig: [SRG-APP-000179-AS-000129]
+    applies_when: [cryptography]
+    source: standards/data/checklists/IL6.md
+  - id: H-02
+    block: high
+    text: 'All API responses include classification banner header per applicable classification guide'
+    controls: [AC-16]
+    applies_when: [http routes]
+    source: standards/data/checklists/IL6.md
+  - id: H-03
+    block: high
+    text: 'No unclassified external calls at runtime — no public npm registries, CDNs, or third-party endpoints'
+    controls: [SC-7, SC-7(5)]
+    source: standards/data/checklists/IL6.md
+  - id: H-04
+    block: high
+    text: 'Audit logs written to tamper-evident, append-only store not writable by the application process'
+    controls: [AU-9, AU-9(2), AU-9(3)]
+    stig: [SRG-APP-000119-AS-000079, SRG-APP-000120-AS-000080]
+    applies_when: [audit logging]
+    source: standards/data/checklists/IL6.md
+  - id: H-05
+    block: high
+    text: 'CDS integration points documented and not bypassed (see `standards/data/controls/CDS-guidance.md`)'
+    controls: [AC-4]
+    applies_when: [cross-domain]
+    source: standards/data/checklists/IL6.md
+  - id: H-06
+    block: high
+    text: 'Personnel clearance level not stored in application DB — delegated to identity provider'
+    controls: [AC-16, PS-3]
+    applies_when: [user records]
+    source: standards/data/checklists/IL6.md
+  - id: H-07
+    block: high
+    text: 'FIPS 140-3 module list verified: all cryptographic operations use NIST-validated modules only'
+    controls: [SC-13]
+    applies_when: [cryptography]
+    source: standards/data/checklists/IL6.md
+  - id: H-08
+    block: high
+    text: 'Session lock: an idle session locks or ends after the configured inactivity period, the lock hides what was on screen, and unlocking re-authenticates'
+    controls: [AC-11, AC-11(1), AC-12]
+    stig: [SRG-APP-000295-AS-000263]
+    applies_when: [sessions]
+    source: docs/PRD.md
+  - id: H-09
+    block: high
+    text: 'Non-repudiation: every security-relevant action is recorded with the authenticated identity that performed it, in a record that identity cannot alter or deny'
+    controls: [AU-10]
+    stig: [SRG-APP-000080-AS-000045]
+    applies_when: [audit logging]
+    source: docs/PRD.md
+  - id: H-10
+    block: high
+    text: 'Covert channel: no data crosses a boundary through a side path (timing, error text, response size, a header, a shared cache or file) that the boundary does not inspect'
+    controls: [SC-31]
+    applies_when: [cross-domain]
+    source: docs/PRD.md

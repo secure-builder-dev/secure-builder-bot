@@ -1,0 +1,6 @@
+{
+  "matches": [],
+  "source": {"type": "directory", "target": "android"},
+  "distro": {"name": "", "version": "", "idLike": []},
+  "descriptor": {"name": "grype", "version": "0.87.0", "configuration": {}}
+}

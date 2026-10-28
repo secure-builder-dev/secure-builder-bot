@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Two refusals before any commit: no forbidden term in a staged file, no credential in the diff.
+root="$(git rev-parse --show-toplevel)"
+# In a linked worktree git runs this hook with GIT_DIR set and GIT_WORK_TREE unset, so any git call
+# made from another directory takes that directory for the work tree: the staged list came back
+# empty and every worktree commit passed unchecked. Naming the work tree keeps both scans honest.
+export GIT_WORK_TREE="$root"
+"$root/scripts/forbidden-terms.sh" --staged || exit 1
+exec bash "$root/engine/scripts/gate/pre-commit-scan.sh"

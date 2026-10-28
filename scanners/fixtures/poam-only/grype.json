@@ -1,0 +1,61 @@
+{
+  "matches": [
+    {
+      "vulnerability": {
+        "id": "CVE-2022-37434",
+        "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2022-37434",
+        "namespace": "nvd",
+        "severity": "Critical",
+        "urls": ["https://nvd.nist.gov/vuln/detail/CVE-2022-37434"],
+        "description": "zlib heap-based buffer over-read or buffer overflow in inflate in inflate.c.",
+        "cvss": [
+          {
+            "version": "3.1",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "metrics": {
+              "baseScore": 9.8,
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            },
+            "vendorMetadata": {}
+          }
+        ],
+        "fix": {
+          "versions": [],
+          "state": "not-fixed"
+        },
+        "advisories": []
+      },
+      "relatedVulnerabilities": [],
+      "matchDetails": [{"type": "exact-direct-match", "matcher": "apk-matcher"}],
+      "artifact": {
+        "id": "vendor-musl-001",
+        "name": "zlib",
+        "version": "1.2.12-r3",
+        "type": "apk",
+        "locations": [
+          {
+            "path": "/lib/libz.so.1.2.12",
+            "layerID": "sha256:vendorbaseaaabbb"
+          }
+        ],
+        "language": "",
+        "licenses": ["Zlib"],
+        "cpes": ["cpe:2.3:a:zlib:zlib:1.2.12:r3:*:*:*:*:*:*"],
+        "purl": "pkg:apk/alpine/zlib@1.2.12-r3",
+        "metadataType": "ApkMetadata",
+        "metadata": {}
+      }
+    }
+  ],
+  "source": {
+    "type": "image",
+    "target": {
+      "userInput": "<APP_NAME>-api:latest",
+      "imageID": "sha256:aaa111bbb222ccc333",
+      "tags": ["<APP_NAME>-api:latest"]
+    }
+  },
+  "distro": {"name": "alpine", "version": "3.17.3", "idLike": []},
+  "descriptor": {"name": "grype", "version": "0.74.0", "configuration": {}}
+}

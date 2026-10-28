@@ -1,0 +1,29 @@
+{
+  "name": "@securebuilderbot/adapter-gitlab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Secure Builder Bot on GitLab: the CI/CD component and the merge request publisher",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run --coverage",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "publish-mr": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "tsx": "4.23.15"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "4.1.12",
+    "eslint": "10.12.0",
+    "eslint-plugin-security": "4.2.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.0",
+    "vitest": "4.1.12"
+  }
+}

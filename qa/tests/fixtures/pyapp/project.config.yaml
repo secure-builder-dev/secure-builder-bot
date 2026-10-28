@@ -1,0 +1,9 @@
+APP_TRACK: web
+SECURITY_TIER: IL6
+PROVIDER: aws
+APP_TYPE: n/a
+CONTROL_SRC_ROOTS: app
+CONTROL_SRC_EXT: py
+CONTROL_TEST_DIR: tests
+CONTROL_TEST_CMD: python3 -m pytest -q -p no:cacheprovider
+CONTROL_TARGET_CMD: python3 -m pytest -q -p no:cacheprovider {tests}

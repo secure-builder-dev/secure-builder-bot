@@ -1,0 +1,13 @@
+# ruff: the rule set the constraints measure. Pinned here so the number does not move with a
+# machine's user-level config. E/F/W = correctness and style, B = bugbear, S = bandit security,
+# UP = modern syntax. Security findings (S) matter most in a tool whose job is security.
+target-version = "py310"
+line-length = 120
+[lint]
+select = ["E", "F", "W", "B", "S", "UP"]
+# S603/S607: this tool exists to run scanners as subprocesses; the arguments are its own, not user input.
+ignore = ["S603", "S607", "E501"]
+
+[lint.per-file-ignores]
+# pytest asserts are how a test states its expectation.
+"**/tests/**" = ["S101"]

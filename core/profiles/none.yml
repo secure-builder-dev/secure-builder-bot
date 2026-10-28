@@ -1,0 +1,17 @@
+# Profile none — OWASP Top 10 only, no NIST baseline. Numbers from docs/PRD.md § Compliance profiles.
+title: No baseline (OWASP Top 10 only)
+baseline: null
+owasp_top10: true
+stigs: []
+stigs_where_present: []
+stig_cat1_enforced: false
+checklist_blocks: [base]
+scan:
+  fail_on: [critical]
+  medium_max_age_days: null
+  # The PRD sets a CVE-data age limit for il4 and il6 only; none sets no limit.
+  cve_data_max_age_days: null
+qa:
+  coverage_changed_lines: 60
+  mutation_required: false
+accepted_risk_expiry_days: null

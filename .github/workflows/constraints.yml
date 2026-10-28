@@ -1,0 +1,50 @@
+name: constraints
+# Pull requests only: a push to a branch with an open PR would run every job a second time
+# on the same commit, for no extra signal, at double the Actions minutes.
+on:
+  pull_request:
+# Read-only: these jobs check out and scan; they never write to the repository (gate finding N-12).
+permissions:
+  contents: read
+jobs:
+  check-full:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # make check-full runs the pull request's own suites; the token stays out of .git/config.
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the constraint tools named in CONSTRAINTS.md
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q shellcheck jq
+          pip install -q ruff semgrep -r core/requirements-dev.txt -r scanners/requirements.txt
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz | sudo tar xz -C /usr/local/bin gitleaks
+          sudo curl -sSL -o /usr/local/bin/osv-scanner https://github.com/google/osv-scanner/releases/download/v1.9.1/osv-scanner_linux_amd64 && sudo chmod +x /usr/local/bin/osv-scanner
+      - name: Install the adapter-github package, whose vitest suite make test runs
+        run: npm ci --prefix adapter-github --no-fund --no-audit
+      - name: Install the adapter-gitlab package (exact pins from its lockfile)
+        run: npm ci --prefix adapter-gitlab --no-fund --no-audit
+      # cli: the securebuilderbot package, whose vitest suite make test and the control mutations run
+      - name: Install the cli package (exact pins from its lockfile)
+        run: npm ci --prefix cli --no-fund --no-audit
+      - name: make check-full
+        run: |
+          set -o pipefail
+          make check-full 2>&1 | tee check-full.log
+      - name: Publish the failing output as an annotation
+        if: failure()
+        run: |
+          # The job log is not readable everywhere; an annotation is. One annotation, the last 60
+          # lines, newlines encoded as GitHub's workflow-command syntax requires.
+          enc() { sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}'; }
+          grep -E 'FAIL|✗|NOT PROVEN|WORSE|BOUNDARY|refused' check-full.log | head -60 | enc > fails.txt
+          tail -60 check-full.log | enc > tail.txt
+          echo "::error title=check-full: every failing line::$(cat fails.txt)"
+          echo "::error title=check-full: last 60 lines::$(cat tail.txt)"

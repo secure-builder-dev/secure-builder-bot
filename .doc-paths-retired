@@ -1,0 +1,26 @@
+# Paths a project the bot gates will have. This repository holds the gates, not an app, so the
+# gate's own text may name them while nothing here resolves them.
+^frontend/src$   # a gated project's frontend
+^backend/src/?$   # a gated project's backend
+# Retired on purpose by the core epic: each was ported to core/ and deleted in the same commit.
+# SPEC-core.md names them as the record of that move.
+^(engine/)?scripts/gate/classify-range\.sh$   # ported to core/securebuilderbot_core/classify.py
+^(engine/)?scripts/scan/gate-line\.sh$   # ported to core/securebuilderbot_core/verdict.py
+^(engine/)?scripts/gate/scan-precondition\.sh$   # ported to core/securebuilderbot_core/precondition.py
+# Moved by the standards module (SPEC-standards.md): the vendored standards tree and the index
+# builders left engine/ for standards/. docs/architecture/ADR-LOG.md is an engine record the bot
+# never carried; FRAMEWORKS.md cites it as history.
+^engine/security(/.*)?$   # moved to standards/data/
+^engine/scripts/gate/(build-(control|baselines|stig|owasp|masvs|nistpubs)-index\.py|ingest-stig\.py|refresh-frameworks\.sh|verify-citations\.sh)$   # moved to standards/scripts/
+^docs/architecture/ADR-LOG\.md$   # the engine's ADR log, cited by standards/data/FRAMEWORKS.md as the record of how the indexes came to be
+^planning/tickets$   # the engine's ticket board, which standards/data/controls/CONTROLS-MAPPING.md names as the one tree Sentinel writes; the bot has no planning tree
+# Moved to the qa module by the qa epic (2026-10-23): the control tools, the query-bounds check and their
+# tests now live under qa/scripts and qa/tests. SPEC-qa.md names each move.
+^(engine/)?scripts/gate/(mutate-controls\.sh|verify-controls\.sh|derive-controls\.sh|_lib\.sh|mutate-frontend\.py|check-frontend-mutations\.sh|query-bounds\.sh)$   # → qa/scripts/
+^(engine/)?scripts/tests/(mutate-controls|derive-controls|mutate-frontend|check-frontend-mutations|query-bounds)-test\.sh$   # → qa/tests/
+# Moved by the scanners epic: the scan scripts, fixtures and suite live under scanners/ (SPEC-scanners.md).
+^(engine/)?scripts/scan(/.*)?$   # moved to scanners/scripts (runners, pins), scanners/fixtures, scanners/tests
+^engine/local-scan-setup\.md$   # moved to scanners/local-scan-setup.md
+^core/shims/scan\.sh$   # moved to scanners/scan.sh
+^core/securebuilderbot_core/scangate\.py$   # moved to scanners/securebuilderbot_scanners/gate.py
+^core/tests/test_scangate\.py$   # moved to scanners/tests/test_gate.py

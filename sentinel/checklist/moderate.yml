@@ -1,0 +1,72 @@
+# The Sentinel checklist, block `moderate` — il4 and il6 run it (docs/PRD.md § Compliance profiles).
+# Same shape and the same rules as base.yml; read that file's header.
+items:
+  - id: M-01
+    block: moderate
+    text: 'All new dependencies present in `docs/architecture/DEPENDENCY_POLICY.md`'
+    controls: [SR-3, CM-10]
+    applies_when: [dependencies]
+    reads: [docs/architecture/DEPENDENCY_POLICY.md]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-02
+    block: moderate
+    text: "All project-specific invariants listed under **Key Architecture Constraints** are enforced (computed-field write guards, route-specific transaction isolation, storage/auth patterns, etc.) — see that section for this project's list"
+    controls: [SA-8]
+    reads: [CLAUDE.md]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-03
+    block: moderate
+    text: '**Control manifest row present** — `make derive-controls` reports 0 unregistered guards (the code is the list); a diff that creates or modifies a security control has a corresponding row in `docs/security/CONTROL-MANIFEST.md` in the same commit, and `make verify-controls` resolves that row (implementation present, production call site recomputed and non-zero, required artifact present, proving test present). A control-shaped diff with no manifest row is a **blocking** finding.'
+    controls: [CA-2, SA-11]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-04
+    block: moderate
+    text: '**Control Completeness Review run** — if the diff is control-shaped (auth, authz, audit, redaction, crypto, scoping), the six-question block below is answered **in prose** and included in the Sentinel report. An unanswered question, or one answered "PASS", is a **blocking** finding.'
+    controls: [SA-11, CA-2]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-05
+    block: moderate
+    text: '**Pre-flight deltas named** — every delta `make gate-state` reports is named in the gate-log row: reviewed here if this range caused it, one sentence if it did not. No ticket for a non-blocking delta. **Control decay is blocking** whatever caused it.'
+    controls: [CA-7]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-06
+    block: moderate
+    text: '**Rulebook changes in their own commit** — a diff touching `CLAUDE.md`, `.claude/`, or gate-deciding `engine/` files lands in a commit that changes nothing else, so the human can read all of it. Mixed with other changes: blocking (`engine/GOVERNANCE.md` rule 1).'
+    controls: [CM-3, CM-5]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-07
+    block: moderate
+    text: 'Reads go through the views the schema defines; check-and-set paths hold `SELECT FOR UPDATE`'
+    controls: [AC-3]
+    applies_when: [sql]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-08
+    block: moderate
+    text: 'No presigned object-store URLs (API-proxied streaming); error responses carry codes only'
+    controls: [AC-3, SI-11]
+    applies_when: [object storage]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-09
+    block: moderate
+    text: 'No server-side token store or session table; frontend tokens in memory, never localStorage/sessionStorage'
+    controls: [SC-23]
+    applies_when: [sessions]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-10
+    block: moderate
+    text: 'No route or UI offered to a role that cannot use it (NS-13); no role-escalation path except the admin-only user-management endpoint (NS-15)'
+    controls: [AC-6, AC-6(10)]
+    applies_when: [roles]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-11
+    block: moderate
+    text: 'No plaintext secrets in Helm values, ConfigMaps or image env; the image scan not disabled (NS-17, NS-18)'
+    controls: [IA-5(7), RA-5]
+    applies_when: [deployment files]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: M-12
+    block: moderate
+    text: 'Every project-specific SHALL NOT in `docs/PRD.md` traced to its guard — if the PRD defines none, say so'
+    controls: [SA-8]
+    reads: [docs/PRD.md]
+    source: engine/SENTINEL-CHECKLIST.md

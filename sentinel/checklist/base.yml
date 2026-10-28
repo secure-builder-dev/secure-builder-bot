@@ -1,0 +1,98 @@
+# The Sentinel checklist, block `base` — every profile runs it (docs/PRD.md § Compliance profiles).
+#
+# Each item is one line of engine/SENTINEL-CHECKLIST.md, word for word (`text`; `source` names the
+# file), with the NIST SP 800-53 Rev 5 controls it serves and, where the vendored index carries one,
+# the STIG rule. sentinel/tests/test_checklist.py holds the two together: every markdown item has a
+# twin here with the same text, and every control and rule id verifies against standards/data.
+# A change here is governance (engine/GOVERNANCE.md): its own commit, read by a human.
+#
+# Keys: id · block · text · controls · stig (optional) · applies_when (optional: what the repository
+# must have for the item to apply, said to the reviewer, never used to skip it) · reads (optional: a
+# file the item names, read from the head and sent with the request) · source.
+items:
+  - id: B-01
+    block: base
+    text: 'No hardcoded secrets or credentials anywhere — no fallback/default values in config files or env var definitions'
+    controls: [IA-5(7), SC-28]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-02
+    block: base
+    text: 'All endpoints require valid Keycloak token (except OAuth callback)'
+    controls: [IA-2, AC-3]
+    stig: [SRG-APP-000033-AS-000024]
+    applies_when: [http routes]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-03
+    block: base
+    text: 'Auth middleware registered before all route handlers — no route can be reached without passing through it'
+    controls: [AC-3]
+    applies_when: [http routes]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-04
+    block: base
+    text: 'Negative auth test required: every endpoint asserts 401 when called without a token'
+    controls: [AC-3, SA-11]
+    applies_when: [http routes]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-05
+    block: base
+    text: "RBAC scoping enforced per the project's PRD — every role lane the PRD defines is enforced at the API layer, not the frontend"
+    controls: [AC-3, AC-6]
+    stig: [SRG-APP-000340-AS-000185]
+    applies_when: [roles]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-06
+    block: base
+    text: "Negative RBAC tests required: user A cannot read or mutate user B's records; no role can mutate records or fields it does not own"
+    controls: [AC-6, SA-11]
+    applies_when: [roles]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-07
+    block: base
+    text: 'Last-admin guard present on any endpoint that deactivates or demotes a user — enforced at API layer, not frontend only'
+    controls: [AC-2, AC-6]
+    applies_when: [user management]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-08
+    block: base
+    text: 'SQL injection prevented — parameterized queries only'
+    controls: [SI-10]
+    applies_when: [sql]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-09
+    block: base
+    text: 'Soft-delete / archive filters (e.g. `deleted_at`, `archived_at`) applied on all active-record queries where the schema defines them'
+    controls: [AC-3]
+    applies_when: [sql]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-10
+    block: base
+    text: 'Custom Express error handler wired globally — no stack traces, internal messages, DB errors, file paths, or storage keys in any API response'
+    controls: [SI-11]
+    stig: [SRG-APP-000266-AS-000169]
+    applies_when: [http routes]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-11
+    block: base
+    text: 'File uploads, if any, use in-memory storage — no disk writes on backend pods'
+    controls: [SC-28]
+    applies_when: [uploads]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-12
+    block: base
+    text: 'Input validated at every API boundary; reserved and computed fields refused on a generic `PUT` and changed only through their dedicated endpoints; computed columns never written'
+    controls: [SI-10]
+    applies_when: [http routes]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-13
+    block: base
+    text: 'No PII, tokens or secrets in logs (NS-02, NS-03)'
+    controls: [SI-12, AU-9]
+    stig: [SRG-APP-000118-AS-000078]
+    source: engine/SENTINEL-CHECKLIST.md
+  - id: B-14
+    block: base
+    text: 'CORS matches the platform rule'
+    controls: [SC-7, AC-4]
+    applies_when: [http routes]
+    source: engine/SENTINEL-CHECKLIST.md

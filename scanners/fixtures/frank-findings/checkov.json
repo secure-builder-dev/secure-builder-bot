@@ -1,0 +1,21 @@
+{
+  "results": {
+    "passed_checks": [],
+    "failed_checks": [
+      {
+        "check_id": "CKV_K8S_11",
+        "check_type": "helm",
+        "check_result": {"result": "FAILED", "evaluated_keys": {}},
+        "file_path": "helm/templates/deployment-backend.yaml",
+        "file_line_range": [18, 25],
+        "resource": "Deployment.<APP_NAME>.<APP_NAME>-api",
+        "check_class": "checkov.kubernetes.checks.resource.k8s.CPULimits",
+        "check_description": "CPU limits should be set",
+        "guideline": "Set resource.limits.cpu in the container spec",
+        "severity": "HIGH"
+      }
+    ],
+    "skipped_checks": []
+  },
+  "summary": {"passed": 0, "failed": 1, "skipped": 0, "parsing_error": 0, "resource_count": 1}
+}

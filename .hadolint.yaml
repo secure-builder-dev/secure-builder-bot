@@ -1,0 +1,22 @@
+# .hadolint.yaml — read by scanners/scripts/run-hadolint.sh (`--config .hadolint.yaml`).
+# Engine-owned: `make sync-engine` overwrites a project's copy, so a suppression a project needs for
+# its own Dockerfiles belongs in that project's config, never here. The key is `ignored:` — hadolint
+# 2.x silently ignores a file that says `ignore:`, which is exactly what this file did until
+# 2026-09-23, so the --config flag was proving nothing.
+ignored:
+  # apt version pins: no apt on Wolfi; kept from the engine default so a Debian-based project
+  # that syncs this file behaves the same.
+  - DL3008
+  # apk version pins: Wolfi prunes superseded package versions from its index within days, so
+  # `apk add nodejs-22=<version>` breaks the next `--pull --no-cache` rebuild. Freshness comes from
+  # `apk upgrade` on every build instead.
+  - DL3018
+  # `:latest` base tag: chainguard/wolfi-base publishes no version tags on the free tier, so the
+  # only alternative is a digest pin, which would stop the nightly rebuild picking up Chainguard's
+  # patches. The base floats by decision — renovate.json `_comment_docker` records the same choice
+  # — and `build-images.sh --pull --no-cache` plus the nightly rebuild are the freshness control.
+  # A project that keeps this entry records the accepted risk in its own gate records; the engine
+  # cites none here, because the record is the project's. Revisit when the platform registry FROM
+  # lines land: this entry goes then.
+  - DL3007
+failure-threshold: error

@@ -1,0 +1,1 @@
+{"scanner":"pip-audit","generated":"2026-10-15","policy":"fixture","apps":[{"app":"backend","file":"backend/requirements.txt","dependencies":1,"vulns":0}],"blocking":[],"reported":[]}

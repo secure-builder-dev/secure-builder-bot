@@ -1,0 +1,45 @@
+{
+  "SchemaVersion": 2,
+  "ArtifactName": "<APP_NAME>-api:latest",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {"Family": "debian", "Name": "11.6"},
+    "ImageID": "sha256:aaa111bbb222ccc333",
+    "RepoTags": ["<APP_NAME>-api:latest"],
+    "RepoDigests": []
+  },
+  "Results": [
+    {
+      "Target": "Node.js",
+      "Class": "lang-pkgs",
+      "Type": "node-pkgs",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2021-23337",
+          "PkgName": "lodash",
+          "InstalledVersion": "4.17.20",
+          "FixedVersion": "4.17.21",
+          "Layer": {
+            "Digest": "sha256:aaabbbccc111",
+            "DiffID": "sha256:aaabbbccc111"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2021-23337",
+          "Title": "lodash: command injection via template",
+          "Description": "Lodash versions prior to 4.17.21 are vulnerable to command injection via the template function.",
+          "Severity": "HIGH",
+          "CweIDs": ["CWE-77"],
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.2
+            }
+          },
+          "References": ["https://github.com/lodash/lodash/issues/5261"],
+          "PublishedDate": "2021-04-23T00:00:00Z",
+          "LastModifiedDate": "2021-04-23T00:00:00Z"
+        }
+      ]
+    }
+  ]
+}

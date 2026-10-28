@@ -1,0 +1,8 @@
+hadolint ran 5 Dockerfile(s)
+checkov ran 2 framework(s)
+clamav ran Scanned files: 840
+grype ran 2 image(s)
+trivy ran 2 image(s)
+npm-audit ran 2 app(s)
+eslint ran 2 app(s)
+pip-audit ran 1 manifest(s)

@@ -1,0 +1,20 @@
+{
+  "scanner": "eslint",
+  "policy": "every message blocks: both apps lint with --max-warnings 0 (T-018)",
+  "apps": [
+    {
+      "app": "frontend",
+      "files": 120,
+      "errors": 1,
+      "warnings": 1,
+      "messages": [
+        { "app": "frontend", "file": "src/components/Example.tsx", "line": 12, "column": 7, "rule": "react-hooks/rules-of-hooks", "severity": "error", "message": "fixture: React Hook \"useState\" is called conditionally." },
+        { "app": "frontend", "file": "src/lib/util.ts", "line": 3, "column": 1, "rule": "no-unused-vars", "severity": "warning", "message": "fixture: 'x' is defined but never used." }
+      ]
+    }
+  ],
+  "blocking": [
+    { "app": "frontend", "file": "src/components/Example.tsx", "line": 12, "column": 7, "rule": "react-hooks/rules-of-hooks", "severity": "error", "message": "fixture: React Hook \"useState\" is called conditionally." },
+    { "app": "frontend", "file": "src/lib/util.ts", "line": 3, "column": 1, "rule": "no-unused-vars", "severity": "warning", "message": "fixture: 'x' is defined but never used." }
+  ]
+}
