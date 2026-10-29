@@ -95,10 +95,10 @@ when an accepted risk applied, `pass` otherwise, `not_run` when the scan could n
 Findings carry the CVE id as `rule_id`, the package, version, fix and scanner in the message,
 and the result file as `file`; a scanner that did not run is `scanner:<name>`; an unusable
 accepted-risk entry is `accepted-risk:<id>`; a manifest no runner audited is `unaudited:<path>`;
-stale CVE data is `stale-data:<scanner>`; everything else fixable in `dispatch.md` keeps its own
+stale CVE data is `stale-data:<scanner>`; a Wolfi line left behind is `stale-package:<package>`, at its Dockerfile line; everything else fixable in `dispatch.md` keeps its own
 rule id (a hadolint code, a checkov check, `eslint`, `SECRET`, `MISCONFIG`, `malware`).
 
-**The receipt section** (`receipt.scanners`, one entry per scanner, eight of them): `version`
+**The receipt section** (`receipt.scanners`, one entry per scanner, nine of them): `version`
 (the pinned tag or the pip-audit pin; "the project's own" for npm and eslint), `image`,
 `database` (the CVE database's own date, ClamAV's signature age, "live … at scan time" for the
 registry audits, "n/a — rule-based" for the linters, "n/a — nothing in scope" when the runner
@@ -121,6 +121,13 @@ first, `scan_ran` or `scan_none` last and only on a success path, exit 0/1 for t
 "did not run" for anything unparseable; `scan.sh` adds `scanners-exit` (name and exit code).
 `run-pip-audit.sh` writes `pip-audit.json` (`apps`, `blocking` = a fix exists, `reported` = no
 fix) and takes `PIP_AUDIT_CMD` (default `python3 -m pip_audit`).
+`run-wolfi-freshness.sh` reads every `apk add` in a Dockerfile stage built `FROM` a Wolfi or
+Chainguard image, looks each package up in Wolfi's APKINDEX (`WOLFI_INDEX_URL`, or a local
+`WOLFI_INDEX_FILE`) and writes `wolfi-freshness.json`: each install's Dockerfile and line, its last
+build date, and the newer numbered lines of the same package (`nodejs-24` for `nodejs-22`) with
+theirs. It decides nothing; the gate's `stale_wolfi_packages` blocks an install last built over
+`WOLFI_STALE_DAYS` (45) ago while a newer line was built within them (CM-102). An index that cannot
+be read is the scanner not running; no Wolfi Dockerfile is nothing in scope.
 
 ## Scope
 

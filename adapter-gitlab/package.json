@@ -1,6 +1,6 @@
 {
   "name": "@securebuilderbot/adapter-gitlab",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Secure Builder Bot on GitLab: the CI/CD component and the merge request publisher",
   "license": "Apache-2.0",

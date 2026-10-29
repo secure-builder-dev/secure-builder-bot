@@ -17,7 +17,7 @@ vi.mock("tsx/esm/api", () => ({
 }));
 
 const BIN = pathToFileURL(path.resolve(import.meta.dirname, "..", "bin", "securebuilderbot.js")).href;
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 let argv: string[];
 let out: string[];

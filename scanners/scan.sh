@@ -28,7 +28,8 @@ skip=" ${SCAN_SKIP:-} "
 bash "$scan/pull-images.sh" || exit 2
 bash "$scan/build-images.sh" || exit 2
 for pair in hadolint:run-hadolint.sh checkov:run-checkov.sh clamav:run-clamav.sh grype:run-grype.sh \
-            trivy:run-trivy.sh npm-audit:run-npm-audit.sh eslint:run-eslint.sh pip-audit:run-pip-audit.sh; do
+            trivy:run-trivy.sh npm-audit:run-npm-audit.sh eslint:run-eslint.sh pip-audit:run-pip-audit.sh \
+            wolfi-freshness:run-wolfi-freshness.sh; do
   name="${pair%%:*}"
   case "$skip" in *" $name "*) echo "[$name] skipped — turned off by scan.skip in the config"; continue ;; esac
   bash "$scan/${pair#*:}"; rc=$?

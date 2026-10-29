@@ -6,3 +6,4 @@ trivy ran android/ filesystem (gradle.lockfile present)
 npm-audit none not applicable on the android track (no npm app dir)
 eslint none not applicable on the android track (no npm app dir)
 pip-audit none no Python app (no requirements*.txt or pyproject.toml in the checkout)
+wolfi-freshness none no Dockerfile installs a Wolfi package

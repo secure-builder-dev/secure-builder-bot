@@ -95,7 +95,7 @@ def test_a_clean_scan_passes_and_the_receipt_names_every_scanner(tmp_path, monke
     r = gate().run(ctx(tmp_path))
     assert r.status == "pass" and r.reason == ""
     s = r.receipt["scanners"]
-    assert set(s) == {"hadolint", "checkov", "clamav", "grype", "trivy", "npm-audit", "eslint", "pip-audit"}
+    assert set(s) == {"hadolint", "checkov", "clamav", "grype", "trivy", "npm-audit", "eslint", "pip-audit", "wolfi-freshness"}
     assert s["grype"]["image"] == pinned_images()["grype"] and s["trivy"]["image"] == pinned_images()["trivy"]
     assert s["grype"]["version"] == pinned_images()["grype"].rsplit(":", 1)[-1]
     assert r.receipt["stale"] == {} and r.receipt["cve_data_max_age_days"] == 30
@@ -464,12 +464,14 @@ def test_non_cve_fixable_work_still_blocks_whatever_the_profile(tmp_path, monkey
 
 # ── Every scanner accounted for, every manifest audited ───────────────────────────────────────
 
-def test_the_receipt_lists_eight_scanners_with_exit_codes_and_counts(tmp_path, monkeypatch):
+def test_the_receipt_lists_nine_scanners_with_exit_codes_and_counts(tmp_path, monkeypatch):
     after = 'printf "hadolint 0\ntrivy 1\npip-audit 0\n" > "$SCAN_RESULTS_DIR/scanners-exit"\n'
     monkeypatch.setattr(scangate, "SHIM", fake_shim(tmp_path, "clean", after=after))
     r = gate().run(ctx(tmp_path))
     s = r.receipt["scanners"]
-    assert list(s) == ["hadolint", "checkov", "clamav", "grype", "trivy", "npm-audit", "eslint", "pip-audit"]
+    assert list(s) == ["hadolint", "checkov", "clamav", "grype", "trivy", "npm-audit", "eslint", "pip-audit", "wolfi-freshness"]
+    assert s["wolfi-freshness"]["version"] == "n/a — reads the index" and s["wolfi-freshness"]["database"] == "n/a — nothing in scope"
+    assert database_dates(tmp_path, "")["wolfi-freshness"].startswith("live Wolfi package index")
     assert s["hadolint"]["exit_code"] == 0 and s["trivy"]["exit_code"] == 1 and s["checkov"]["exit_code"] == "not recorded"
     assert s["pip-audit"]["version"] == "2.10.1" and s["pip-audit"]["examined"] == "ran 1 manifest(s)"
     assert s["pip-audit"]["database"].startswith("live PyPI advisories")
@@ -952,3 +954,108 @@ def test_the_scanners_that_read_an_excusing_list_run_before_any_scanner_that_run
     order = re.findall(r"([a-z-]+):run-[a-z-]+\.sh", text)
     assert order.index("checkov") < order.index("eslint") and order.index("npm-audit") < order.index("eslint")
     assert order.index("checkov") < order.index("pip-audit") and order.index("npm-audit") < order.index("pip-audit")
+
+
+# The Wolfi freshness check. A line Wolfi stopped building while it builds a newer one blocks
+# (nodejs-22 last built Aug 7, nodejs-24 Oct 21: the case that prompted it).
+def wolfi_result(results: Path, *packages: dict) -> None:
+    (results / "wolfi-freshness.json").write_text(json.dumps({"index": "fixture", "packages": list(packages)}))
+
+
+def wolfi_pkg(name: str, built: str | None, *newer: tuple[str, str], path="backend/Dockerfile", line=6) -> dict:
+    return {"package": name, "dockerfile": path, "line": line, "in_index": built is not None,
+            "last_build": built, "newer": [{"package": n, "last_build": b} for n, b in newer]}
+
+
+def test_a_wolfi_line_left_behind_by_a_newer_one_blocks_at_its_dockerfile_line(tmp_path):
+    wolfi_result(tmp_path, wolfi_pkg("nodejs-22", "2026-08-07T12:00:00Z", ("nodejs-24", "2026-10-11T12:00:00Z")))
+    [f] = scangate.stale_wolfi_packages(tmp_path, NOW)
+    assert (f.severity, f.rule_id, f.path, f.line) == ("blocking", "stale-package:nodejs-22", "backend/Dockerfile", 6)
+    assert "last built 2026-08-07 (69 days ago)" in f.message and "move the install to nodejs-24" in f.message
+
+
+def test_a_wolfi_line_is_left_alone_while_fresh_or_while_no_newer_line_is_built(tmp_path):
+    wolfi_result(tmp_path,
+                 wolfi_pkg("nodejs-24", "2026-10-11T12:00:00Z"),                                       # fresh, no newer line
+                 wolfi_pkg("nginx-mainline", "2026-06-01T12:00:00Z"),                                  # old, but no numbered line above it
+                 wolfi_pkg("nodejs-22", "2026-09-10T12:00:00Z", ("nodejs-24", "2026-10-11T12:00:00Z")),  # 35 days: not yet stale
+                 wolfi_pkg("python-3.11", "2026-05-01T12:00:00Z", ("python-3.13", "2026-06-01T12:00:00Z")))  # newer line stopped too
+    assert scangate.stale_wolfi_packages(tmp_path, NOW) == []
+
+
+def test_a_package_missing_from_the_wolfi_index_is_said_never_blocking(tmp_path):
+    wolfi_result(tmp_path, wolfi_pkg("nodejs-18", None))
+    [f] = scangate.stale_wolfi_packages(tmp_path, NOW)
+    assert (f.severity, f.rule_id) == ("advisory", "wolfi-missing:nodejs-18")
+
+
+def test_a_stale_wolfi_line_fails_the_scan_gate_and_names_it(tmp_path, monkeypatch):
+    stale = json.dumps({"index": "fixture", "packages": [wolfi_pkg("nodejs-22", "2026-08-07T12:00:00Z", ("nodejs-24", "2026-10-11T12:00:00Z"))]})
+    after = f"printf '%s' '{stale}' > \"$SCAN_RESULTS_DIR/wolfi-freshness.json\"\n"
+    monkeypatch.setattr(scangate, "SHIM", fake_shim(tmp_path, "clean", after=after))
+    r = gate().run(ctx(tmp_path))
+    assert r.status == "fail" and "stale-package:nodejs-22" in blocking_ids(r)
+    assert "stale-package:nodejs-22" in r.reason
+
+
+def test_the_wolfi_check_not_running_fails_the_gate(tmp_path, monkeypatch):
+    after = 'rm -f "$SCAN_RESULTS_DIR/wolfi-freshness.json"\n'
+    monkeypatch.setattr(scangate, "SHIM", fake_shim(tmp_path, "clean", after=after))
+    r = gate().run(ctx(tmp_path))
+    assert r.status == "fail" and "scanner:wolfi-freshness" in blocking_ids(r)
+
+
+def apkindex(path: Path, **built: str) -> Path:
+    """A Wolfi APKINDEX.tar.gz holding one record per package, built at the given UTC day."""
+    import io
+    import tarfile
+    recs = "\n\n".join(f"P:{p}\nV:1.0-r0\nt:{int(datetime.fromisoformat(d + 'T12:00:00+00:00').timestamp())}" for p, d in built.items())
+    data = (recs + "\n").encode()
+    with tarfile.open(path, "w:gz") as tar:
+        info = tarfile.TarInfo("APKINDEX")
+        info.size = len(data)
+        tar.addfile(info, io.BytesIO(data))
+    return path
+
+
+def run_wolfi(repo: Path, results: Path, index: Path | None) -> subprocess.CompletedProcess:
+    env = {**os.environ, "PROJECT_ROOT": str(repo), "SCAN_RESULTS_DIR": str(results)}
+    env.update({"WOLFI_INDEX_FILE": str(index)} if index else {"WOLFI_INDEX_URL": "http://127.0.0.1:9/APKINDEX.tar.gz"})
+    return subprocess.run(["bash", str(RUNNERS / "run-wolfi-freshness.sh")], env=env, capture_output=True, text=True)
+
+
+def dockerfile_repo(tmp_path: Path, text: str) -> Path:
+    repo = tmp_path / "repo"
+    (repo / "backend").mkdir(parents=True)
+    (repo / "backend" / "Dockerfile").write_text(text)
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    return repo
+
+
+def test_the_runner_records_each_wolfi_install_its_build_date_and_newer_lines(tmp_path):
+    repo = dockerfile_repo(tmp_path, "FROM chainguard/wolfi-base:latest AS builder\n"
+                                     "RUN apk add --no-cache nodejs-22 npm && node --version\n"
+                                     "FROM node:22-alpine\nRUN apk add --no-cache curl\n"          # not Wolfi: not read
+                                     "FROM cgr.dev/chainguard/wolfi-base\nRUN apk add \\\n    nginx-mainline=1.29.2-r0 \\\n    && echo done\n")
+    index = apkindex(tmp_path / "APKINDEX.tar.gz", **{"nodejs-22": "2026-08-07", "nodejs-24": "2026-10-21", "nodejs-20": "2026-05-01",
+                                                     "npm": "2026-10-20", "nginx-mainline": "2026-10-15"})
+    results = tmp_path / "results"
+    out = run_wolfi(repo, results, index)
+    assert out.returncode == 0, out.stdout + out.stderr
+    got = {(p["package"], p["line"]): p for p in json.loads((results / "wolfi-freshness.json").read_text())["packages"]}
+    assert set(got) == {("nodejs-22", 2), ("npm", 2), ("nginx-mainline", 6)}  # not node, not curl, not the pin's version
+    assert got[("nodejs-22", 2)]["last_build"] == "2026-08-07T12:00:00Z"
+    assert [n["package"] for n in got[("nodejs-22", 2)]["newer"]] == ["nodejs-24"]  # nodejs-20 is older, not newer
+    assert got[("nginx-mainline", 6)]["newer"] == [] and "wolfi-freshness ran 3" in (results / "scanners-ran").read_text()
+
+
+def test_the_runner_without_wolfi_is_nothing_in_scope_and_an_unreachable_index_did_not_run(tmp_path):
+    repo = dockerfile_repo(tmp_path, "FROM python:3.12-slim\nRUN pip install x\n")
+    results = tmp_path / "results"
+    assert run_wolfi(repo, results, None).returncode == 0
+    assert "wolfi-freshness none" in (results / "scanners-ran").read_text()
+    (repo / "backend" / "Dockerfile").write_text("FROM chainguard/wolfi-base\nRUN apk add nodejs-24\n")
+    out = run_wolfi(repo, results, None)
+    assert out.returncode == 1 and "did not run" in out.stdout
+    assert not (results / "wolfi-freshness.json").exists()
+    assert "wolfi-freshness" not in (results / "scanners-ran").read_text()

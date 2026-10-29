@@ -45,10 +45,14 @@ TIMEOUT_SECONDS = 3600
 # signatures are recorded, not judged: the PRD's limit is on CVE data.
 CVE_DATABASES = ("grype", "trivy")
 # The scanners the receipt lists: core's seven (the verdict line counts those) plus the ecosystem
-# audit for Python, which this module accounts for itself (missing_extra_scanners).
-EXTRA_SCANNERS = (("pip-audit", "pip-audit.json"),)
+# audit for Python and the Wolfi package freshness check, which this module accounts for itself
+# (missing_extra_scanners).
+EXTRA_SCANNERS = (("pip-audit", "pip-audit.json"), ("wolfi-freshness", "wolfi-freshness.json"))
+# A Wolfi line not built for this long, while a newer line of the same package is, has been left behind
+# upstream: no CVE says so yet, because nobody rebuilds the version a CVE would be filed against.
+WOLFI_STALE_DAYS = 45
 ALL_SCANNERS = tuple(SCANNERS) + EXTRA_SCANNERS
-__all__ = ["ScanGate", "parse_utc", "pinned_images", "database_dates", "stale_databases", "redact_results", "ran_scanners"]
+__all__ = ["ScanGate", "parse_utc", "pinned_images", "database_dates", "stale_databases", "stale_wolfi_packages", "redact_results", "ran_scanners"]
 
 
 def pinned_images() -> dict[str, str]:
@@ -156,6 +160,7 @@ def database_dates(results: Path, log: str) -> dict[str, str]:
         "clamav": f"signatures {clam.group(1)} day(s) old at scan time" if clam else "not reported by the scan log",
         "npm-audit": "live registry advisories at scan time",
         "pip-audit": "live PyPI advisories at scan time",
+        "wolfi-freshness": "live Wolfi package index at scan time",
         "hadolint": RULE_BASED, "checkov": RULE_BASED, "eslint": RULE_BASED,
     }
 
@@ -181,6 +186,8 @@ def findings_count(results: Path, name: str) -> int:
             return len(doc.get("blocking", []))
         if name == "pip-audit":
             return len(doc.get("blocking", [])) + len(doc.get("reported", []))
+        if name == "wolfi-freshness":
+            return len(doc.get("packages", []))
     except (OSError, AttributeError, TypeError, ValueError):
         return 0
     return 0
@@ -198,6 +205,26 @@ def missing_extra_scanners(results: Path, skip: tuple[str, ...]) -> list[str]:
             out.append(name)
         elif not (results / filename).is_file() or not _json(results / filename):
             out.append(f"{name}(no result)")
+    return out
+
+
+def stale_wolfi_packages(results: Path, now: datetime) -> list[Finding]:
+    """A Wolfi package a Dockerfile installs whose last build is over WOLFI_STALE_DAYS old while a newer
+    line of the same package was built within them blocks: upstream moved on (nodejs-22 to nodejs-24).
+    A line with no newer one still built is left alone, and a package missing from the index is said."""
+    out = []
+    for p in _json(results / "wolfi-freshness.json").get("packages", []) or []:
+        name, at = str(p.get("package", "")), dict(path=p.get("dockerfile"), line=p.get("line"))
+        built = parse_utc(p.get("last_build"))
+        if built is None:
+            out.append(Finding("advisory", f"wolfi-missing:{name}", f"{name} is not in Wolfi's package index: retired, or from another repository", **at))
+            continue
+        live = [n for n in p.get("newer", []) or [] if (b := parse_utc(n.get("last_build"))) and (now - b).days <= WOLFI_STALE_DAYS]
+        if (now - built).days > WOLFI_STALE_DAYS and live:
+            newest = live[-1]
+            out.append(Finding("blocking", f"stale-package:{name}",
+                               f"{name} was last built {built.date()} ({(now - built).days} days ago) while {newest['package']} was built "
+                               f"{str(newest['last_build'])[:10]}: move the install to {newest['package']}", **at))
     return out
 
 
@@ -353,7 +380,8 @@ class ScanGate:
         for name, _ in ALL_SCANNERS:
             image = images.get(name.replace("-", "_"), "")
             examined = "skipped by config" if name in ctx.skip else (kinds.get(name) or "did not run")
-            version = image.rsplit(":", 1)[-1] if image else (pinned_pip_audit() if name == "pip-audit" else "the project's own (not pinned by the bot)")
+            version = image.rsplit(":", 1)[-1] if image else (pinned_pip_audit() if name == "pip-audit" else "n/a — reads the index" if name == "wolfi-freshness"
+                                                               else "the project's own (not pinned by the bot)")
             scanners[name] = {
                 "version": version,
                 "image": image or None,
@@ -393,6 +421,7 @@ class ScanGate:
                              "upgrade, or add an accepted-risk entry with a reason and an expiry", file=c.file) for c, why in pol.blocking]
         findings += [Finding("advisory", c.id, f"{c.id} ({c.severity}) in {c.package}@{c.version}, fix: {c.fix}, found by {c.scanner} — {why}", file=c.file)
                      for c, why in pol.advisory]
+        findings += stale_wolfi_packages(results, now)
         for f in unaudited_manifests(ctx.repo, results):
             findings.append(Finding("blocking", f"unaudited:{f}", f"{f} is in the checkout and no runner audited it — a manifest that was not audited is never nothing in scope", path=f))
         # Conservative on purpose (PRD § What a profile does not do): vulnerability scanning that ran is
@@ -414,7 +443,7 @@ class ScanGate:
             reasons.append(f"{len(pol.blocking)} CVE(s) block under profile {ctx.profile.name}: " + ", ".join(c.id for c, _ in pol.blocking[:6]))
         if pol.bad_entries:
             reasons.append(f"{len(pol.bad_entries)} accepted-risk entr{'y' if len(pol.bad_entries) == 1 else 'ies'} cannot be used")
-        other = [f for f in blocking if f.file == "scan/results/dispatch.md" or f.rule_id.startswith("unaudited:")]
+        other = [f for f in blocking if f.file == "scan/results/dispatch.md" or f.rule_id.startswith(("unaudited:", "stale-package:"))]
         if other:
             reasons.append(f"{len(other)} fixable finding(s) that are not CVEs: " + ", ".join(f.rule_id for f in other[:6]))
         if status in ("fail", "not_run"):
