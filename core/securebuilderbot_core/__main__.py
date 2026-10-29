@@ -59,12 +59,18 @@ def cmd_scan_precondition(args: argparse.Namespace) -> int:
     return 0 if ok else 1
 
 
+def _misnamed(path: Path) -> str:
+    """The hint for a config file that is not there: the same name spelled .yaml or .yml is the usual slip."""
+    twin = path.with_suffix({".yml": ".yaml", ".yaml": ".yml"}.get(path.suffix, path.suffix))
+    return f"; found {twin} beside it: rename it to {path.name}" if twin != path and twin.is_file() else ""
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     from .classify import ClassifyError
     from .runner import RunError, run
     path = Path(args.config)
     if not path.is_file():
-        print(f"run: no config file at {path} — write one (core/run config check validates it)")
+        print(f"run: no config file at {path}{_misnamed(path)} — write one (core/run config check validates it)")
         return 2
     try:
         head = load_config(path)
@@ -198,7 +204,7 @@ def cmd_classify(args: argparse.Namespace) -> int:
 def cmd_config(args: argparse.Namespace) -> int:
     path = Path(args.config)
     if not path.is_file():
-        print(f"config: no config file at {path}")
+        print(f"config: no config file at {path}{_misnamed(path)}")
         return 2
     try:
         c = load_config(path)

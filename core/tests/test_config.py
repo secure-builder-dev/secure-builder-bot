@@ -144,6 +144,18 @@ def test_config_check_cli_missing_file(tmp_path, capsys):
     assert "no config file" in capsys.readouterr().out
 
 
+def test_a_config_spelled_yaml_is_named_in_the_refusal(tmp_path, capsys):
+    # Created by hand in a web editor, the file is as often .yaml as .yml; the bot reads only .yml.
+    write(tmp_path, GOOD).rename(tmp_path / ".securebuilderbot.yaml")
+    assert main(["config", "check", "--config", str(tmp_path / ".securebuilderbot.yml")]) == 2
+    assert f"found {tmp_path / '.securebuilderbot.yaml'} beside it: rename it to .securebuilderbot.yml" in capsys.readouterr().out
+    assert main(["run", "--config", str(tmp_path / ".securebuilderbot.yml")]) == 2
+    assert "rename it to .securebuilderbot.yml" in capsys.readouterr().out
+    (tmp_path / ".securebuilderbot.yaml").unlink()  # no twin, no hint
+    assert main(["config", "check", "--config", str(tmp_path / ".securebuilderbot.yml")]) == 2
+    assert "rename" not in capsys.readouterr().out
+
+
 def test_hash_identifies_the_exact_file(tmp_path):
     a = load_config(write(tmp_path, GOOD)).sha256
     b = load_config(write(tmp_path, GOOD + "# a comment changes the file\n")).sha256

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# core/install-deps — install the repository's own npm dependencies before the gates run.
+# Usage: core/install-deps [<checkout>]   (default: the working directory)
+#
+# Scan's eslint and QA's suites run the repository's own tools from each app's node_modules, and a
+# fresh CI checkout has none: eslint then did not run, and QA's `npm test` found no jest. Every
+# tracked package-lock.json or npm-shrinkwrap.json outside node_modules, in a directory that has no
+# node_modules yet, gets `npm ci`. That runs the pull request's install scripts, so it belongs where
+# its code already runs (the untrusted part), never beside the model key or a write token.
+# An install that fails is said and the run goes on: the gates then report what could not run, never
+# a pass. Exit 0, or 2 when the checkout is not a directory.
+set -uo pipefail
+root="${1:-.}"
+cd "$root" 2>/dev/null || { echo "install-deps: no directory $root" >&2; exit 2; }
+
+dirs=()
+declare -A seen=()
+while IFS= read -r lock; do
+  case "${lock##*/}" in package-lock.json|npm-shrinkwrap.json) ;; *) continue ;; esac
+  case "/$lock" in */node_modules/*) continue ;; esac
+  dir="$(dirname "$lock")"
+  [ -n "${seen[$dir]:-}" ] && continue
+  seen[$dir]=1; dirs+=("$dir")
+done < <(git ls-files -- '*package-lock.json' '*npm-shrinkwrap.json' 2>/dev/null | sort)
+
+if [ "${#dirs[@]}" -eq 0 ]; then echo "install-deps: no npm lockfile tracked, nothing to install"; exit 0; fi
+if ! command -v npm >/dev/null 2>&1; then
+  echo "install-deps: npm is not on PATH, nothing installed; a gate that needs node_modules says it did not run"
+  exit 0
+fi
+for dir in "${dirs[@]}"; do
+  if [ -d "$dir/node_modules" ]; then echo "install-deps: $dir already has node_modules, left as it is"; continue; fi
+  echo "install-deps: npm ci in $dir"
+  ( cd "$dir" && npm ci --no-fund --no-audit --loglevel=error ) \
+    || echo "install-deps: npm ci failed in $dir; a gate that needs its node_modules says it did not run"
+done
+exit 0

@@ -75,12 +75,13 @@ fi
 # wrong as scanning nothing then passing. The repository is scanned as a filesystem instead: every
 # manifest and lockfile in it. A repository WITH a Dockerfile whose image is missing still fails
 # below — that is a build to run, not an empty scope. The scanners' own canned fixtures are excluded:
-# they are test data, not dependencies.
+# they are test data, not dependencies. So is node_modules: the lockfiles name every package in it, and
+# the install the gates job runs first would otherwise count each one twice.
 if [ -z "${SCAN_IMAGES:-}" ] && [ -z "$(bash "$SCRIPT_DIR/image-plan.sh" 2>/dev/null)" ]; then
   echo "[grype] No container image in this repository — scanning the repository filesystem via $(scan_engine_for grype) engine..."
   GRYPE_JSON_TMP=$(mktemp); GRYPE_LOG_TMP=$(mktemp)
-  tool_grype "${OWN[@]}" dir:. --exclude './scanners/fixtures/**' --exclude './.git/**' --output json > "$GRYPE_JSON_TMP" 2>"$GRYPE_LOG_TMP" || true
-  tool_grype "${OWN[@]}" dir:. --exclude './scanners/fixtures/**' --exclude './.git/**' --output table >> "$GRYPE_LOG_TMP" 2>/dev/null || true
+  tool_grype "${OWN[@]}" dir:. --exclude './scanners/fixtures/**' --exclude './.git/**' --exclude './**/node_modules/**' --output json > "$GRYPE_JSON_TMP" 2>"$GRYPE_LOG_TMP" || true
+  tool_grype "${OWN[@]}" dir:. --exclude './scanners/fixtures/**' --exclude './.git/**' --exclude './**/node_modules/**' --output table >> "$GRYPE_LOG_TMP" 2>/dev/null || true
   if ! jq -e '.matches' "$GRYPE_JSON_TMP" >/dev/null 2>&1; then
     echo "[grype] FAIL — no parseable report from the filesystem scan. The scanner did not run."
     head -20 "$GRYPE_LOG_TMP" | sed 's/^/  │ /'

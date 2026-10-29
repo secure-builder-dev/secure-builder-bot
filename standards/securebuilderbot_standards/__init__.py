@@ -10,7 +10,7 @@ receipt, and sentinel reads the catalog and the checklists.
 from .citations import Citation, Verifier, verify_citations, verify_files
 from .data import Control, Masvs, NistPub, OwaspLists, StigRule, baseline, catalog, masvs, nist_pubs, owasp, stigs, versions
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = [
     "Citation", "Control", "Masvs", "NistPub", "OwaspLists", "StigRule", "Verifier",
     "baseline", "catalog", "masvs", "nist_pubs", "owasp", "stigs", "verify_citations", "verify_files", "versions",

@@ -83,12 +83,13 @@ fi
 # wrong as scanning nothing then passing. The repository is scanned as a filesystem instead: every
 # manifest and lockfile in it. A repository WITH a Dockerfile whose image is missing still fails
 # below — that is a build to run, not an empty scope. The scanners' own canned fixtures are excluded:
-# they are test data, not dependencies.
+# they are test data, not dependencies. So is node_modules: the lockfiles name every package in it, and
+# the install the gates job runs first would otherwise count each one twice.
 if [ -z "${SCAN_IMAGES:-}" ] && [ -z "$(bash "$SCRIPT_DIR/image-plan.sh" 2>/dev/null)" ]; then
   echo "[trivy] No container image in this repository — scanning the repository filesystem via $(scan_engine_for trivy) engine..."
   TRIVY_JSON_TMP=$(mktemp); TRIVY_LOG_TMP=$(mktemp)
-  tool_trivy fs --scanners vuln --skip-dirs scanners/fixtures --format json --quiet "${OWN[@]}" . > "$TRIVY_JSON_TMP" 2>"$TRIVY_LOG_TMP" || true
-  tool_trivy fs --scanners vuln --skip-dirs scanners/fixtures --format table --quiet "${OWN[@]}" . >> "$TRIVY_LOG_TMP" 2>/dev/null || true
+  tool_trivy fs --scanners vuln --skip-dirs scanners/fixtures --skip-dirs "**/node_modules" --format json --quiet "${OWN[@]}" . > "$TRIVY_JSON_TMP" 2>"$TRIVY_LOG_TMP" || true
+  tool_trivy fs --scanners vuln --skip-dirs scanners/fixtures --skip-dirs "**/node_modules" --format table --quiet "${OWN[@]}" . >> "$TRIVY_LOG_TMP" 2>/dev/null || true
   if ! jq -e '.Results // .SchemaVersion' "$TRIVY_JSON_TMP" >/dev/null 2>&1; then
     echo "[trivy] FAIL — no parseable report from the filesystem scan. The scanner did not run."
     head -20 "$TRIVY_LOG_TMP" | sed 's/^/  │ /'

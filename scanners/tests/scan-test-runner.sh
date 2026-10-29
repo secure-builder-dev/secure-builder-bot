@@ -1482,8 +1482,8 @@ repo_fs_case() {   # $1 runner  $2 tool  $3 canned json  $4… args that must ap
 # repository, so these cases exercise the filesystem path whatever this checkout builds.
 no_image_repo=$(mktemp -d); git -C "$no_image_repo" init -q
 pushd "$no_image_repo" >/dev/null || exit 1
-repo_fs_case run-grype.sh grype '{"matches":[],"source":{"type":"directory","target":"."},"descriptor":{"name":"grype","version":"fake"}}' "dir:." "fixtures/\*\*"
-repo_fs_case run-trivy.sh trivy '{"SchemaVersion":2,"ArtifactName":".","ArtifactType":"filesystem","Results":[]}' "fs --scanners vuln" "--skip-dirs scanners/fixtures"
+repo_fs_case run-grype.sh grype '{"matches":[],"source":{"type":"directory","target":"."},"descriptor":{"name":"grype","version":"fake"}}' "dir:." "fixtures/\*\*" "node_modules/\*\*"
+repo_fs_case run-trivy.sh trivy '{"SchemaVersion":2,"ArtifactName":".","ArtifactType":"filesystem","Results":[]}' "fs --scanners vuln" "--skip-dirs scanners/fixtures" "--skip-dirs \*\*/node_modules"
 # A named image is not an empty scope: the image path runs, and a missing image still fails.
 root=$(mktemp -d); mkdir -p "$root/bin" "$root/results"
 printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> "%s/args"\necho "{}"\n' "$root" > "$root/bin/grype"; chmod +x "$root/bin/grype"
