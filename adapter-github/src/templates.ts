@@ -98,7 +98,7 @@ export function workflowTemplate(a: SetupAnswers): string {
   const runsOn = a.sentinel === 'self-hosted' ? '[self-hosted]' : 'ubuntu-latest';
   const lines = [
     '# Secure Builder Bot on every pull request: the gates .securebuilderbot.yml turns on, as checks on the',
-    '# pull request and comments on the diff. Written by the setup pull request; nothing runs until it is merged.',
+    '# pull request and comments on the diff. Written by the setup pull request, which it already runs on.',
     'name: Secure Builder',
     'on:',
     '  pull_request:',
@@ -179,8 +179,9 @@ export function setupPrBody(a: SetupAnswers): string {
     `It adds two files: \`${CONFIG_PATH}\` (every line commented, edit any answer here) and \`${WORKFLOW_PATH}\` (the Action, with`,
     'permission to read the code and write checks and review comments, nothing more).',
     '',
-    '**Nothing runs until this pull request is merged.** From the next pull request on, every gate you turned on runs and',
-    'reports one check per gate, with findings as review comments on the lines they concern.',
+    '**The gates run on this pull request too**, under the config it adds. Its checks are neutral at best: a pull request that',
+    'changes the CI workflow is never a clean pass. Once it is merged, every pull request gets every gate you turned on, one',
+    'check per gate, with findings as review comments on the lines they concern.',
   ].join('\n') + '\n';
 }
 

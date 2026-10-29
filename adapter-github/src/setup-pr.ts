@@ -1,6 +1,6 @@
 // The setup pull request (PRD § The install experience): one branch, `secure-builder/enable`,
 // carrying the two files, and one pull request titled "Enable Secure Builder" whose body explains
-// the three answers and that nothing runs until it is merged. Built with the Git Data API (blob,
+// the three answers and that the gates run on it too, under the config it adds. Built with the Git Data API (blob,
 // tree, commit, ref) on top of the default branch's head. A setup branch that already exists may
 // carry commits a person pushed to it (the PRD has users edit their answers on this pull request),
 // so it is refused unless the caller says to replace it (`replaceBranch`): nothing is written then.

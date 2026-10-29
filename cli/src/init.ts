@@ -380,7 +380,7 @@ function printNextSteps(io: Io, platform: Platform, previous: string | null): vo
       : `  glab mr create --source-branch ${SETUP_BRANCH} --title "${SETUP_MR_TITLE}" --fill --yes`,
   );
   io.out(previous === null ? "  git switch -" : `  git switch ${previous}`);
-  io.out("Nothing runs until it is merged.");
+  io.out(`The gates run on that ${platform === "github" ? "pull" : "merge"} request too, under the config it adds; once it is merged, every one after it gets them.`);
 }
 
 async function runInit(values: Values, io: Io): Promise<number> {
@@ -519,7 +519,7 @@ async function runInit(values: Values, io: Io): Promise<number> {
     } else {
       writes.push(opened);
       io.out("");
-      io.out(`The ${platform === "github" ? "pull" : "merge"} request carries the same files; nothing runs until it is merged.`);
+      io.out(`The ${platform === "github" ? "pull" : "merge"} request carries the same files; the gates run on it too, under the config it adds.`);
       io.out(`Your local branch ${SETUP_BRANCH} holds them too: git switch ${back ?? "-"} to return.`);
     }
     listWrites();
