@@ -227,6 +227,7 @@ scan: ## The compliance scan — Dockerfiles, IaC, malware, image and filesystem
 	@bash $(SCAN_SCRIPTS)/run-npm-audit.sh
 	@bash $(SCAN_SCRIPTS)/run-eslint.sh
 	@bash $(SCAN_SCRIPTS)/run-pip-audit.sh
+	@bash $(SCAN_SCRIPTS)/run-wolfi-freshness.sh
 	@bash $(SCAN_SCRIPTS)/generate-dispatch.sh
 	@if [ -f "gate-records/scan/latest/dispatch.md" ]; then echo ""; echo "[scan] Findings — see gate-records/scan/latest/dispatch.md"; exit 1; fi
 
@@ -238,6 +239,7 @@ scan-lite: ## Escape hatch only — static scans and the ecosystem audits, no im
 	@bash $(SCAN_SCRIPTS)/run-npm-audit.sh
 	@bash $(SCAN_SCRIPTS)/run-eslint.sh
 	@bash $(SCAN_SCRIPTS)/run-pip-audit.sh
+	@bash $(SCAN_SCRIPTS)/run-wolfi-freshness.sh
 	@bash $(SCAN_SCRIPTS)/generate-dispatch.sh
 	@if [ -f "gate-records/scan/latest/dispatch.md" ]; then echo ""; echo "[scan-lite] Findings — see gate-records/scan/latest/dispatch.md"; exit 1; fi
 
@@ -261,6 +263,7 @@ gate-scan: ## The scan as the gate sees it — full scan, then one verdict line 
 	@bash $(SCAN_SCRIPTS)/run-npm-audit.sh || true
 	@bash $(SCAN_SCRIPTS)/run-eslint.sh    || true
 	@bash $(SCAN_SCRIPTS)/run-pip-audit.sh || true
+	@bash $(SCAN_SCRIPTS)/run-wolfi-freshness.sh || true
 	@bash $(SCAN_SCRIPTS)/generate-dispatch.sh
 	@echo ""
 	@GATE_LINE_STAMP=1 $(CORE) scan-verdict

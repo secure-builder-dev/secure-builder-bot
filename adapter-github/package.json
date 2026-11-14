@@ -1,6 +1,6 @@
 {
   "name": "@securebuilderbot/adapter-github",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Secure Builder Bot on GitHub: the Action, the setup pull request, the checks and review-comment publisher",
   "license": "Apache-2.0",

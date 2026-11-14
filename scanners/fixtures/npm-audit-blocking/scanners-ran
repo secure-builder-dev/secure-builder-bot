@@ -6,3 +6,4 @@ trivy ran 2 image(s)
 npm-audit ran 2 app(s)
 eslint ran 2 app(s)
 pip-audit ran 1 manifest(s)
+wolfi-freshness none no Dockerfile installs a Wolfi package
